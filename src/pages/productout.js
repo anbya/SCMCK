@@ -15,7 +15,10 @@ import {
   ModalFooter,
   Input,
   FormGroup,
-  Label
+  Label,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText
 } from "reactstrap";
 import Select from 'react-select';
 import { HashLoader , ScaleLoader } from 'react-spinners';
@@ -328,6 +331,35 @@ class productout extends Component {
       });
     }
   }
+  handleChangeunitSend = event =>  {
+    let IdData = event.target.id
+    let daftarBarang = this.state.dataOrderD
+    daftarBarang[IdData].unit_qty_send=event.target.value
+    let unitSend = event.target.value==""?0:parseInt(event.target.value)
+    let satuanSend = daftarBarang[IdData].satuan_qty_send==""?0:parseInt(daftarBarang[IdData].satuan_qty_send)
+    daftarBarang[IdData].qty_send=parseInt(satuanSend)+(parseInt(unitSend)*parseInt(daftarBarang[IdData].konversi_barang))
+    this.setState({
+      ...this.state,
+      dataOrderD: daftarBarang
+    });
+  }
+  handleChangesatuanSend = event =>  {
+    let IdData = event.target.id
+    let daftarBarang = this.state.dataOrderD
+    let maxSatuan = parseInt(daftarBarang[IdData].konversi_barang)-1
+    if(event.target.value>maxSatuan){
+      alert("angka yang anda input melebihi batas satuan")
+    } else{
+      daftarBarang[IdData].satuan_qty_send=event.target.value
+      let unitSend = daftarBarang[IdData].unit_qty_send==""?0:parseInt(daftarBarang[IdData].unit_qty_send)
+      let satuanSend = event.target.value==""?0:parseInt(event.target.value)
+      daftarBarang[IdData].qty_send=parseInt(satuanSend)+(parseInt(unitSend)*parseInt(daftarBarang[IdData].konversi_barang))
+      this.setState({
+        ...this.state,
+        dataOrderD: daftarBarang
+      });
+    }
+  }
   submitData = () => {
     const dataToSend = {
       TANNGALKIRIM:this.state.dateForm,
@@ -367,7 +399,7 @@ class productout extends Component {
     }
   }
   render() {
-    console.log();
+    console.log(this.state.dataOrderD);
     const DataButton = (data) => (
       <div>
         <button className="myBtn" onClick={()=> this.modalEditOpen(data)}><i className="fa fa-search fa-2x" aria-hidden="true"></i></button>
@@ -431,32 +463,36 @@ class productout extends Component {
             </Row>
             <Row style={{borderBottom:"1px solid #000000"}}>
               <Col xs="2"><span style={{fontWeight:"bold"}}>KODE BARANG</span></Col>
-              <Col xs="6"><span style={{fontWeight:"bold"}}>NAMA BARANG</span></Col>
-              <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>QTY Req</span></Col>
-              <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>QTY Stock</span></Col>
-              <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>QTY Send</span></Col>
-              <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>SATUAN</span></Col>
+              <Col xs="2"><span style={{fontWeight:"bold"}}>NAMA BARANG</span></Col>
+              <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>QTY REQ</span></Col>
+              <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>QTY STOK</span></Col>
+              <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>UNIT SEND</span></Col>
+              <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>SATUAN SEND</span></Col>
             </Row>
             <Row className="bodyData">
               <Col>
                 {this.state.dataOrderD.length > 0 && this.state.dataOrderD.map((dataOrderD,index) =>
                   <Row key={index}>
                     <Col xs="2"><span style={{fontWeight:"bold"}}>{dataOrderD.kode_barang}</span></Col>
-                    <Col xs="6"><span style={{fontWeight:"bold"}}>{dataOrderD.nama_barang}</span></Col>
-                    <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>{dataOrderD.qty_req}</span></Col>
-                    <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>{dataOrderD.qty_in_inventory}</span></Col>
-                    <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
-                      <Input 
-                        type="number"
-                        name={`${index}`}
-                        id={`${index}`}
-                        value={dataOrderD.qty_send}
-                        onChange={this.handleChangeDataOrderD}
-                        min="0"
-                        max={`${dataOrderD.qty_req}`}
-                      />
+                    <Col xs="2"><span style={{fontWeight:"bold"}}>{dataOrderD.nama_barang}</span></Col>
+                    <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>{`${dataOrderD.qty_req_ToShow} ${dataOrderD.unit_barang}.${dataOrderD.satuan_barang}`}</span></Col>
+                    <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>{`${dataOrderD.qty_in_inventory_ToShow} ${dataOrderD.unit_barang}.${dataOrderD.satuan_barang}`}</span></Col>
+                    <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                      <InputGroup>
+                        <Input type="number" name={`${index}`} id={`${index}`} value={dataOrderD.unit_qty_send} onChange={this.handleChangeunitSend} min="0" />
+                        <InputGroupAddon addonType="append">
+                          <InputGroupText><span style={{fontWeight:"bold"}}>{dataOrderD.unit_barang}</span></InputGroupText>
+                        </InputGroupAddon>
+                      </InputGroup>
                     </Col>
-                    <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>{dataOrderD.satuan_barang}</span></Col>
+                    <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                      <InputGroup>
+                      <Input type="number" name={`${index}`} id={`${index}`} value={dataOrderD.satuan_qty_send} onChange={this.handleChangesatuanSend} min="0" max={dataOrderD.konversi_barang-1} />
+                        <InputGroupAddon addonType="append">
+                          <InputGroupText><span style={{fontWeight:"bold"}}>{dataOrderD.satuan_barang}</span></InputGroupText>
+                        </InputGroupAddon>
+                      </InputGroup>
+                    </Col>
                   </Row>
                 )}
               </Col>
