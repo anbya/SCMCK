@@ -86,7 +86,7 @@ class rawProsessing extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getRawProsessingPlanPageH`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getRawProsessingPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -104,7 +104,7 @@ class rawProsessing extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getRawProsessingPlanPageH`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getRawProsessingPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -122,7 +122,7 @@ class rawProsessing extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getFormRawProsessingPlan`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormRawProsessingPlan`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -205,7 +205,7 @@ class rawProsessing extends Component {
       IDMASTERRAWPROCESS: data.kode_master_rawprosessing_h
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getRawProsessingPlanPageD`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getRawProsessingPlanPageD`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -256,7 +256,7 @@ class rawProsessing extends Component {
       buttonEditText:""
     });
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/rawProcessCompletion`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/rawProcessCompletion`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -300,7 +300,7 @@ class rawProsessing extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/addFormRawProsessingPlan`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormRawProsessingPlan`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -351,7 +351,7 @@ class rawProsessing extends Component {
             MULTIPLEBY:this.state.tambahqtybaranghasil
         };
         axios
-        .post(`https://191d92824391.ngrok.io/centralkitchen/addItemProductionPlan`, dataToSend, {
+        .post(`https://api.jaygeegroupapp.com/centralkitchen/addItemProductionPlan`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }

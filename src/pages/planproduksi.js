@@ -86,7 +86,7 @@ class planProduksi extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getProductionPlanPageH`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getProductionPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -104,7 +104,7 @@ class planProduksi extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getProductionPlanPageH`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getProductionPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -122,7 +122,7 @@ class planProduksi extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getFormProductionPlan`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormProductionPlan`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -204,7 +204,7 @@ class planProduksi extends Component {
       IDPRODUKSIH: data.kode_produksi_h
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getProductionPlanPageD`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getProductionPlanPageD`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -264,7 +264,7 @@ class planProduksi extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/addFormProductionPlan`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormProductionPlan`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -431,7 +431,7 @@ class planProduksi extends Component {
             MULTIPLEBY:this.state.tambahqtybaranghasil
         };
         axios
-        .post(`https://191d92824391.ngrok.io/centralkitchen/addItemProductionPlan`, dataToSend, {
+        .post(`https://api.jaygeegroupapp.com/centralkitchen/addItemProductionPlan`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }
@@ -522,7 +522,7 @@ class planProduksi extends Component {
       buttonEditText:""
     });
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/productionPlanCompletion`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/productionPlanCompletion`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

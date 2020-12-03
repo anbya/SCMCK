@@ -61,7 +61,7 @@ class masterBarang extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/masterbarang`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/masterbarang`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -79,7 +79,7 @@ class masterBarang extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/masterbarang`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/masterbarang`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -93,7 +93,7 @@ class masterBarang extends Component {
   }
   modalAddOpen = async () =>  {
     await axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getVendorOption`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getVendorOption`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -137,7 +137,7 @@ class masterBarang extends Component {
       label: data.vendor_name
     };
     await axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getVendorOption`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getVendorOption`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -206,7 +206,7 @@ class masterBarang extends Component {
         buttonEditText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/editMasterBarangData`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/editMasterBarangData`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -255,7 +255,7 @@ class masterBarang extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/addMasterBarangData`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/addMasterBarangData`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

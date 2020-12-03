@@ -72,7 +72,7 @@ class mainPage extends Component {
       loadingInventory:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/dataDashboard`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/dataDashboard`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -94,7 +94,7 @@ class mainPage extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getPOData`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getPOData`)
     .then(result => {
       this.setState({
         ...this.state,

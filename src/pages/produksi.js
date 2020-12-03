@@ -82,7 +82,7 @@ class produksi extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getProduksiPageH`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getProduksiPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -100,7 +100,7 @@ class produksi extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getProduksiPageH`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getProduksiPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -118,7 +118,7 @@ class produksi extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getFormAddProduksi`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormAddProduksi`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -201,7 +201,7 @@ class produksi extends Component {
       KODEPRODUKSIH: data.kode_produksi_h
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getProduksiPageD`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getProduksiPageD`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -261,7 +261,7 @@ class produksi extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/addProduksi`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/addProduksi`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -316,7 +316,7 @@ class produksi extends Component {
           tambahqtybaranghasil:"",
         });
         await axios
-        .post(`https://191d92824391.ngrok.io/centralkitchen/getDetailBarangProduksi`, dataToSend, {
+        .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailBarangProduksi`, dataToSend, {
           headers: {
             "Access-Control-Allow-Origin": "*"
           }
@@ -349,7 +349,7 @@ class produksi extends Component {
           tambahqtybaranghasil:"",
         });
         await axios
-        .post(`https://191d92824391.ngrok.io/centralkitchen/getDetailBarangProduksi`, dataToSend, {
+        .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailBarangProduksi`, dataToSend, {
           headers: {
             "Access-Control-Allow-Origin": "*"
           }

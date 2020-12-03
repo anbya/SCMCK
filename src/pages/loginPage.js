@@ -40,7 +40,7 @@ class loginPage extends Component {
         buttonLoginText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/login`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/login`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

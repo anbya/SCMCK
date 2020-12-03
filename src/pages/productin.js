@@ -70,7 +70,7 @@ class productIn extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getPOData`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -88,7 +88,7 @@ class productIn extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getPOData`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -106,7 +106,7 @@ class productIn extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getFormPOData`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormPOData`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -166,7 +166,7 @@ class productIn extends Component {
       kodePOH: data.kode_purchase_order_h
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getDetailPOData`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailPOData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -319,7 +319,7 @@ class productIn extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/addFormPOData`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormPOData`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

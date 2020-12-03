@@ -61,7 +61,7 @@ class productout extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getDeliveryOrderData`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getDeliveryOrderData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -79,7 +79,7 @@ class productout extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getDeliveryOrderData`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getDeliveryOrderData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -97,7 +97,7 @@ class productout extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getOrderOption`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getOrderOption`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -146,7 +146,7 @@ class productout extends Component {
       KODEDO: data.kode_delivery_order
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getDeliveryOrderDetail`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDeliveryOrderDetail`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -280,7 +280,7 @@ class productout extends Component {
       kodeOrderH:value.value
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getDetailOrderData`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailOrderData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -344,7 +344,7 @@ class productout extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/addFormDeliveryOrder`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormDeliveryOrder`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

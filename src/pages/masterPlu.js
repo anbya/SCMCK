@@ -99,7 +99,7 @@ class masterPlu extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getMasterPLU`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getMasterPLU`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -117,7 +117,7 @@ class masterPlu extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getMasterPLU`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getMasterPLU`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -135,7 +135,7 @@ class masterPlu extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getFormAddMasterProduksi`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormAddMasterProduksi`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -220,7 +220,7 @@ class masterPlu extends Component {
       IDPLU: data.id_plu
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getDetailMasterPLU`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailMasterPLU`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -293,7 +293,7 @@ class masterPlu extends Component {
             buttonAddText:""
         });
         axios
-        .post(`https://191d92824391.ngrok.io/centralkitchen/addMasterPLU`, dataToSend, {
+        .post(`https://api.jaygeegroupapp.com/centralkitchen/addMasterPLU`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }
@@ -639,7 +639,7 @@ class masterPlu extends Component {
       IDPLU:this.state.detailDataPLU.id_plu
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/updateMasterPLU`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/updateMasterPLU`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -665,7 +665,7 @@ class masterPlu extends Component {
       ID: data.kode_master_produksi_h,
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/deleteMasterProduksi`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/deleteMasterProduksi`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

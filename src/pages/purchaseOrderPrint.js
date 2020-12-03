@@ -42,7 +42,7 @@ class purchaseOrderPrint extends Component {
       IDPOH: params.ID
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getPOReport`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getPOReport`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

@@ -35,7 +35,7 @@ class navbar extends Component {
           NIK: prmNIK
         };
         axios
-        .post(`https://191d92824391.ngrok.io/centralkitchen/getAkses`, dataToSend, {
+        .post(`https://api.jaygeegroupapp.com/centralkitchen/getAkses`, dataToSend, {
           headers: {
             "Access-Control-Allow-Origin": "*"
           }

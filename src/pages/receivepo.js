@@ -15,7 +15,10 @@ import {
   ModalFooter,
   Input,
   FormGroup,
-  Label
+  Label,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText
 } from "reactstrap";
 import Select from 'react-select';
 import { HashLoader , ScaleLoader } from 'react-spinners';
@@ -62,7 +65,7 @@ class receivepopage extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getOpenPOData`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getOpenPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -80,7 +83,7 @@ class receivepopage extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getOpenPOData`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getOpenPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -97,7 +100,7 @@ class receivepopage extends Component {
       kodePOH: data.kode_purchase_order_h
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getDetailPOData`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailPOData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -105,7 +108,7 @@ class receivepopage extends Component {
     .then( result => {
       this.setState({
         ...this.state,
-        dataPOD:result.data.result
+        dataPOD:result.data.dataPOD
       });
     })
     .catch(error => {
@@ -158,14 +161,34 @@ class receivepopage extends Component {
       });
     }
   }
-  handleChangeDataOrderD = event =>  {
+  handleChangeUnitReceive = event =>  {
     let IdData = event.target.id
     let daftarBarang = this.state.dataPOD
-    daftarBarang[IdData].qty_receive=event.target.value
+    daftarBarang[IdData].unit_receive=event.target.value
+    let unitReceive = event.target.value==""?0:parseInt(event.target.value)
+    let satuanReceive = daftarBarang[IdData].satua_receive==""?0:parseInt(daftarBarang[IdData].satua_receive)
+    daftarBarang[IdData].qty_receive=parseInt(satuanReceive)+(parseInt(unitReceive)*parseInt(daftarBarang[IdData].konversi_barang))
     this.setState({
       ...this.state,
       dataPOD: daftarBarang
     });
+  }
+  handleChangeSatuanReceive = event =>  {
+    let IdData = event.target.id
+    let daftarBarang = this.state.dataPOD
+    let maxSatuan = parseInt(daftarBarang[IdData].konversi_barang)-1
+    if(event.target.value>maxSatuan){
+      alert("angka yang anda input melebihi batas satuan")
+    } else{
+      daftarBarang[IdData].satua_receive=event.target.value
+      let unitReceive = daftarBarang[IdData].unit_receive==""?0:parseInt(daftarBarang[IdData].unit_receive)
+      let satuanReceive = event.target.value==""?0:parseInt(event.target.value)
+      daftarBarang[IdData].qty_receive=parseInt(satuanReceive)+(parseInt(unitReceive)*parseInt(daftarBarang[IdData].konversi_barang))
+      this.setState({
+        ...this.state,
+        dataPOD: daftarBarang
+      });
+    }
   }
   terimaPO = () => {
     const dataToSend = {
@@ -175,7 +198,7 @@ class receivepopage extends Component {
     };
     console.log(dataToSend);
     axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/receivePO`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/receivePO`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -191,6 +214,7 @@ class receivepopage extends Component {
       });
   }
   render() {
+    console.log(this.state.dataPOD);
     const DataButton = (data) => (
       <div>
         <button className="myBtn" onClick={()=> this.modalEditOpen(data)}><i className="fa fa-search fa-2x" aria-hidden="true"></i></button>
@@ -249,22 +273,34 @@ class receivepopage extends Component {
             </Row>
             <Row style={{borderBottom:"1px solid #000000"}}>
               <Col xs="2"><span style={{fontWeight:"bold"}}>KODE BARANG</span></Col>
-              <Col xs="7"><span style={{fontWeight:"bold"}}>NAMA BARANG</span></Col>
-              <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>QTY</span></Col>
-              <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>QTY Received</span></Col>
-              <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>UNIT</span></Col>
+              <Col xs="4"><span style={{fontWeight:"bold"}}>NAMA BARANG</span></Col>
+              <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>QTY</span></Col>
+              <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>UNIT Received</span></Col>
+              <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>SATUAN Received</span></Col>
             </Row>
             <Row className="bodyData">
               <Col>
                 {this.state.dataPOD.length > 0 && this.state.dataPOD.map((dataPOD,index) =>
                   <Row key={index}>
                     <Col xs="2"><span style={{fontWeight:"bold"}}>{dataPOD.kode_barang}</span></Col>
-                    <Col xs="7"><span style={{fontWeight:"bold"}}>{dataPOD.nama_barang}</span></Col>
-                    <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>{dataPOD.qty}</span></Col>
-                    <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
-                      <Input type="number" name={`${index}`} id={`${index}`} value={dataPOD.qty_receive} onChange={this.handleChangeDataOrderD} min="0" max={`${dataPOD.qty}`} />
+                    <Col xs="4"><span style={{fontWeight:"bold"}}>{dataPOD.nama_barang}</span></Col>
+                    <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>{dataPOD.qty}{dataPOD.unit_barang}</span></Col>
+                    <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                      <InputGroup>
+                        <Input type="number" name={`${index}`} id={`${index}`} value={dataPOD.unit_receive} onChange={this.handleChangeUnitReceive} min="0" />
+                        <InputGroupAddon addonType="append">
+                          <InputGroupText><span style={{fontWeight:"bold"}}>{dataPOD.unit_barang}</span></InputGroupText>
+                        </InputGroupAddon>
+                      </InputGroup>
                     </Col>
-                    <Col xs="1" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}><span style={{fontWeight:"bold"}}>{dataPOD.unit_barang}</span></Col>
+                    <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                      <InputGroup>
+                      <Input type="number" name={`${index}`} id={`${index}`} value={dataPOD.satua_receive} onChange={this.handleChangeSatuanReceive} min="0" max={dataPOD.konversi_barang-1} />
+                        <InputGroupAddon addonType="append">
+                          <InputGroupText><span style={{fontWeight:"bold"}}>{dataPOD.satuan_barang}</span></InputGroupText>
+                        </InputGroupAddon>
+                      </InputGroup>
+                    </Col>
                   </Row>
                 )}
               </Col>

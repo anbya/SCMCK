@@ -60,7 +60,7 @@ class order extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getOrderData`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getOrderData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -78,7 +78,7 @@ class order extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getOrderData`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getOrderData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -96,7 +96,7 @@ class order extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getFormAddOrder`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormAddOrder`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -144,7 +144,7 @@ class order extends Component {
       kodeOrderH: data.kode_order_h
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getDetailOrderData`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailOrderData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -259,7 +259,7 @@ class order extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/addFormOrderData`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormOrderData`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

@@ -42,7 +42,7 @@ class prepareDeliveryOrderPrint extends Component {
         ID: params.ID
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getOrderReport`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getOrderReport`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

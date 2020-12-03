@@ -83,7 +83,7 @@ class completionPlanProduksi extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getProductionPlanPageH`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getProductionPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -101,7 +101,7 @@ class completionPlanProduksi extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getProductionPlanPageH`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getProductionPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -119,7 +119,7 @@ class completionPlanProduksi extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getFormProductionPlan`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormProductionPlan`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -202,7 +202,7 @@ class completionPlanProduksi extends Component {
       PRMTURUNANPRODUKSI: data.kode_master_produksi_h
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getCompletionProductionPageD`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getCompletionProductionPageD`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -258,7 +258,7 @@ class completionPlanProduksi extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/addFormProductionPlan`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormProductionPlan`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -425,7 +425,7 @@ class completionPlanProduksi extends Component {
             MULTIPLEBY:this.state.tambahqtybaranghasil
         };
         axios
-        .post(`https://191d92824391.ngrok.io/centralkitchen/addItemProductionPlan`, dataToSend, {
+        .post(`https://api.jaygeegroupapp.com/centralkitchen/addItemProductionPlan`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }

@@ -42,7 +42,7 @@ class rawProcessingPlanPrint extends Component {
         IDRAWPROCESSINGH: params.ID
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getRawProsessingPlanReport`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getRawProsessingPlanReport`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

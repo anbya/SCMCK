@@ -41,7 +41,7 @@ class transferOutPrint extends Component {
         ID: params.ID
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getTransferoutPrint`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getTransferoutPrint`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

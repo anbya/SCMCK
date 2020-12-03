@@ -68,7 +68,7 @@ class user extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getUser`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getUser`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -86,7 +86,7 @@ class user extends Component {
       loading:true,
     });
     axios
-    .get(`https://191d92824391.ngrok.io/centralkitchen/getUser`)
+    .get(`https://api.jaygeegroupapp.com/centralkitchen/getUser`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -111,7 +111,7 @@ class user extends Component {
       prmoverlay: true
     });
     await axios
-    .get(`https://191d92824391.ngrok.io/hris`)
+    .get(`https://api.jaygeegroupapp.com/hris`)
     .then( async result => {
       await this.setState({
         ...this.state,
@@ -166,7 +166,7 @@ class user extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/addUser`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/addUser`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -233,7 +233,7 @@ class user extends Component {
       PASS: this.state.editpassuser
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/editUser`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/editUser`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

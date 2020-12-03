@@ -76,7 +76,7 @@ class transferOut extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getTransferoutData`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getTransferoutData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -102,7 +102,7 @@ class transferOut extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getTransferoutData`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getTransferoutData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -128,7 +128,7 @@ class transferOut extends Component {
       loadingParam:"block",
     });
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getFormTOCK`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getFormTOCK`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -195,7 +195,7 @@ class transferOut extends Component {
       kodeTO: data.kode_between_transfer
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getDetailTransferoutData`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailTransferoutData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -368,7 +368,7 @@ class transferOut extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/addFormTOCK`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormTOCK`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

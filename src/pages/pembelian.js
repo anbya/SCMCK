@@ -67,7 +67,7 @@ class pembelian extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getPembelianH`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getPembelianH`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -93,7 +93,7 @@ class pembelian extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getPembelianH`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getPembelianH`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -119,7 +119,7 @@ class pembelian extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getFormAddOrder`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getFormAddOrder`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -173,7 +173,7 @@ class pembelian extends Component {
       kodePembelianH: data.kode_pembelian_h
     };
     await axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/getDetailPembelian`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailPembelian`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -290,7 +290,7 @@ class pembelian extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://191d92824391.ngrok.io/centralkitchen/addDataPembelianCK`, dataToSend, {
+      .post(`https://api.jaygeegroupapp.com/centralkitchen/addDataPembelianCK`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -326,7 +326,7 @@ class pembelian extends Component {
       buttonEditText:""
     });
     axios
-    .post(`https://191d92824391.ngrok.io/centralkitchen/receiveOrder`, dataToSend, {
+    .post(`https://api.jaygeegroupapp.com/centralkitchen/receiveOrder`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
