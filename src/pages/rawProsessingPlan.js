@@ -15,7 +15,10 @@ import {
   ModalFooter,
   Input,
   FormGroup,
-  Label
+  Label,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText
 } from "reactstrap";
 import Select from 'react-select';
 import { HashLoader , ScaleLoader } from 'react-spinners';
@@ -243,12 +246,20 @@ class rawProsessing extends Component {
     });
   }
   updateData = () => {
+    let totalQtyWithcost = 0
+    let dataWithCost =  this.state.dataProduksiHasilD.filter(function(data) {
+        return data.prm_cost == "WITHCOST";
+    });
+    for(let i1=0;i1<dataWithCost.length;i1++){
+      totalQtyWithcost=parseInt(totalQtyWithcost)+parseInt(dataWithCost[i1].qty)
+    }
+    let totalCost = parseInt(this.state.dataProduksiPakaiD[0].cost_satuan)*parseInt(this.state.dataProduksiPakaiD[0].total_qty)
     const dataToSend = {
-      COST:this.state.dataProduksiPakaiD[0].cost_satuan,
+      COST:Math.round(parseInt(totalCost)/parseInt(totalQtyWithcost)),
       IDRAWPROCESSH:this.state.detailData.kode_raw_processing_h,
       NOTE:this.state.editNote,
       FINISHEDGOODS:this.state.dataProduksiHasilD,
-      USER:this.props.userinfo.id_user,
+      USER:this.props.userinfo.id_user
     };
     this.setState({
       ...this.state,
@@ -419,6 +430,35 @@ class rawProsessing extends Component {
       ...this.state,
       listAddBarangSisa: daftarBarang
     });
+  }
+  handleChangeUnitReceive = event =>  {
+    let IdData = event.target.id
+    let daftarBarang = this.state.dataProduksiHasilD
+    daftarBarang[IdData].unit_receive=event.target.value
+    let unitReceive = event.target.value==""?0:parseInt(event.target.value)
+    let satuanReceive = daftarBarang[IdData].satuan_receive==""?0:parseInt(daftarBarang[IdData].satuan_receive)
+    daftarBarang[IdData].qty=parseInt(satuanReceive)+(parseInt(unitReceive)*parseInt(daftarBarang[IdData].konversi_barang))
+    this.setState({
+      ...this.state,
+      dataProduksiHasilD: daftarBarang
+    });
+  }
+  handleChangeSatuanReceive = event =>  {
+    let IdData = event.target.id
+    let daftarBarang = this.state.dataProduksiHasilD
+    let maxSatuan = parseInt(daftarBarang[IdData].konversi_barang)-1
+    if(event.target.value>maxSatuan){
+      alert("angka yang anda input melebihi batas satuan")
+    } else{
+      daftarBarang[IdData].satuan_receive=event.target.value
+      let unitReceive = daftarBarang[IdData].unit_receive==""?0:parseInt(daftarBarang[IdData].unit_receive)
+      let satuanReceive = event.target.value==""?0:parseInt(event.target.value)
+      daftarBarang[IdData].qty=parseInt(satuanReceive)+(parseInt(unitReceive)*parseInt(daftarBarang[IdData].konversi_barang))
+      this.setState({
+        ...this.state,
+        dataProduksiHasilD: daftarBarang
+      });
+    }
   }
   render() {
     const DataButton = (data) => (
@@ -663,8 +703,8 @@ class rawProsessing extends Component {
                 <Row>
                   <Col xs="2"><span style={{fontWeight:"bold"}}>KODE BARANG</span></Col>
                   <Col xs="6"><span style={{fontWeight:"bold"}}>NAMA BARANG</span></Col>
-                  <Col xs="2"><span style={{fontWeight:"bold"}}>QTY</span></Col>
-                  <Col xs="2"><span style={{fontWeight:"bold"}}>SATUAN</span></Col>
+                  <Col xs="2"><span style={{fontWeight:"bold",padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>UNIT</span></Col>
+                  <Col xs="2"><span style={{fontWeight:"bold",padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>SATUAN</span></Col>
                 </Row>
               </Col>
             </Row>
@@ -674,17 +714,22 @@ class rawProsessing extends Component {
                   <Row key={index}>
                     <Col xs="2"><span style={{fontWeight:"bold"}}>{dataProduksiHasilD.kode_barang}</span></Col>
                     <Col xs="6"><span style={{fontWeight:"bold"}}>{dataProduksiHasilD.nama_barang}</span></Col>
-                    <Col xs="2">
-                        <Input
-                            type="number"
-                            name={`${index}`}
-                            id={`${index}`}
-                            value={`${dataProduksiHasilD.qty}`}
-                            onChange={this.handleChangeDatapakaiD}
-                            min="0"
-                        />
+                    <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                      <InputGroup>
+                        <Input type="number" name={`${index}`} id={`${index}`} value={dataProduksiHasilD.unit_receive} onChange={this.handleChangeUnitReceive} min="0" />
+                        <InputGroupAddon addonType="append">
+                          <InputGroupText><span style={{fontWeight:"bold"}}>{dataProduksiHasilD.unit_barang}</span></InputGroupText>
+                        </InputGroupAddon>
+                      </InputGroup>
                     </Col>
-                    <Col xs="2"><span style={{fontWeight:"bold"}}>{dataProduksiHasilD.satuan_barang}</span></Col>
+                    <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                      <InputGroup>
+                        <Input type="number" name={`${index}`} id={`${index}`} value={dataProduksiHasilD.satuan_receive} onChange={this.handleChangeSatuanReceive} min="0" />
+                        <InputGroupAddon addonType="append">
+                          <InputGroupText><span style={{fontWeight:"bold"}}>{dataProduksiHasilD.satuan_barang}</span></InputGroupText>
+                        </InputGroupAddon>
+                      </InputGroup>
+                    </Col>
                   </Row>
                 )}
               </Col>

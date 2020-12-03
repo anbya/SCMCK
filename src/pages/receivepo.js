@@ -166,7 +166,7 @@ class receivepopage extends Component {
     let daftarBarang = this.state.dataPOD
     daftarBarang[IdData].unit_receive=event.target.value
     let unitReceive = event.target.value==""?0:parseInt(event.target.value)
-    let satuanReceive = daftarBarang[IdData].satua_receive==""?0:parseInt(daftarBarang[IdData].satua_receive)
+    let satuanReceive = daftarBarang[IdData].satuan_receive==""?0:parseInt(daftarBarang[IdData].satuan_receive)
     daftarBarang[IdData].qty_receive=parseInt(satuanReceive)+(parseInt(unitReceive)*parseInt(daftarBarang[IdData].konversi_barang))
     this.setState({
       ...this.state,
@@ -180,7 +180,7 @@ class receivepopage extends Component {
     if(event.target.value>maxSatuan){
       alert("angka yang anda input melebihi batas satuan")
     } else{
-      daftarBarang[IdData].satua_receive=event.target.value
+      daftarBarang[IdData].satuan_receive=event.target.value
       let unitReceive = daftarBarang[IdData].unit_receive==""?0:parseInt(daftarBarang[IdData].unit_receive)
       let satuanReceive = event.target.value==""?0:parseInt(event.target.value)
       daftarBarang[IdData].qty_receive=parseInt(satuanReceive)+(parseInt(unitReceive)*parseInt(daftarBarang[IdData].konversi_barang))
@@ -214,7 +214,6 @@ class receivepopage extends Component {
       });
   }
   render() {
-    console.log(this.state.dataPOD);
     const DataButton = (data) => (
       <div>
         <button className="myBtn" onClick={()=> this.modalEditOpen(data)}><i className="fa fa-search fa-2x" aria-hidden="true"></i></button>
@@ -295,7 +294,7 @@ class receivepopage extends Component {
                     </Col>
                     <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
                       <InputGroup>
-                      <Input type="number" name={`${index}`} id={`${index}`} value={dataPOD.satua_receive} onChange={this.handleChangeSatuanReceive} min="0" max={dataPOD.konversi_barang-1} />
+                      <Input type="number" name={`${index}`} id={`${index}`} value={dataPOD.satuan_receive} onChange={this.handleChangeSatuanReceive} min="0" max={dataPOD.konversi_barang-1} />
                         <InputGroupAddon addonType="append">
                           <InputGroupText><span style={{fontWeight:"bold"}}>{dataPOD.satuan_barang}</span></InputGroupText>
                         </InputGroupAddon>

@@ -174,7 +174,7 @@ class productIn extends Component {
     .then( result => {
       this.setState({
         ...this.state,
-        dataPOD:result.data.result
+        dataPOD:result.data.dataPOD
       });
     })
     .catch(error => {
@@ -547,19 +547,19 @@ class productIn extends Component {
             <Row style={{borderBottom:"1px solid #000000"}}>
               <Col xs="2"><span style={{fontWeight:"bold"}}>KODE BARANG</span></Col>
               <Col xs="6"><span style={{fontWeight:"bold"}}>NAMA BARANG</span></Col>
-              <Col xs="1"><span style={{fontWeight:"bold"}}>QTY</span></Col>
-              <Col xs="1"><span style={{fontWeight:"bold"}}>SATUAN</span></Col>
-              <Col xs="2"><span style={{fontWeight:"bold"}}>HARGA</span></Col>
+              <Col xs="1"><span style={{fontWeight:"bold",padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>QTY</span></Col>
+              <Col xs="1"><span style={{fontWeight:"bold",padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>SATUAN</span></Col>
+              <Col xs="2"><span style={{fontWeight:"bold",padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>HARGA</span></Col>
             </Row>
-            <Row style={{height:"30vh",overflowX:"hidden",overflowY:"scroll"}}>
+            <Row className="bodyData">
               <Col>
                 {this.state.dataPOD.length > 0 && this.state.dataPOD.map((dataPOD,index) =>
                   <Row key={index}>
                     <Col xs="2"><span style={{fontWeight:"bold"}}>{dataPOD.kode_barang}</span></Col>
                     <Col xs="6"><span style={{fontWeight:"bold"}}>{dataPOD.nama_barang}</span></Col>
-                    <Col xs="1"><span style={{fontWeight:"bold"}}>{dataPOD.qty}</span></Col>
-                    <Col xs="1"><span style={{fontWeight:"bold"}}>{dataPOD.unit_barang}</span></Col>
-                    <Col xs="2"><span style={{fontWeight:"bold"}}>{dataPOD.harga}</span></Col>
+                    <Col xs="1"><span style={{fontWeight:"bold",padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>{dataPOD.qty}</span></Col>
+                    <Col xs="1"><span style={{fontWeight:"bold",padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>{dataPOD.unit_barang}</span></Col>
+                    <Col xs="2"><span style={{fontWeight:"bold",padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>{dataPOD.harga}</span></Col>
                   </Row>
                 )}
               </Col>
