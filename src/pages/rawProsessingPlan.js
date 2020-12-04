@@ -324,7 +324,7 @@ class rawProsessing extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`http://localhost:3000/rawProsessingPlanPrint?ID=${result.data.kodeRawProcessingH}`, "_blank")
+        window.open(`http://localhost:3090/rawProsessingPlanPrint?ID=${result.data.kodeRawProcessingH}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {

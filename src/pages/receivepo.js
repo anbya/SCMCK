@@ -294,7 +294,7 @@ class receivepopage extends Component {
                     </Col>
                     <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
                       <InputGroup>
-                      <Input type="number" name={`${index}`} id={`${index}`} value={dataPOD.satuan_receive} onChange={this.handleChangeSatuanReceive} min="0" max={dataPOD.konversi_barang-1} />
+                        <Input type="number" name={`${index}`} id={`${index}`} value={dataPOD.satuan_receive} onChange={this.handleChangeSatuanReceive} min="0" max={dataPOD.konversi_barang-1} />
                         <InputGroupAddon addonType="append">
                           <InputGroupText><span style={{fontWeight:"bold"}}>{dataPOD.satuan_barang}</span></InputGroupText>
                         </InputGroupAddon>

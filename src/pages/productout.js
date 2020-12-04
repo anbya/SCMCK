@@ -338,10 +338,14 @@ class productout extends Component {
     let unitSend = event.target.value==""?0:parseInt(event.target.value)
     let satuanSend = daftarBarang[IdData].satuan_qty_send==""?0:parseInt(daftarBarang[IdData].satuan_qty_send)
     daftarBarang[IdData].qty_send=parseInt(satuanSend)+(parseInt(unitSend)*parseInt(daftarBarang[IdData].konversi_barang))
-    this.setState({
-      ...this.state,
-      dataOrderD: daftarBarang
-    });
+    if(daftarBarang[IdData].qty_send>parseInt(daftarBarang[IdData].qty_in_inventory)){
+      alert("qty yang anda input melebihi stok")
+    } else {
+      this.setState({
+        ...this.state,
+        dataOrderD: daftarBarang
+      });
+    }
   }
   handleChangesatuanSend = event =>  {
     let IdData = event.target.id
@@ -354,10 +358,14 @@ class productout extends Component {
       let unitSend = daftarBarang[IdData].unit_qty_send==""?0:parseInt(daftarBarang[IdData].unit_qty_send)
       let satuanSend = event.target.value==""?0:parseInt(event.target.value)
       daftarBarang[IdData].qty_send=parseInt(satuanSend)+(parseInt(unitSend)*parseInt(daftarBarang[IdData].konversi_barang))
-      this.setState({
-        ...this.state,
-        dataOrderD: daftarBarang
-      });
+      if(daftarBarang[IdData].qty_send>parseInt(daftarBarang[IdData].qty_in_inventory)){
+        alert("qty yang anda input melebihi stok")
+      } else {
+        this.setState({
+          ...this.state,
+          dataOrderD: daftarBarang
+        });
+      }
     }
   }
   submitData = () => {
@@ -389,7 +397,7 @@ class productout extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`http://localhost:3000/deliveryOrderPrint?ID=${result.data.kodeDeliveryOrderH}`, "_blank")
+        window.open(`http://localhost:3090/deliveryOrderPrint?ID=${result.data.kodeDeliveryOrderH}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {
@@ -500,7 +508,7 @@ class productout extends Component {
           </ModalBody>
           <ModalFooter>
             <button className="myBtn" onClick={() => 
-            window.open(`http://localhost:3000/prepareDeliveryOrderPrint?ID=${this.state.kodeOrderh}`, "_blank")
+            window.open(`http://localhost:3090/prepareDeliveryOrderPrint?ID=${this.state.kodeOrderh}`, "_blank")
             } style={{visibility:this.state.dataOrderD.length > 0?"visible":"hidden"}}>
               <i className="fa fa-print fa-2x" aria-hidden="true"></i>
             </button>
