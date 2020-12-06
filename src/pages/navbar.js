@@ -190,7 +190,7 @@ class navbar extends Component {
                       </DropdownMenu>
                     </UncontrolledDropdown>: ""
                     }
-                    { this.props.aksespage === "MASTER USER"?
+                    { this.props.aksespage === "MASTER USER" || this.props.aksespage === "ADMIN"?
                     <NavItem style={{cursor:"pointer",borderBottom:this.props.navState == "pembelian"?"1px solid #000":"1px solid rgb(247, 247, 247)"}}>
                       <NavLink
                       onClick={() =>  {this.props.history.push({pathname: "/pembelian"});this.props.dispatch({ type: "SETNAVSTATE", payload: "pembelian" })}}

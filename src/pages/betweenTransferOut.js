@@ -381,7 +381,7 @@ class transferOut extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`http://localhost:3090/transferOutPrint?ID=${result.data.kodeTO}`, "_blank")
+        window.open(`https://scmcentralkitchen.jaygeegroupapp.com/transferOutPrint?ID=${result.data.kodeTO}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {

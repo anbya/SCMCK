@@ -397,7 +397,7 @@ class productout extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`http://localhost:3090/deliveryOrderPrint?ID=${result.data.kodeDeliveryOrderH}`, "_blank")
+        window.open(`https://scmcentralkitchen.jaygeegroupapp.com/deliveryOrderPrint?ID=${result.data.kodeDeliveryOrderH}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {
@@ -508,7 +508,7 @@ class productout extends Component {
           </ModalBody>
           <ModalFooter>
             <button className="myBtn" onClick={() => 
-            window.open(`http://localhost:3090/prepareDeliveryOrderPrint?ID=${this.state.kodeOrderh}`, "_blank")
+            window.open(`https://scmcentralkitchen.jaygeegroupapp.com/prepareDeliveryOrderPrint?ID=${this.state.kodeOrderh}`, "_blank")
             } style={{visibility:this.state.dataOrderD.length > 0?"visible":"hidden"}}>
               <i className="fa fa-print fa-2x" aria-hidden="true"></i>
             </button>

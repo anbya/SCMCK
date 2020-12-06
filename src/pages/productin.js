@@ -332,7 +332,7 @@ class productIn extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`http://localhost:3090/purchaseOrderPrint?ID=${result.data.id_po_h}`, "_blank")
+        window.open(`https://scmcentralkitchen.jaygeegroupapp.com/purchaseOrderPrint?ID=${result.data.id_po_h}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {
