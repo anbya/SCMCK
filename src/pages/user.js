@@ -68,7 +68,7 @@ class user extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getUser`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getUser`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -86,7 +86,7 @@ class user extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getUser`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getUser`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -166,7 +166,7 @@ class user extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://api.jaygeegroupapp.com/centralkitchen/addUser`, dataToSend, {
+      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addUser`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -233,7 +233,7 @@ class user extends Component {
       PASS: this.state.editpassuser
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/editUser`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/editUser`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

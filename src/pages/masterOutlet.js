@@ -63,7 +63,7 @@ class masterOutlet extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/dataOutlet`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataOutlet`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -81,7 +81,7 @@ class masterOutlet extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/dataOutlet`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataOutlet`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -153,7 +153,7 @@ class masterOutlet extends Component {
       EMAIL: this.state.editEmailoutlet
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/editdataOutlet`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/editdataOutlet`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -190,7 +190,7 @@ class masterOutlet extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://api.jaygeegroupapp.com/centralkitchen/adddataOutlet`, dataToSend, {
+      .post(`${process.env.REACT_APP_LINK}/centralkitchen/adddataOutlet`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

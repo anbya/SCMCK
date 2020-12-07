@@ -65,7 +65,7 @@ class receivepopage extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getOpenPOData`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getOpenPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -83,7 +83,7 @@ class receivepopage extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getOpenPOData`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getOpenPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -100,7 +100,7 @@ class receivepopage extends Component {
       kodePOH: data.kode_purchase_order_h
     };
     await axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailPOData`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailPOData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -198,7 +198,7 @@ class receivepopage extends Component {
     };
     console.log(dataToSend);
     axios
-      .post(`https://api.jaygeegroupapp.com/centralkitchen/receivePO`, dataToSend, {
+      .post(`${process.env.REACT_APP_LINK}/centralkitchen/receivePO`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

@@ -15,7 +15,10 @@ import {
   ModalFooter,
   Input,
   FormGroup,
-  Label
+  Label,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText
 } from "reactstrap";
 import Select from 'react-select';
 import { HashLoader , ScaleLoader } from 'react-spinners';
@@ -39,7 +42,9 @@ class pembelian extends Component {
       tambahkodebarang:"",
       tambahnamabarang:"",
       tambahsatuanbarang:"",
-      tambahqtybarang:"",
+      tambahqtybarang:0,
+      tambahunitqtybarang:0,
+      tambahsatuanqtybarang:0,
       tambahhargabarang:"",
       prmModaledit:false,
       prmBarang:"",
@@ -67,7 +72,7 @@ class pembelian extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getPembelianH`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getPembelianH`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -93,7 +98,7 @@ class pembelian extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getPembelianH`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getPembelianH`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -119,7 +124,7 @@ class pembelian extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getFormAddOrder`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getFormAddPembelianCK`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -159,7 +164,9 @@ class pembelian extends Component {
       tambahkodebarang:"",
       tambahnamabarang:"",
       tambahsatuanbarang:"",
-      tambahqtybarang:"",
+      tambahqtybarang:0,
+      tambahunitqtybarang:0,
+      tambahsatuanqtybarang:0,
       tambahhargabarang:"",
       listAddBarang:[],
       prmOutlet:"",
@@ -173,7 +180,7 @@ class pembelian extends Component {
       kodePembelianH: data.kode_pembelian_h
     };
     await axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailPembelian`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailPembelian`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -181,7 +188,7 @@ class pembelian extends Component {
     .then( result => {
       this.setState({
         ...this.state,
-        dataPembelianD:result.data.result
+        dataPembelianD:result.data.pembelianList
       });
     })
     .catch(error => {
@@ -207,13 +214,30 @@ class pembelian extends Component {
     });
   }
   addData = async () => {
-    if(this.state.tambahkodebarang === "" || this.state.tambahqtybarang === "" || this.state.tambahhargabarang === ""){
-      alert("barang, qty dan harga barang tidak boleh kosong")
+    if(this.state.tambahkodebarang === ""){
+      alert("Item Pembelian tidak boleh kosong")
+    } else if(this.state.tambahqtybarang == 0){
+      alert("Qty Pembelian tidak boleh kosong")
+    } else if(this.state.tambahhargabarang == 0 || this.state.tambahhargabarang == ""){
+      alert("Harga Pembelian tidak boleh kosong")
     } else {
       let daftarBarang = this.state.listAddBarang
       let resultChecked = daftarBarang.find(o => o.kode_barang === `${this.state.tambahkodebarang}`);
       if(resultChecked===undefined){
-        let dataTopush = {kode_barang:`${this.state.tambahkodebarang}`,nama_barang:`${this.state.tambahnamabarang}`,qty:`${this.state.tambahqtybarang}`,satuan:`${this.state.tambahsatuanbarang}`,harga:`${this.state.tambahhargabarang}`}
+        let qtyPembelian =parseInt(this.state.tambahqtybarang)
+        let convertionQtyPembelian =parseInt(this.state.prmBarang.conversi)
+        let qtyPembelianProcessA = Math.floor(qtyPembelian/convertionQtyPembelian)
+        let qtyPembelianProcessB = qtyPembelian%convertionQtyPembelian
+        let qtyPembelianToShow = qtyPembelianProcessA+"."+qtyPembelianProcessB
+        let dataTopush = {
+          kode_barang:`${this.state.tambahkodebarang}`,
+          nama_barang:`${this.state.tambahnamabarang}`,
+          qty:`${this.state.tambahqtybarang}`,
+          qtyToShow:`${qtyPembelianToShow}`,
+          unit:`${this.state.prmBarang.unit}`,
+          satuan:`${this.state.prmBarang.satuan}`,
+          harga:`${this.state.tambahhargabarang}`
+        }
         await daftarBarang.push(dataTopush)
         await this.setState({
           ...this.state,
@@ -221,7 +245,9 @@ class pembelian extends Component {
           tambahkodebarang:"",
           tambahnamabarang:"",
           tambahsatuanbarang:"",
-          tambahqtybarang:"",
+          tambahqtybarang:0,
+          tambahunitqtybarang:0,
+          tambahsatuanqtybarang:0,
           tambahhargabarang:"",
           prmBarang:""
         });
@@ -233,7 +259,9 @@ class pembelian extends Component {
           tambahkodebarang:"",
           tambahnamabarang:"",
           tambahsatuanbarang:"",
-          tambahqtybarang:"",
+          tambahqtybarang:0,
+          tambahunitqtybarang:0,
+          tambahsatuanqtybarang:0,
           tambahhargabarang:"",
           prmBarang:""
         });
@@ -290,7 +318,7 @@ class pembelian extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://api.jaygeegroupapp.com/centralkitchen/addDataPembelianCK`, dataToSend, {
+      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addDataPembelianCK`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -312,6 +340,31 @@ class pembelian extends Component {
       });
     }
   }
+  handleChangeUnitOrder = event =>  {
+    let unitOrder = event.target.value==""?0:parseInt(event.target.value)
+    let satuanOrder = this.state.tambahsatuanqtybarang==""?0:parseInt(this.state.tambahsatuanqtybarang)
+    let newTambahQty=parseInt(satuanOrder)+(parseInt(unitOrder)*parseInt(this.state.prmBarang.conversi))
+    this.setState({
+      ...this.state,
+      tambahqtybarang:newTambahQty,
+      tambahunitqtybarang:event.target.value
+    });
+  }
+  handleChangeSatuanOrder = event =>  {
+    let maxSatuan = parseInt(this.state.prmBarang.conversi)-1
+    if(event.target.value>maxSatuan){
+      alert("angka yang anda input melebihi batas satuan")
+    } else{
+      let unitOrder = this.state.tambahunitqtybarang==""?0:parseInt(this.state.tambahunitqtybarang)
+      let satuanOrder = event.target.value==""?0:parseInt(event.target.value)
+      let newTambahQty=parseInt(satuanOrder)+(parseInt(unitOrder)*parseInt(this.state.prmBarang.conversi))
+      this.setState({
+        ...this.state,
+        tambahqtybarang:newTambahQty,
+        tambahsatuanqtybarang:event.target.value
+      });
+    }
+  }
   updateData = () => {
     let PRMOUTLET = localStorage.getItem("outletID")
     const dataToSend = {
@@ -326,7 +379,7 @@ class pembelian extends Component {
       buttonEditText:""
     });
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/receiveOrder`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/receiveOrder`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -377,18 +430,6 @@ class pembelian extends Component {
             <Row>
               <Col xs="12" sm="12" md="6">
                 <FormGroup>
-                  {/* <Label for="detailbuatpo">Outlet yang mengajukan order</Label>
-                  <Select
-                    className="basic-single"
-                    classNamePrefix="select"
-                    isClearable={false}
-                    isSearchable={true}
-                    name="prmOutlet"
-                    value={this.state.prmOutlet}
-                    options={this.state.masterOutletList}
-                    onChange={this.onSelectChangedMasterOutlet.bind(this)}
-                    placeholder="Pilih Outlet yang mengajukan order"
-                  /> */}
                   <Label for="detailbuatpo">Outlet</Label>
                   <Input type="text" name="detailbuatpo" id="detailbuatpo" value={this.state.prmOutlet.label} onChange={this.handleChange} placeholder="-" disabled={true} />
                 </FormGroup>
@@ -401,9 +442,22 @@ class pembelian extends Component {
               </Col>
             </Row>
             <Row style={{backgroundColor:"#f7f7f7",paddingTop:10}}>
+              <Col xs="12" sm="12" md="6" style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
+                <span style={{fontWeight:"bold"}}>Item order</span>
+              </Col>
+              <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                <span style={{fontWeight:"bold"}}>Unit order</span>
+              </Col>
+              <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                <span style={{fontWeight:"bold"}}>Satuan order</span>
+              </Col>
+              <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                <span style={{fontWeight:"bold"}}>Harga perunit</span>
+              </Col>
+            </Row>
+            <Row style={{backgroundColor:"#f7f7f7",paddingBottom:10}}>
               <Col xs="12" sm="12" md="6">
                 <FormGroup>
-                    <Label for="detailbuatpo">Item</Label>
                     <Select
                     className="basic-single"
                     classNamePrefix="select"
@@ -418,20 +472,25 @@ class pembelian extends Component {
                 </FormGroup>
               </Col>
               <Col xs="12" sm="12" md="2">
-                <FormGroup>
-                    <Label for="detailbuatpo">Qty</Label>
-                    <Input type="number" name="tambahqtybarang" id="tambahqtybarang" value={this.state.tambahqtybarang} onChange={this.handleChange} placeholder="Qty" min="0" />
-                </FormGroup>
+                {/* <Input type="number" name="tambahqtybarang" id="tambahqtybarang" value={this.state.tambahqtybarang} onChange={this.handleChange} placeholder="Qty" min="0" /> */}
+                <InputGroup>
+                  <Input disabled={this.state.prmBarang.satuan == undefined?true:false} type="number" name="tambahunitbarang" id="tambahunitbarang" value={this.state.tambahunitqtybarang} onChange={this.handleChangeUnitOrder} min="0" />
+                  <InputGroupAddon addonType="append">
+                    <InputGroupText><span style={{fontWeight:"bold"}}>{this.state.prmBarang.unit == undefined?"---":this.state.prmBarang.unit}</span></InputGroupText>
+                  </InputGroupAddon>
+                </InputGroup>
               </Col>
-              <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-                <FormGroup>
-                    <Label for="satuan">Satuan</Label>
-                    <Input type="text" name="satuan" id="satuan" value={this.state.prmBarang.satuan == undefined?"---":this.state.prmBarang.satuan} placeholder="Tanggal buat PO" disabled={true} />
-                </FormGroup>
+              <Col xs="12" sm="12" md="2">
+                {/* <span style={{fontWeight:"bold"}}>{this.state.prmBarang.satuan == undefined?"---":this.state.prmBarang.satuan}</span> */}
+                <InputGroup>
+                  <Input disabled={this.state.prmBarang.satuan == undefined?true:false} type="number" name="tambahsatuanqtybarang" id="tambahsatuanqtybarang" value={this.state.tambahsatuanqtybarang} onChange={this.handleChangeSatuanOrder} min="0" />
+                  <InputGroupAddon addonType="append">
+                    <InputGroupText><span style={{fontWeight:"bold"}}>{this.state.prmBarang.satuan == undefined?"---":this.state.prmBarang.satuan}</span></InputGroupText>
+                  </InputGroupAddon>
+                </InputGroup>
               </Col>
               <Col xs="12" sm="12" md="2">
                 <FormGroup>
-                    <Label for="detailbuatpo">Harga</Label>
                     <Input type="number" name="tambahhargabarang" id="tambahhargabarang" value={this.state.tambahhargabarang} onChange={this.handleChange} placeholder="Harga" min="0" />
                 </FormGroup>
               </Col>
@@ -459,8 +518,8 @@ class pembelian extends Component {
                 {this.state.listAddBarang.length > 0 && this.state.listAddBarang.map((listAddBarang,index) =>
                   <Row key={index}>
                     <Col xs="5"><span style={{fontWeight:"bold"}}>{listAddBarang.nama_barang}</span></Col>
-                    <Col xs="2"><span style={{fontWeight:"bold"}}>{listAddBarang.qty}</span></Col>
-                    <Col xs="2"><span style={{fontWeight:"bold"}}>{listAddBarang.satuan}</span></Col>
+                    <Col xs="2"><span style={{fontWeight:"bold"}}>{listAddBarang.qtyToShow}</span></Col>
+                    <Col xs="2"><span style={{fontWeight:"bold"}}>{`${listAddBarang.unit}.${listAddBarang.satuan}`}</span></Col>
                     <Col xs="2"><span style={{fontWeight:"bold"}}>{listAddBarang.harga}</span></Col>
                     <Col xs="1">
                       <button className="myBtn" onClick={() => this.eraseAddData(index)}><i className="fa fa-trash" aria-hidden="true"></i></button>
@@ -516,7 +575,7 @@ class pembelian extends Component {
                     <Col xs="2"><span style={{fontWeight:"bold"}}>{dataPembelianD.kode_barang}</span></Col>
                     <Col xs="4"><span style={{fontWeight:"bold"}}>{dataPembelianD.nama_barang}</span></Col>
                     <Col xs="2"><span style={{fontWeight:"bold"}}>{dataPembelianD.qty}</span></Col>
-                    <Col xs="2"><span style={{fontWeight:"bold"}}>{dataPembelianD.satuan_barang}</span></Col>
+                    <Col xs="2"><span style={{fontWeight:"bold"}}>{`${dataPembelianD.unit_barang}.${dataPembelianD.satuan_barang}`}</span></Col>
                     <Col xs="2"><span style={{fontWeight:"bold"}}>{dataPembelianD.harga}</span></Col>
                   </Row>
                 )}

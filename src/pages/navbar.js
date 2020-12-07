@@ -35,7 +35,7 @@ class navbar extends Component {
           NIK: prmNIK
         };
         axios
-        .post(`https://api.jaygeegroupapp.com/centralkitchen/getAkses`, dataToSend, {
+        .post(`${process.env.REACT_APP_LINK}/centralkitchen/getAkses`, dataToSend, {
           headers: {
             "Access-Control-Allow-Origin": "*"
           }
@@ -87,7 +87,7 @@ class navbar extends Component {
                       <NavLink onClick={() =>  {this.props.history.push({pathname: "/user"})}}>User Management</NavLink>
                     </NavItem>: ""
                     }
-                    { this.props.aksespage === "MASTER USER" || this.props.aksespage === "COST CONTROL"?
+                    { this.props.aksespage === "MASTER USER" || this.props.aksespage === "COST CONTROL"|| this.props.aksespage === "PURCHASING"?
                     <UncontrolledDropdown nav inNavbar>
                       <DropdownToggle nav caret>
                         Master Data

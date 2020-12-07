@@ -42,7 +42,7 @@ class deliveryOrderPrint extends Component {
         ID: params.ID
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDeliveryOrderReport`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDeliveryOrderReport`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

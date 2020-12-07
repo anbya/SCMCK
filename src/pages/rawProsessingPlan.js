@@ -89,7 +89,7 @@ class rawProsessing extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getRawProsessingPlanPageH`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getRawProsessingPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -107,7 +107,7 @@ class rawProsessing extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getRawProsessingPlanPageH`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getRawProsessingPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -125,7 +125,7 @@ class rawProsessing extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormRawProsessingPlan`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormRawProsessingPlan`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -208,7 +208,7 @@ class rawProsessing extends Component {
       IDMASTERRAWPROCESS: data.kode_master_rawprosessing_h
     };
     await axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getRawProsessingPlanPageD`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getRawProsessingPlanPageD`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -267,7 +267,7 @@ class rawProsessing extends Component {
       buttonEditText:""
     });
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/rawProcessCompletion`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/rawProcessCompletion`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -311,7 +311,7 @@ class rawProsessing extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormRawProsessingPlan`, dataToSend, {
+      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addFormRawProsessingPlan`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -324,7 +324,7 @@ class rawProsessing extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`https://scmcentralkitchen.jaygeegroupapp.com/rawProsessingPlanPrint?ID=${result.data.kodeRawProcessingH}`, "_blank")
+        window.open(`${process.env.REACT_APP_PRINT}/rawProsessingPlanPrint?ID=${result.data.kodeRawProcessingH}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {
@@ -362,7 +362,7 @@ class rawProsessing extends Component {
             MULTIPLEBY:this.state.tambahqtybaranghasil
         };
         axios
-        .post(`https://api.jaygeegroupapp.com/centralkitchen/addItemProductionPlan`, dataToSend, {
+        .post(`${process.env.REACT_APP_LINK}/centralkitchen/addItemProductionPlan`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }

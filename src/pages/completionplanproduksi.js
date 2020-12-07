@@ -83,7 +83,7 @@ class completionPlanProduksi extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getProductionPlanPageH`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getProductionPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -101,7 +101,7 @@ class completionPlanProduksi extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getProductionPlanPageH`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getProductionPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -119,7 +119,7 @@ class completionPlanProduksi extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormProductionPlan`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormProductionPlan`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -202,7 +202,7 @@ class completionPlanProduksi extends Component {
       PRMTURUNANPRODUKSI: data.kode_master_produksi_h
     };
     await axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getCompletionProductionPageD`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getCompletionProductionPageD`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -258,7 +258,7 @@ class completionPlanProduksi extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormProductionPlan`, dataToSend, {
+      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addFormProductionPlan`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -271,7 +271,7 @@ class completionPlanProduksi extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`https://scmcentralkitchen.jaygeegroupapp.com/productionPlanPrint?ID=${result.data.kodeProduksiH}`, "_blank")
+        window.open(`${process.env.REACT_APP_PRINT}/productionPlanPrint?ID=${result.data.kodeProduksiH}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {
@@ -425,7 +425,7 @@ class completionPlanProduksi extends Component {
             MULTIPLEBY:this.state.tambahqtybaranghasil
         };
         axios
-        .post(`https://api.jaygeegroupapp.com/centralkitchen/addItemProductionPlan`, dataToSend, {
+        .post(`${process.env.REACT_APP_LINK}/centralkitchen/addItemProductionPlan`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }

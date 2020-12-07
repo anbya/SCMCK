@@ -68,7 +68,7 @@ class transferIn extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getTransferinData`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getTransferinData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -94,7 +94,7 @@ class transferIn extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getTransferinData`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getTransferinData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -115,7 +115,7 @@ class transferIn extends Component {
       kodeTO: data.kode_between_transfer
     };
     await axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailTransferoutData`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailTransferoutData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -195,7 +195,7 @@ class transferIn extends Component {
     };
     console.log(dataToSend);
     axios
-      .post(`https://api.jaygeegroupapp.com/centralkitchen/receivePO`, dataToSend, {
+      .post(`${process.env.REACT_APP_LINK}/centralkitchen/receivePO`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -223,7 +223,7 @@ class transferIn extends Component {
       buttonEditText:""
     });
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/receiveTransferOutCK`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/receiveTransferOutCK`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

@@ -43,7 +43,7 @@ class mainPage extends Component {
       loadingInventory2:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/dataDashboard`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataDashboard`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -70,7 +70,7 @@ class mainPage extends Component {
       loadingInventory2:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/dataDashboard`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataDashboard`)
     .then(result => {
       this.setState({
         ...this.state,

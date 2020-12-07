@@ -64,7 +64,7 @@ class productout extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getDeliveryOrderData`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getDeliveryOrderData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -82,7 +82,7 @@ class productout extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getDeliveryOrderData`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getDeliveryOrderData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -100,7 +100,7 @@ class productout extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getOrderOption`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getOrderOption`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -149,7 +149,7 @@ class productout extends Component {
       KODEDO: data.kode_delivery_order
     };
     await axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDeliveryOrderDetail`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDeliveryOrderDetail`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -283,7 +283,7 @@ class productout extends Component {
       kodeOrderH:value.value
     };
     await axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailOrderData`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailOrderData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -384,7 +384,7 @@ class productout extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormDeliveryOrder`, dataToSend, {
+      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addFormDeliveryOrder`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -397,7 +397,7 @@ class productout extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`https://scmcentralkitchen.jaygeegroupapp.com/deliveryOrderPrint?ID=${result.data.kodeDeliveryOrderH}`, "_blank")
+        window.open(`${process.env.REACT_APP_PRINT}/deliveryOrderPrint?ID=${result.data.kodeDeliveryOrderH}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {
@@ -508,7 +508,7 @@ class productout extends Component {
           </ModalBody>
           <ModalFooter>
             <button className="myBtn" onClick={() => 
-            window.open(`https://scmcentralkitchen.jaygeegroupapp.com/prepareDeliveryOrderPrint?ID=${this.state.kodeOrderh}`, "_blank")
+            window.open(`${process.env.REACT_APP_PRINT}/prepareDeliveryOrderPrint?ID=${this.state.kodeOrderh}`, "_blank")
             } style={{visibility:this.state.dataOrderD.length > 0?"visible":"hidden"}}>
               <i className="fa fa-print fa-2x" aria-hidden="true"></i>
             </button>

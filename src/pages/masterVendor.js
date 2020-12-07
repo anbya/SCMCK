@@ -57,7 +57,7 @@ class masterVendor extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/dataVendor`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataVendor`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -75,7 +75,7 @@ class masterVendor extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/dataVendor`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataVendor`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -147,7 +147,7 @@ class masterVendor extends Component {
       EMAIL: this.state.editEmailvendor
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/editdataVendor`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/editdataVendor`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -184,7 +184,7 @@ class masterVendor extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://api.jaygeegroupapp.com/centralkitchen/adddataVendor`, dataToSend, {
+      .post(`${process.env.REACT_APP_LINK}/centralkitchen/adddataVendor`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

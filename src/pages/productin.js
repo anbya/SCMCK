@@ -70,7 +70,7 @@ class productIn extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getPOData`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -88,7 +88,7 @@ class productIn extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getPOData`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -106,7 +106,7 @@ class productIn extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormPOData`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormPOData`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -166,7 +166,7 @@ class productIn extends Component {
       kodePOH: data.kode_purchase_order_h
     };
     await axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailPOData`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailPOData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -319,7 +319,7 @@ class productIn extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormPOData`, dataToSend, {
+      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addFormPOData`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -332,7 +332,7 @@ class productIn extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`https://scmcentralkitchen.jaygeegroupapp.com/purchaseOrderPrint?ID=${result.data.id_po_h}`, "_blank")
+        window.open(`${process.env.REACT_APP_PRINT}/purchaseOrderPrint?ID=${result.data.id_po_h}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {

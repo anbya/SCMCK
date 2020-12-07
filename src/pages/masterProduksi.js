@@ -99,7 +99,7 @@ class masterProduksi extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/masterproduksi`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/masterproduksi`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -117,7 +117,7 @@ class masterProduksi extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/masterproduksi`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/masterproduksi`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -135,7 +135,7 @@ class masterProduksi extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormAddMasterProduksi`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormAddMasterProduksi`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -220,7 +220,7 @@ class masterProduksi extends Component {
       KODEMASTERPRODUKSIH: data.kode_master_produksi_h
     };
     await axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getMasterProduksi`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getMasterProduksi`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -294,7 +294,7 @@ class masterProduksi extends Component {
             buttonAddText:""
         });
         axios
-        .post(`https://api.jaygeegroupapp.com/centralkitchen/addMasterProduksi`, dataToSend, {
+        .post(`${process.env.REACT_APP_LINK}/centralkitchen/addMasterProduksi`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }
@@ -651,7 +651,7 @@ class masterProduksi extends Component {
       IDPLANPRODUCTION:this.state.detailDataProduksi.kode_master_produksi_h
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/updateMasterProduksi`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/updateMasterProduksi`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -677,7 +677,7 @@ class masterProduksi extends Component {
       ID: data.kode_master_produksi_h,
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/deleteMasterProduksi`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/deleteMasterProduksi`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

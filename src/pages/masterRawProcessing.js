@@ -99,7 +99,7 @@ class masterRawProcessing extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getMasterRawprosessing`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getMasterRawprosessing`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -117,7 +117,7 @@ class masterRawProcessing extends Component {
       loading:true,
     });
     axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getMasterRawprosessing`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getMasterRawprosessing`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -135,7 +135,7 @@ class masterRawProcessing extends Component {
       loadingParam:"block",
     });
     await axios
-    .get(`https://api.jaygeegroupapp.com/centralkitchen/getFormAddMasterRawprosessing`)
+    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormAddMasterRawprosessing`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -219,7 +219,7 @@ class masterRawProcessing extends Component {
       KODEDATAH: data.kode_master_rawprosessing_h
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getMasterRawprosessingD`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getMasterRawprosessingD`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -294,7 +294,7 @@ class masterRawProcessing extends Component {
             buttonAddText:""
         });
         axios
-        .post(`https://api.jaygeegroupapp.com/centralkitchen/addMasterRawprosessing`, dataToSend, {
+        .post(`${process.env.REACT_APP_LINK}/centralkitchen/addMasterRawprosessing`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }
@@ -518,7 +518,7 @@ class masterRawProcessing extends Component {
       ID: data.kode_master_produksi_h,
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/deleteMasterProduksi`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/deleteMasterProduksi`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -542,7 +542,7 @@ class masterRawProcessing extends Component {
       IDRAWPROCESSs:this.state.detailDataProduksi.kode_master_rawprosessing_h
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/updateMasterrawprosessing`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/updateMasterrawprosessing`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

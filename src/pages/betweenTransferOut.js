@@ -76,7 +76,7 @@ class transferOut extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getTransferoutData`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getTransferoutData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -102,7 +102,7 @@ class transferOut extends Component {
       OUTLET: prmOUTLET
     };
     axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getTransferoutData`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getTransferoutData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -128,7 +128,7 @@ class transferOut extends Component {
       loadingParam:"block",
     });
     await axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getFormTOCK`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getFormTOCK`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -195,7 +195,7 @@ class transferOut extends Component {
       kodeTO: data.kode_between_transfer
     };
     await axios
-    .post(`https://api.jaygeegroupapp.com/centralkitchen/getDetailTransferoutData`, dataToSend, {
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailTransferoutData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -368,7 +368,7 @@ class transferOut extends Component {
         buttonAddText:""
       });
       axios
-      .post(`https://api.jaygeegroupapp.com/centralkitchen/addFormTOCK`, dataToSend, {
+      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addFormTOCK`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -381,7 +381,7 @@ class transferOut extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`https://scmcentralkitchen.jaygeegroupapp.com/transferOutPrint?ID=${result.data.kodeTO}`, "_blank")
+        window.open(`${process.env.REACT_APP_PRINT}/transferOutPrint?ID=${result.data.kodeTO}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {
