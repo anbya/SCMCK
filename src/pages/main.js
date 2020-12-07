@@ -15,7 +15,6 @@ import Navbarpage from "./navbar";
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 
-
 class mainPage extends Component {
   constructor(props) {
     super(props);
@@ -170,12 +169,12 @@ class mainPage extends Component {
       },
       {
         name: 'OnHand Qty',
-        selector: 'onhand_qty',
+        selector: 'onhand_qty_to_show',
         sortable: true,
       },
       {
         name: 'Satuan Barang',
-        selector: 'satuan_barang',
+        selector: 'satuan_to_show',
         sortable: true,
       },
     ];
@@ -210,12 +209,12 @@ class mainPage extends Component {
       },
       {
         name: 'OnHand Qty',
-        selector: 'onhand_qty',
+        selector: 'onhand_qty_to_show',
         sortable: true,
       },
       {
         name: 'Satuan Barang',
-        selector: 'satuan_barang',
+        selector: 'satuan_to_show',
         sortable: true,
       },
     ];
