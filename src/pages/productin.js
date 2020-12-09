@@ -39,6 +39,8 @@ class productIn extends Component {
       prmModaladd:false,
       buttonAddPrm:false,
       buttonAddText:"Add",
+      buttonEditPrm:false,
+      buttonEditText:"CANCEL",
       tambahkodebarang:"",
       tambahnamabarang:"",
       tambahsatuanbarang:"",
@@ -191,7 +193,7 @@ class productIn extends Component {
       ...this.state,
       prmModaledit: false,
       buttonEditPrm:false,
-      buttonEditText:"Save",
+      buttonEditText:"CANCEL",
       editnamabarang:"",
       editsatuanbarang:"",
       dataToEdit:""
@@ -347,8 +349,38 @@ class productIn extends Component {
       tanggalKirim: date
     });
   };
+  updateData = () => {
+    this.setState({
+      ...this.state,
+      buttonEditPrm:true,
+      buttonEditText:""
+    });
+    const dataToSend = {
+      IDPO:this.state.detailDataPO.kode_purchase_order_h
+    };
+    console.log(dataToSend);
+    axios
+    .post(`${process.env.REACT_APP_LINK}/centralkitchen/cancelPO`, dataToSend, {
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      }
+    })
+    .then(async result => {
+      await this.setState({
+        ...this.state,
+        buttonEditPrm:false,
+        buttonEditText:"CANCEL",
+      });
+      alert("Data purchase order berhasil di cancel")
+      await this.modalEditClose()
+      this.refreshPageData()
+    })
+    .catch(error => {
+      console.log(error);
+      console.log(this.props);
+    });
+  }
   render() {
-    // console.log(this.state.prmBarang.unit);
     const DataButton = (data) => (
       <div>
         <button className="myBtn" onClick={()=> this.modalEditOpen(data)}><i className="fa fa-search fa-2x" aria-hidden="true"></i></button>
@@ -571,6 +603,23 @@ class productIn extends Component {
                 <span style={{fontWeight:"bold"}}>Total Pembelian : {this.state.detailDataPO.jumlah_pembelian}</span>
               </Col>
             </Row>
+            {this.state.detailDataPO.tanggal_masuk_barang==""?
+            <Row>
+              <Col xs="12" sm="12" md="12" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                <Button color="danger" block={true} onClick={() => { if (window.confirm('Apakah anda yakin akan cancel data PO ini ?')) this.updateData() } }>
+                  <ScaleLoader
+                    height={18}
+                    width={4}
+                    radius={2}
+                    margin={2}
+                    color={'#FFFFFF'}
+                    loading={this.state.buttonEditPrm}
+                  />
+                  {this.state.buttonEditText}
+                </Button>
+              </Col>
+            </Row>:""
+            }
           </ModalBody>
         </Modal>
         <Container fluid={true} style={{paddingBottom:30}}>
