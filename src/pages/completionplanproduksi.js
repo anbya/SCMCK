@@ -271,7 +271,7 @@ class completionPlanProduksi extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`${process.env.REACT_APP_PRINT}/productionPlanPrint?ID=${result.data.kodeProduksiH}`, "_blank")
+        window.open(`${process.env.REACT_APP_PRINT}/#/productionPlanPrint?ID=${result.data.kodeProduksiH}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {

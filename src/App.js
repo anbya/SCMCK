@@ -4,7 +4,7 @@ import "./assets/font-awesome/css/font-awesome.min.css";
 import 'react-data-table-component-extensions/dist/index.css';
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from './route/PrivateRoute';
 import Mainpage from "./pages/dashboardPage";
 import Loginpage from "./pages/loginPage";
@@ -23,11 +23,11 @@ import CompletionplanproduksiPage from "./pages/completionplanproduksiPage";
 import ProductinPage from "./pages/purchaseOrderPage";
 import ReceivepoPage from "./pages/receivePoPage";
 import ProductoutPage from "./pages/deliveryOrderPage";
-import orderPage from "./pages/orderPage";
-import userPage from "./pages/userPage";
-import reportPage from "./pages/reportPage";
+import OrderPage from "./pages/orderPage";
+import UserPage from "./pages/userPage";
+import ReportPage from "./pages/reportPage";
 import TestReport from "./pages/testReport";
-import purchaseOrderPrint from "./pages/purchaseOrderPrint";
+import PurchaseOrderPrint from "./pages/purchaseOrderPrint";
 import ProductionPlanPrint from "./pages/productionPlanPrint";
 import RawProsessingPlanPrint from "./pages/rawProsessingPlanPrint";
 import PrepareDeliveryOrderPrint from "./pages/prepareDeliveryOrderPrint";
@@ -43,35 +43,44 @@ function App() {
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route exact path="/">
-            <Loginpage />
-          </Route>
-          <Route component={purchaseOrderPrint} path="/purchaseOrderPrint"/>
-          <Route component={ProductionPlanPrint} path="/productionPlanPrint"/>
-          <Route component={RawProsessingPlanPrint} path="/rawProsessingPlanPrint"/>
-          <Route component={PrepareDeliveryOrderPrint} path="/prepareDeliveryOrderPrint"/>
-          <Route component={DeliveryOrderPrint} path="/deliveryOrderPrint"/>
-          <PrivateRoute component={Mainpage} path="/home"/>
-          <PrivateRoute component={userPage} path="/user"/>
-          <PrivateRoute component={MasterVendor} path="/mastervendor"/>
-          <PrivateRoute component={MasterOutlet} path="/masteroutlet"/>
-          <PrivateRoute component={MasterBarang} path="/masterbarang"/>
-          <PrivateRoute component={MasterProduksiPage} path="/masterproduksi"/>
-          <PrivateRoute component={MasterRawProcessingPage} path="/masterRawProcessingPage"/>
-          <PrivateRoute component={MasterPluPage} path="/masterplu"/>
-          <PrivateRoute component={ProductinPage} path="/productin"/>
-          <PrivateRoute component={ReceivepoPage} path="/receive_po"/>
-          <PrivateRoute component={RawProsessingPage} path="/rawProsessingPlan"/>
-          <PrivateRoute component={PlanproduksiPage} path="/planproduksiPage"/>
-          <PrivateRoute component={CompletionplanproduksiPage} path="/completionplanproduksiPage"/>
-          <PrivateRoute component={ProduksiPage} path="/produksi"/>
-          <PrivateRoute component={ProductoutPage} path="/productout"/>
-          {/* <PrivateRoute component={orderPage} path="/order" exact /> */}
-          <PrivateRoute component={reportPage} path="/report"/>
-          <PrivateRoute component={TestReport} path="/testreport"/>
-          <PrivateRoute component={TransferInPage} path="/transferin"/>
-          <PrivateRoute component={TransferOutPage} path="/transferout"/>
-          <PrivateRoute component={PembelianPage} path="/pembelian"/>
+            <Route exact path="/">
+                <Loginpage />
+            </Route>
+            <Route path="/purchaseOrderPrint">
+                <PurchaseOrderPrint />
+            </Route>
+            <Route path="/productionPlanPrint">
+                <ProductionPlanPrint />
+            </Route>
+            <Route path="/rawProsessingPlanPrint">
+                <RawProsessingPlanPrint />
+            </Route>
+            <Route path="/prepareDeliveryOrderPrint">
+                <PrepareDeliveryOrderPrint />
+            </Route>
+            <Route path="/deliveryOrderPrint">
+                <DeliveryOrderPrint />
+            </Route>
+            <PrivateRoute component={Mainpage} path="/home"/>
+            <PrivateRoute component={UserPage} path="/user"/>
+            <PrivateRoute component={MasterVendor} path="/mastervendor"/>
+            <PrivateRoute component={MasterOutlet} path="/masteroutlet"/>
+            <PrivateRoute component={MasterBarang} path="/masterbarang"/>
+            <PrivateRoute component={MasterProduksiPage} path="/masterproduksi"/>
+            <PrivateRoute component={MasterRawProcessingPage} path="/masterRawProcessingPage"/>
+            <PrivateRoute component={MasterPluPage} path="/masterplu"/>
+            <PrivateRoute component={ProductinPage} path="/productin"/>
+            <PrivateRoute component={ReceivepoPage} path="/receive_po"/>
+            <PrivateRoute component={RawProsessingPage} path="/rawProsessingPlan"/>
+            <PrivateRoute component={PlanproduksiPage} path="/planproduksiPage"/>
+            <PrivateRoute component={CompletionplanproduksiPage} path="/completionplanproduksiPage"/>
+            <PrivateRoute component={ProduksiPage} path="/produksi"/>
+            <PrivateRoute component={ProductoutPage} path="/productout"/>
+            <PrivateRoute component={ReportPage} path="/report"/>
+            <PrivateRoute component={TestReport} path="/testreport"/>
+            <PrivateRoute component={TransferInPage} path="/transferin"/>
+            <PrivateRoute component={TransferOutPage} path="/transferout"/>
+            <PrivateRoute component={PembelianPage} path="/pembelian"/>
         </Switch>
       </Router>
     </Provider>

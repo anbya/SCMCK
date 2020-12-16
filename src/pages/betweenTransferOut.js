@@ -381,7 +381,7 @@ class transferOut extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`${process.env.REACT_APP_PRINT}/transferOutPrint?ID=${result.data.kodeTO}`, "_blank")
+        window.open(`${process.env.REACT_APP_PRINT}/#/transferOutPrint?ID=${result.data.kodeTO}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {

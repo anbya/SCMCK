@@ -397,7 +397,7 @@ class productout extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`${process.env.REACT_APP_PRINT}/deliveryOrderPrint?ID=${result.data.kodeDeliveryOrderH}`, "_blank")
+        window.open(`${process.env.REACT_APP_PRINT}/#/deliveryOrderPrint?ID=${result.data.kodeDeliveryOrderH}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {
@@ -508,7 +508,7 @@ class productout extends Component {
           </ModalBody>
           <ModalFooter>
             <button className="myBtn" onClick={() => 
-            window.open(`${process.env.REACT_APP_PRINT}/prepareDeliveryOrderPrint?ID=${this.state.kodeOrderh}`, "_blank")
+            window.open(`/prepareDeliveryOrderPrint?ID=${this.state.kodeOrderh}`, "_blank")
             } style={{visibility:this.state.dataOrderD.length > 0?"visible":"hidden"}}>
               <i className="fa fa-print fa-2x" aria-hidden="true"></i>
             </button>
