@@ -37,6 +37,7 @@ class masterBarang extends Component {
       buttonAddText:"Add",
       tambahnamabarang:"",
       tambahsatuanbarang:"",
+      tambahhargabarang:0,
       tambahUnitbarang:"",
       tambahKonversibarang:"",
       tambahtypebarang:"",
@@ -46,6 +47,7 @@ class masterBarang extends Component {
       editkodebarang:"",
       editnamabarang:"",
       editsatuanbarang:"",
+      edithargabarang:0,
       editUnitbarang:"",
       editKonversibarang:"",
       edittypebarang:"",
@@ -108,6 +110,7 @@ class masterBarang extends Component {
       prmModaladd: true,
       tambahnamabarang:"",
       tambahsatuanbarang:"",
+      tambahhargabarang:0,
       tambahUnitbarang:"",
       tambahKonversibarang:"",
       tambahtypebarang:"",
@@ -123,6 +126,7 @@ class masterBarang extends Component {
       buttonAddText:"Save",
       tambahnamabarang:"",
       tambahsatuanbarang:"",
+      tambahhargabarang:0,
       tambahUnitbarang:"",
       tambahKonversibarang:"",
       tambahtypebarang:"",
@@ -153,6 +157,7 @@ class masterBarang extends Component {
       editkodebarang:data.kode_barang,
       editnamabarang:data.nama_barang,
       editsatuanbarang:data.satuan_barang,
+      edithargabarang:data.harga_barang,
       editUnitbarang:data.unit_barang,
       editKonversibarang:data.conversi_satuan,
       edittypebarang:data.type_barang,
@@ -169,6 +174,7 @@ class masterBarang extends Component {
       editkodebarang:"",
       editnamabarang:"",
       editsatuanbarang:"",
+      edithargabarang:0,
       editUnitbarang:"",
       editKonversibarang:"",
       edittypebarang:"",
@@ -183,6 +189,7 @@ class masterBarang extends Component {
       NAME: this.state.editnamabarang,
       UNIT: this.state.editUnitbarang,
       SATUAN: this.state.editsatuanbarang,
+      HARGAPERUNIT: this.state.edithargabarang,
       KONVERSI: this.state.editKonversibarang,
       VENDORCODE: this.state.tambahkodevendor,
       TYPE: this.state.edittypebarang
@@ -193,6 +200,8 @@ class masterBarang extends Component {
       alert("Unit barang tidak boleh kosong")
     } else if(dataToSend.SATUAN === ""){
       alert("Satuan barang tidak boleh kosong")
+    } else if(dataToSend.HARGAPERUNIT === ""){
+      alert("harga barang tidak boleh kosong")
     } else if(dataToSend.KONVERSI === ""){
       alert("Konversi barang tidak boleh kosong")
     } else if(dataToSend.VENDORCODE === ""){
@@ -232,6 +241,7 @@ class masterBarang extends Component {
       NAME: this.state.tambahnamabarang,
       UNIT: this.state.tambahUnitbarang,
       SATUAN: this.state.tambahsatuanbarang,
+      HARGAPERUNIT: this.state.tambahhargabarang,
       KONVERSI: this.state.tambahKonversibarang,
       VENDORCODE: this.state.tambahkodevendor,
       TYPE: this.state.tambahtypebarang
@@ -242,6 +252,8 @@ class masterBarang extends Component {
       alert("Unit barang tidak boleh kosong")
     } else if(dataToSend.SATUAN === ""){
       alert("Satuan barang tidak boleh kosong")
+    } else if(dataToSend.HARGAPERUNIT === ""){
+      alert("harga barang tidak boleh kosong")
     } else if(dataToSend.KONVERSI === ""){
       alert("Konversi barang tidak boleh kosong")
     } else if(dataToSend.VENDORCODE === ""){
@@ -317,6 +329,11 @@ class masterBarang extends Component {
         sortable: true,
       },
       {
+        name: 'Harga perunit',
+        selector: 'harga_barang',
+        sortable: true,
+      },
+      {
         name: 'Conversi',
         selector: 'conversi_satuan',
         sortable: true,
@@ -366,6 +383,18 @@ class masterBarang extends Component {
                     onChange={this.handleChange}
                     placeholder="Konversi barang"
                     min="1"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="tambahhargabarang">Harga barang perunit</Label>
+                  <Input
+                    type="number"
+                    name="tambahhargabarang"
+                    id="tambahhargabarang"
+                    value={this.state.tambahhargabarang}
+                    onChange={this.handleChange}
+                    placeholder="Harga barang perunit"
+                    min="0"
                   />
                 </FormGroup>
                 <FormGroup>
@@ -427,6 +456,18 @@ class masterBarang extends Component {
                 <FormGroup>
                   <Label for="editKonversibarang">Konversi unit ke satuan</Label>
                   <Input type="text" name="editKonversibarang" id="editKonversibarang" value={this.state.editKonversibarang} onChange={this.handleChange} placeholder="Konversi barang" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="edithargabarang">Harga barang perunit</Label>
+                  <Input
+                    type="number"
+                    name="edithargabarang"
+                    id="edithargabarang"
+                    value={this.state.edithargabarang}
+                    onChange={this.handleChange}
+                    placeholder="Harga barang perunit"
+                    min="0"
+                  />
                 </FormGroup>
                 <FormGroup>
                   <Label for="edittypebarang">Type barang</Label>

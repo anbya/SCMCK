@@ -78,18 +78,18 @@ class navbar extends Component {
                 <Collapse isOpen={this.state.navCollapse} navbar>
                   <Nav className="ml-auto" navbar>
                     { this.props.aksespage === "MASTER USER" || this.props.aksespage === "ADMIN" || this.props.aksespage === "COST CONTROL" || this.props.aksespage === "PURCHASING" ?
-                    <NavItem style={{cursor:"pointer"}}>
+                    <NavItem className={this.props.history.location.pathname=="/home"?"myNavbarStyle-active":"myNavbarStyle"}>
                       <NavLink onClick={() =>  {this.props.history.push({pathname: "/home"})}}>Dashboard</NavLink>
                     </NavItem>: ""
                     }
                     { this.props.aksespage === "MASTER USER" ?
-                    <NavItem style={{cursor:"pointer"}}>
+                    <NavItem className={this.props.history.location.pathname=="/user"?"myNavbarStyle-active":"myNavbarStyle"}>
                       <NavLink onClick={() =>  {this.props.history.push({pathname: "/user"})}}>User Management</NavLink>
                     </NavItem>: ""
                     }
                     { this.props.aksespage === "MASTER USER" || this.props.aksespage === "COST CONTROL"|| this.props.aksespage === "PURCHASING"?
                     <UncontrolledDropdown nav inNavbar>
-                      <DropdownToggle nav caret>
+                      <DropdownToggle nav caret className={this.props.history.location.pathname=="/masteroutlet"||this.props.history.location.pathname=="/mastervendor"||this.props.history.location.pathname=="/masterbarang"||this.props.history.location.pathname=="/masterRawProcessingPage"||this.props.history.location.pathname=="/masterproduksi"||this.props.history.location.pathname=="/masterplu"?"myNavbarStyle-active":"myNavbarStyle"}>
                         Master Data
                       </DropdownToggle>
                       <DropdownMenu right>

@@ -46,32 +46,32 @@ function App() {
           <Route exact path="/">
             <Loginpage />
           </Route>
-          <PrivateRoute component={Mainpage} path="/home" exact />
-          <PrivateRoute component={userPage} path="/user" exact />
-          <PrivateRoute component={MasterVendor} path="/mastervendor" exact />
-          <PrivateRoute component={MasterOutlet} path="/masteroutlet" exact />
-          <PrivateRoute component={MasterBarang} path="/masterbarang" exact />
-          <PrivateRoute component={MasterProduksiPage} path="/masterproduksi" exact />
-          <PrivateRoute component={MasterRawProcessingPage} path="/masterRawProcessingPage" exact />
-          <PrivateRoute component={MasterPluPage} path="/masterplu" exact />
-          <PrivateRoute component={ProductinPage} path="/productin" exact />
-          <PrivateRoute component={ReceivepoPage} path="/receive_po" exact />
-          <PrivateRoute component={RawProsessingPage} path="/rawProsessingPlan" exact />
-          <PrivateRoute component={PlanproduksiPage} path="/planproduksiPage" exact />
-          <PrivateRoute component={CompletionplanproduksiPage} path="/completionplanproduksiPage" exact />
-          <PrivateRoute component={ProduksiPage} path="/produksi" exact />
-          <PrivateRoute component={ProductoutPage} path="/productout" exact />
+          <Route component={purchaseOrderPrint} path="/purchaseOrderPrint"/>
+          <Route component={ProductionPlanPrint} path="/productionPlanPrint"/>
+          <Route component={RawProsessingPlanPrint} path="/rawProsessingPlanPrint"/>
+          <Route component={PrepareDeliveryOrderPrint} path="/prepareDeliveryOrderPrint"/>
+          <Route component={DeliveryOrderPrint} path="/deliveryOrderPrint"/>
+          <PrivateRoute component={Mainpage} path="/home"/>
+          <PrivateRoute component={userPage} path="/user"/>
+          <PrivateRoute component={MasterVendor} path="/mastervendor"/>
+          <PrivateRoute component={MasterOutlet} path="/masteroutlet"/>
+          <PrivateRoute component={MasterBarang} path="/masterbarang"/>
+          <PrivateRoute component={MasterProduksiPage} path="/masterproduksi"/>
+          <PrivateRoute component={MasterRawProcessingPage} path="/masterRawProcessingPage"/>
+          <PrivateRoute component={MasterPluPage} path="/masterplu"/>
+          <PrivateRoute component={ProductinPage} path="/productin"/>
+          <PrivateRoute component={ReceivepoPage} path="/receive_po"/>
+          <PrivateRoute component={RawProsessingPage} path="/rawProsessingPlan"/>
+          <PrivateRoute component={PlanproduksiPage} path="/planproduksiPage"/>
+          <PrivateRoute component={CompletionplanproduksiPage} path="/completionplanproduksiPage"/>
+          <PrivateRoute component={ProduksiPage} path="/produksi"/>
+          <PrivateRoute component={ProductoutPage} path="/productout"/>
           {/* <PrivateRoute component={orderPage} path="/order" exact /> */}
-          <PrivateRoute component={reportPage} path="/report" exact />
-          <PrivateRoute component={TestReport} path="/testreport" exact />
-          <PrivateRoute component={purchaseOrderPrint} path="/purchaseOrderPrint" exact />
-          <PrivateRoute component={ProductionPlanPrint} path="/productionPlanPrint" exact />
-          <PrivateRoute component={RawProsessingPlanPrint} path="/rawProsessingPlanPrint" exact />
-          <PrivateRoute component={PrepareDeliveryOrderPrint} path="/prepareDeliveryOrderPrint" exact />
-          <PrivateRoute component={DeliveryOrderPrint} path="/deliveryOrderPrint" exact />
-          <PrivateRoute component={TransferInPage} path="/transferin" exact />
-          <PrivateRoute component={TransferOutPage} path="/transferout" exact />
-          <PrivateRoute component={PembelianPage} path="/pembelian" exact />
+          <PrivateRoute component={reportPage} path="/report"/>
+          <PrivateRoute component={TestReport} path="/testreport"/>
+          <PrivateRoute component={TransferInPage} path="/transferin"/>
+          <PrivateRoute component={TransferOutPage} path="/transferout"/>
+          <PrivateRoute component={PembelianPage} path="/pembelian"/>
         </Switch>
       </Router>
     </Provider>

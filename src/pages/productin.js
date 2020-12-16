@@ -47,6 +47,7 @@ class productIn extends Component {
       tambahqtybarang:"",
       tambahhargabarang:"",
       prmModaledit:false,
+      prmmasterBarangList:[],
       prmBarang:"",
       masterBarangList:[],
       prmVendor:"",
@@ -113,7 +114,7 @@ class productIn extends Component {
       this.setState({
         ...this.state,
         masterVendorList: result.data.dataVendor,
-        masterBarangList: result.data.dataMasterBarang,
+        prmmasterBarangList: result.data.dataMasterBarang,
         masterOutletList: result.data.dataOutlet
       });
     })
@@ -253,10 +254,19 @@ class productIn extends Component {
     });
   }
   onSelectChangedMasterVendor = async (value) => {
-    await this.setState({
+    await this.filterListBarang(value.value)
+    this.setState({
       ...this.state,
       prmVendor: value,
       tambahkodevendor:value.value
+    });
+  }
+  filterListBarang = async (value) => {
+    let prmMasterBarangList = this.state.prmmasterBarangList
+    let filteredListMasterBarang = prmMasterBarangList.filter(o => o.kode_vendor === `${value}`);
+    await this.setState({
+      ...this.state,
+      masterBarangList:filteredListMasterBarang
     });
   }
   onSelectChangedMasterBarang = async (value) => {
@@ -265,7 +275,8 @@ class productIn extends Component {
       prmBarang: value,
       tambahkodebarang:value.value,
       tambahnamabarang:value.label,
-      tambahsatuanbarang:value.unit
+      tambahsatuanbarang:value.unit,
+      tambahhargabarang:value.harga_barang
     });
   }
   onSelectChangedMasterOutlet = async (value) => {
@@ -490,7 +501,7 @@ class productIn extends Component {
               <span style={{fontWeight:"bold"}}>{this.state.prmBarang.unit == undefined?"---":this.state.prmBarang.unit}</span>
               </Col>
               <Col xs="12" sm="12" md="3">
-                <Input type="number" name="tambahhargabarang" id="tambahhargabarang" value={this.state.tambahhargabarang} onChange={this.handleChange} placeholder="Harga perunit" min="0" />
+                <Input type="number" name="tambahhargabarang" id="tambahhargabarang" value={this.state.tambahhargabarang} onChange={this.handleChange} placeholder="Harga perunit" min="0" disabled={true} />
               </Col>
               <Col xs="12" sm="12" md="1" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
                 <Button color="success" onClick={() => this.addData()}>
