@@ -64,8 +64,8 @@ class receivepopage extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getOpenPOData`)
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getOpenPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -82,8 +82,9 @@ class receivepopage extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getOpenPOData`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getOpenPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -99,8 +100,9 @@ class receivepopage extends Component {
     const dataToSend = {
       kodePOH: data.kode_purchase_order_h
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailPOData`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDetailPOData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -166,7 +168,7 @@ class receivepopage extends Component {
     let daftarBarang = this.state.dataPOD
     daftarBarang[IdData].unit_receive=event.target.value
     let unitReceive = event.target.value==""?0:parseInt(event.target.value)
-    let satuanReceive = daftarBarang[IdData].satuan_receive==""?0:parseInt(daftarBarang[IdData].satuan_receive)
+    let satuanReceive = daftarBarang[IdData].satua_receive==""?0:parseInt(daftarBarang[IdData].satua_receive)
     daftarBarang[IdData].qty_receive=parseInt(satuanReceive)+(parseInt(unitReceive)*parseInt(daftarBarang[IdData].konversi_barang))
     this.setState({
       ...this.state,
@@ -180,7 +182,7 @@ class receivepopage extends Component {
     if(event.target.value>maxSatuan){
       alert("angka yang anda input melebihi batas satuan")
     } else{
-      daftarBarang[IdData].satuan_receive=event.target.value
+      daftarBarang[IdData].satua_receive=event.target.value
       let unitReceive = daftarBarang[IdData].unit_receive==""?0:parseInt(daftarBarang[IdData].unit_receive)
       let satuanReceive = event.target.value==""?0:parseInt(event.target.value)
       daftarBarang[IdData].qty_receive=parseInt(satuanReceive)+(parseInt(unitReceive)*parseInt(daftarBarang[IdData].konversi_barang))
@@ -193,25 +195,26 @@ class receivepopage extends Component {
   terimaPO = () => {
     const dataToSend = {
         KODEEPOH: this.state.detailDataPO.kode_purchase_order_h,
+        PRMPAJAK: this.state.detailDataPO.taxParameter,
         USER:this.props.userinfo.id_user,
         DATAPOD:this.state.dataPOD
     };
     console.log(dataToSend);
     axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/receivePO`, dataToSend, {
-        headers: {
-          "Access-Control-Allow-Origin": "*"
-        }
-      })
-      .then(async result => {
+    .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/receivePO`, dataToSend, {
+    headers: {
+        "Access-Control-Allow-Origin": "*"
+    }
+    })
+    .then(async result => {
         alert("PO berhasil diterima")
         await this.modalEditClose()
         this.refreshPageData()
-      })
-      .catch(error => {
+    })
+    .catch(error => {
         console.log(error);
         console.log(this.props);
-      });
+    });
   }
   render() {
     const DataButton = (data) => (
@@ -294,7 +297,7 @@ class receivepopage extends Component {
                     </Col>
                     <Col xs="2" style={{padding:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
                       <InputGroup>
-                        <Input type="number" name={`${index}`} id={`${index}`} value={dataPOD.satuan_receive} onChange={this.handleChangeSatuanReceive} min="0" max={dataPOD.konversi_barang-1} />
+                        <Input type="number" name={`${index}`} id={`${index}`} value={dataPOD.satua_receive} onChange={this.handleChangeSatuanReceive} min="0" max={dataPOD.konversi_barang-1} />
                         <InputGroupAddon addonType="append">
                           <InputGroupText><span style={{fontWeight:"bold"}}>{dataPOD.satuan_barang}</span></InputGroupText>
                         </InputGroupAddon>

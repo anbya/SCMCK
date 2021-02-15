@@ -93,13 +93,14 @@ class masterPlu extends Component {
       listAddBarangSisaE:[],
     };
   }
-  componentDidMount = () =>  {
+  componentDidMount = async () =>  {
     this.setState({
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getMasterPLU`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getMasterPLU`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -116,8 +117,9 @@ class masterPlu extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getMasterPLU`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getMasterPLU`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -134,8 +136,9 @@ class masterPlu extends Component {
       ...this.state,
       loadingParam:"block",
     });
-    await axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormAddMasterProduksi`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getFormAddMasterProduksi`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -219,8 +222,9 @@ class masterPlu extends Component {
     const dataToSend = {
       IDPLU: data.id_plu
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailMasterPLU`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDetailMasterPLU`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -292,8 +296,9 @@ class masterPlu extends Component {
             buttonAddPrm:true,
             buttonAddText:""
         });
+        let APIroute = localStorage.getItem("APIROUTE")
         axios
-        .post(`${process.env.REACT_APP_LINK}/centralkitchen/addMasterPLU`, dataToSend, {
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addMasterPLU`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }
@@ -638,8 +643,9 @@ class masterPlu extends Component {
     const dataToSend = {
       IDPLU:this.state.detailDataPLU.id_plu
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/updateMasterPLU`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/updateMasterPLU`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -664,8 +670,9 @@ class masterPlu extends Component {
     const dataToSend = {
       ID: data.kode_master_produksi_h,
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/deleteMasterProduksi`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/deleteMasterProduksi`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

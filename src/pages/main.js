@@ -41,8 +41,9 @@ class mainPage extends Component {
       loadingInventory:true,
       loadingInventory2:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataDashboard`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/dataDashboard`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -68,8 +69,9 @@ class mainPage extends Component {
       loadingInventory:true,
       loadingInventory2:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataDashboard`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/dataDashboard`)
     .then(result => {
       this.setState({
         ...this.state,

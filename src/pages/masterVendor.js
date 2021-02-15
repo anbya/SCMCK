@@ -56,8 +56,9 @@ class masterVendor extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataVendor`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/dataVendor`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -74,8 +75,9 @@ class masterVendor extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataVendor`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/dataVendor`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -146,8 +148,9 @@ class masterVendor extends Component {
       TELP: this.state.editTelpvendor,
       EMAIL: this.state.editEmailvendor
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/editdataVendor`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/editdataVendor`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -184,7 +187,7 @@ class masterVendor extends Component {
         buttonAddText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/adddataVendor`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/adddataVendor`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

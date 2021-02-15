@@ -98,8 +98,9 @@ class masterProduksi extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/masterproduksi`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/masterproduksi`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -116,8 +117,9 @@ class masterProduksi extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/masterproduksi`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/masterproduksi`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -134,12 +136,13 @@ class masterProduksi extends Component {
       ...this.state,
       loadingParam:"block",
     });
-    await axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormAddMasterProduksi`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getFormAddMasterProduksi`)
     .then( result => {
       this.setState({
         ...this.state,
-        masterBarangPakaiList: result.data.dataMasterBarang,
+        masterBarangPakaiList: result.data.dataMasterBarangWIP,
         masterBarangSisaList: result.data.dataMasterBarang,
         masterBarangHasilList: result.data.dataMasterBarang,
       });
@@ -219,8 +222,9 @@ class masterProduksi extends Component {
     const dataToSend = {
       KODEMASTERPRODUKSIH: data.kode_master_produksi_h
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getMasterProduksi`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getMasterProduksi`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -293,8 +297,9 @@ class masterProduksi extends Component {
             buttonAddPrm:true,
             buttonAddText:""
         });
+        let APIroute = localStorage.getItem("APIROUTE")
         axios
-        .post(`${process.env.REACT_APP_LINK}/centralkitchen/addMasterProduksi`, dataToSend, {
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addMasterProduksi`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }
@@ -650,8 +655,9 @@ class masterProduksi extends Component {
     const dataToSend = {
       IDPLANPRODUCTION:this.state.detailDataProduksi.kode_master_produksi_h
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/updateMasterProduksi`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/updateMasterProduksi`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -676,8 +682,9 @@ class masterProduksi extends Component {
     const dataToSend = {
       ID: data.kode_master_produksi_h,
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/deleteMasterProduksi`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/deleteMasterProduksi`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

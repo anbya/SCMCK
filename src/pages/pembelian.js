@@ -71,8 +71,9 @@ class pembelian extends Component {
     const dataToSend = {
       OUTLET: prmOUTLET
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getPembelianH`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getPembelianH`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -97,8 +98,9 @@ class pembelian extends Component {
     const dataToSend = {
       OUTLET: prmOUTLET
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getPembelianH`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getPembelianH`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -123,8 +125,9 @@ class pembelian extends Component {
     const dataToSend = {
       OUTLET: prmOUTLET
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getFormAddPembelianCK`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getFormAddPembelianCK`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -179,8 +182,9 @@ class pembelian extends Component {
     const dataToSend = {
       kodePembelianH: data.kode_pembelian_h
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailPembelian`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDetailPembelian`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -318,7 +322,7 @@ class pembelian extends Component {
         buttonAddText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addDataPembelianCK`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addDataPembelianCK`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -378,8 +382,9 @@ class pembelian extends Component {
       buttonEditPrm:true,
       buttonEditText:""
     });
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/receiveOrder`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/receiveOrder`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -452,7 +457,7 @@ class pembelian extends Component {
                 <span style={{fontWeight:"bold"}}>Satuan order</span>
               </Col>
               <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-                <span style={{fontWeight:"bold"}}>Harga perunit</span>
+                <span style={{fontWeight:"bold"}}>Harga beli</span>
               </Col>
             </Row>
             <Row style={{backgroundColor:"#f7f7f7",paddingBottom:10}}>

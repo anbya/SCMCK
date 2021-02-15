@@ -41,8 +41,9 @@ class productionPlanPrint extends Component {
     const dataToSend = {
         IDPRODUKSIH: params.ID
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getProductionPlanReport`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getProductionPlanReport`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

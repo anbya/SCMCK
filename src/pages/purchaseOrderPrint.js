@@ -41,8 +41,9 @@ class purchaseOrderPrint extends Component {
     const dataToSend = {
       IDPOH: params.ID
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getPOReport`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getPOReport`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -221,13 +222,28 @@ class purchaseOrderPrint extends Component {
                                 <Col xs="2" sm="2" md="2" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-end",alignItems:"center",border:"1pt solid #000000"}}><span style={{fontWeight:"bold",fontSize:"12pt"}}>{this.formatNumber(this.state.totalPO)}</span></Col>
                               </Row>
                               <Row>
-                                <Col xs="6" sm="6" md="6" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-start",alignItems:"center",border:"0pt solid #000000"}}><span style={{fontSize:"12pt"}}>Senin-Juma'at Pengiriman  Sebelum Jam 14:00</span></Col>
-                                <Col xs="4" sm="4" md="4" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-start",alignItems:"center",border:"1pt solid #000000"}}><span style={{fontWeight:"bold",fontSize:"12pt"}}>Total</span></Col>
-                                <Col xs="2" sm="2" md="2" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-end",alignItems:"center",border:"1pt solid #000000"}}><span style={{fontWeight:"bold",fontSize:"12pt"}}>{this.formatNumber(this.state.totalPO)}</span></Col>
+                                <Col xs="6" sm="6" md="6" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-start",alignItems:"center",border:"0pt solid #000000"}}><span style={{fontSize:"12pt"}}>Sabtu Pengiriman Sebelum Jam 11:00</span></Col>
+                                <Col xs="4" sm="4" md="4" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-start",alignItems:"center",border:"1pt solid #000000"}}>
+                                    {
+                                        this.state.dataHeader[0].taxParameter == "YES" && <span style={{fontWeight:"bold",fontSize:"12pt"}}>ppn 10%</span>
+                                    }
+                                </Col>
+                                <Col xs="2" sm="2" md="2" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-end",alignItems:"center",border:"1pt solid #000000"}}>
+                                    {
+                                        this.state.dataHeader[0].taxParameter == "YES" && <span style={{fontWeight:"bold",fontSize:"12pt"}}>{this.formatNumber(Math.round(this.state.totalPO*1.1-this.state.totalPO))}</span>
+                                    }
+                                </Col>
                               </Row>
                               <Row>
-                                <Col xs="6" sm="6" md="6" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-start",alignItems:"center",border:"0pt solid #000000"}}><span style={{fontSize:"12pt"}}>Sabtu Pengiriman Sebelum Jam 11:00</span></Col>
-                                <Col xs="6" sm="6" md="6" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-start",alignItems:"center",border:"0pt solid #000000"}}></Col>
+                                <Col xs="6" sm="6" md="6" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-start",alignItems:"center",border:"0pt solid #000000"}}><span style={{fontSize:"12pt"}}>Senin-Juma'at Pengiriman  Sebelum Jam 14:00</span></Col>
+                                <Col xs="4" sm="4" md="4" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-start",alignItems:"center",border:"1pt solid #000000"}}>
+                                    <span style={{fontWeight:"bold",fontSize:"12pt"}}>Total</span>
+                                </Col>
+                                <Col xs="2" sm="2" md="2" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-end",alignItems:"center",border:"1pt solid #000000"}}>
+                                    {
+                                        this.state.dataHeader[0].taxParameter == "YES" ? <span style={{fontWeight:"bold",fontSize:"12pt"}}>{this.formatNumber(this.state.totalPO+Math.round(this.state.totalPO*1.1-this.state.totalPO))}</span> : <span style={{fontWeight:"bold",fontSize:"12pt"}}>{this.formatNumber(this.state.totalPO)}</span>
+                                    }
+                                </Col>
                               </Row>
                           </Col>
                       </Row>

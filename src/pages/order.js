@@ -59,8 +59,9 @@ class order extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getOrderData`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getOrderData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -77,8 +78,9 @@ class order extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getOrderData`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getOrderData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -95,8 +97,9 @@ class order extends Component {
       ...this.state,
       loadingParam:"block",
     });
-    await axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormAddOrder`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getFormAddOrder`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -143,8 +146,9 @@ class order extends Component {
     const dataToSend = {
       kodeOrderH: data.kode_order_h
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailOrderData`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDetailOrderData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -259,7 +263,7 @@ class order extends Component {
         buttonAddText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addFormOrderData`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addFormOrderData`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

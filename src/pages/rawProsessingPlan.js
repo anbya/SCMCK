@@ -88,8 +88,9 @@ class rawProsessing extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getRawProsessingPlanPageH`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getRawProsessingPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -106,8 +107,9 @@ class rawProsessing extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getRawProsessingPlanPageH`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getRawProsessingPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -124,8 +126,9 @@ class rawProsessing extends Component {
       ...this.state,
       loadingParam:"block",
     });
-    await axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormRawProsessingPlan`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getFormRawProsessingPlan`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -207,8 +210,9 @@ class rawProsessing extends Component {
       IDRAWPROCESSH: data.kode_raw_processing_h,
       IDMASTERRAWPROCESS: data.kode_master_rawprosessing_h
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getRawProsessingPlanPageD`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getRawProsessingPlanPageD`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -255,7 +259,8 @@ class rawProsessing extends Component {
     }
     let totalCost = parseInt(this.state.dataProduksiPakaiD[0].cost_satuan)*parseInt(this.state.dataProduksiPakaiD[0].total_qty)
     const dataToSend = {
-      COST:Math.round(parseInt(totalCost)/parseInt(totalQtyWithcost)),
+    //   COST:Math.round(parseInt(totalCost)/parseInt(totalQtyWithcost)),
+      COST:parseInt(totalCost)/parseInt(totalQtyWithcost),
       IDRAWPROCESSH:this.state.detailData.kode_raw_processing_h,
       NOTE:this.state.editNote,
       FINISHEDGOODS:this.state.dataProduksiHasilD,
@@ -266,8 +271,9 @@ class rawProsessing extends Component {
       buttonEditPrm:true,
       buttonEditText:""
     });
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/rawProcessCompletion`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/rawProcessCompletion`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -311,7 +317,7 @@ class rawProsessing extends Component {
         buttonAddText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addFormRawProsessingPlan`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addFormRawProsessingPlan`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -361,8 +367,9 @@ class rawProsessing extends Component {
             KEYPLANPRODUCTION: this.state.prmBarangHasil.kode_master_produksi_h,
             MULTIPLEBY:this.state.tambahqtybaranghasil
         };
+        let APIroute = localStorage.getItem("APIROUTE")
         axios
-        .post(`${process.env.REACT_APP_LINK}/centralkitchen/addItemProductionPlan`, dataToSend, {
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addItemProductionPlan`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }

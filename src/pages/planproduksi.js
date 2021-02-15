@@ -85,8 +85,9 @@ class planProduksi extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getProductionPlanPageH`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getProductionPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -103,8 +104,9 @@ class planProduksi extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getProductionPlanPageH`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getProductionPlanPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -121,8 +123,9 @@ class planProduksi extends Component {
       ...this.state,
       loadingParam:"block",
     });
-    await axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormProductionPlan`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getFormProductionPlan`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -203,8 +206,9 @@ class planProduksi extends Component {
     const dataToSend = {
       IDPRODUKSIH: data.kode_produksi_h
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getProductionPlanPageD`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getProductionPlanPageD`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -264,7 +268,7 @@ class planProduksi extends Component {
         buttonAddText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addFormProductionPlan`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addFormProductionPlan`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -312,8 +316,9 @@ class planProduksi extends Component {
             KEYPLANPRODUCTION: this.state.prmBarangHasil.kode_master_produksi_h,
             MULTIPLEBY:this.state.tambahqtybaranghasil
         };
+        let APIroute = localStorage.getItem("APIROUTE")
         axios
-        .post(`${process.env.REACT_APP_LINK}/centralkitchen/addItemProductionPlan`, dataToSend, {
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addItemProductionPlan`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }
@@ -403,8 +408,9 @@ class planProduksi extends Component {
       buttonEditPrm:true,
       buttonEditText:""
     });
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/productionPlanCompletion`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/productionPlanCompletion`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

@@ -63,8 +63,9 @@ class productout extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getDeliveryOrderData`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDeliveryOrderData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -81,8 +82,9 @@ class productout extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getDeliveryOrderData`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDeliveryOrderData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -99,8 +101,9 @@ class productout extends Component {
       ...this.state,
       loadingParam:"block",
     });
-    await axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getOrderOption`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getOrderOption`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -148,8 +151,9 @@ class productout extends Component {
     const dataToSend = {
       KODEDO: data.kode_delivery_order
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDeliveryOrderDetail`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDeliveryOrderDetail`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -282,8 +286,9 @@ class productout extends Component {
     const dataToSend = {
       kodeOrderH:value.value
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailOrderData`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDetailOrderData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -334,13 +339,14 @@ class productout extends Component {
   handleChangeunitSend = event =>  {
     let IdData = event.target.id
     let daftarBarang = this.state.dataOrderD
-    daftarBarang[IdData].unit_qty_send=event.target.value
     let unitSend = event.target.value==""?0:parseInt(event.target.value)
     let satuanSend = daftarBarang[IdData].satuan_qty_send==""?0:parseInt(daftarBarang[IdData].satuan_qty_send)
-    daftarBarang[IdData].qty_send=parseInt(satuanSend)+(parseInt(unitSend)*parseInt(daftarBarang[IdData].konversi_barang))
-    if(daftarBarang[IdData].qty_send>parseInt(daftarBarang[IdData].qty_in_inventory)){
+    let cekHasilqty_send = parseInt(satuanSend)+(parseInt(unitSend)*parseInt(daftarBarang[IdData].konversi_barang))
+    if(cekHasilqty_send>parseInt(daftarBarang[IdData].qty_in_inventory)){
       alert("qty yang anda input melebihi stok")
     } else {
+        daftarBarang[IdData].unit_qty_send=event.target.value
+        daftarBarang[IdData].qty_send=parseInt(satuanSend)+(parseInt(unitSend)*parseInt(daftarBarang[IdData].konversi_barang))
       this.setState({
         ...this.state,
         dataOrderD: daftarBarang
@@ -354,13 +360,14 @@ class productout extends Component {
     if(event.target.value>maxSatuan){
       alert("angka yang anda input melebihi batas satuan")
     } else{
-      daftarBarang[IdData].satuan_qty_send=event.target.value
       let unitSend = daftarBarang[IdData].unit_qty_send==""?0:parseInt(daftarBarang[IdData].unit_qty_send)
       let satuanSend = event.target.value==""?0:parseInt(event.target.value)
-      daftarBarang[IdData].qty_send=parseInt(satuanSend)+(parseInt(unitSend)*parseInt(daftarBarang[IdData].konversi_barang))
-      if(daftarBarang[IdData].qty_send>parseInt(daftarBarang[IdData].qty_in_inventory)){
+      let cekHasilqty_send = parseInt(satuanSend)+(parseInt(unitSend)*parseInt(daftarBarang[IdData].konversi_barang))
+      if(cekHasilqty_send>parseInt(daftarBarang[IdData].qty_in_inventory)){
         alert("qty yang anda input melebihi stok")
       } else {
+        daftarBarang[IdData].satuan_qty_send=event.target.value
+        daftarBarang[IdData].qty_send=parseInt(satuanSend)+(parseInt(unitSend)*parseInt(daftarBarang[IdData].konversi_barang))
         this.setState({
           ...this.state,
           dataOrderD: daftarBarang
@@ -384,7 +391,7 @@ class productout extends Component {
         buttonAddText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addFormDeliveryOrder`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addFormDeliveryOrder`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -407,7 +414,6 @@ class productout extends Component {
     }
   }
   render() {
-    console.log(this.state.dataOrderD);
     const DataButton = (data) => (
       <div>
         <button className="myBtn" onClick={()=> this.modalEditOpen(data)}><i className="fa fa-search fa-2x" aria-hidden="true"></i></button>
@@ -508,7 +514,7 @@ class productout extends Component {
           </ModalBody>
           <ModalFooter>
             <button className="myBtn" onClick={() => 
-            window.open(`/prepareDeliveryOrderPrint?ID=${this.state.kodeOrderh}`, "_blank")
+            window.open(`${process.env.REACT_APP_PRINT}/#/prepareDeliveryOrderPrint?ID=${this.state.kodeOrderh}`, "_blank")
             } style={{visibility:this.state.dataOrderD.length > 0?"visible":"hidden"}}>
               <i className="fa fa-print fa-2x" aria-hidden="true"></i>
             </button>
@@ -567,20 +573,20 @@ class productout extends Component {
             </Row>
             <Row style={{borderBottom:"1px solid #000000",marginTop:"2vh"}}>
               <Col xs="2" className="dataTableJSAC"><span style={{fontWeight:"bold"}}>KODE BARANG</span></Col>
-              <Col xs="7" className="dataTableJSAC"><span style={{fontWeight:"bold"}}>NAMA BARANG</span></Col>
-              <Col xs="1" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>QTY Req</span></Col>
-              <Col xs="1" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>QTY Send</span></Col>
-              <Col xs="1" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>SATUAN</span></Col>
+              <Col xs="4" className="dataTableJSAC"><span style={{fontWeight:"bold"}}>NAMA BARANG</span></Col>
+              <Col xs="2" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>QTY Req</span></Col>
+              <Col xs="2" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>QTY Send</span></Col>
+              <Col xs="2" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>QTY Received</span></Col>
             </Row>
             <Row className="bodyData">
               <Col>
                 {this.state.detailViewDataDO.length > 0 && this.state.detailViewDataDO.map((detailViewDataDO,index) =>
                   <Row key={index}>
                     <Col xs="2" className="dataTableJSAC"><span style={{fontWeight:"bold"}}>{detailViewDataDO.kode_barang}</span></Col>
-                    <Col xs="7" className="dataTableJSAC"><span style={{fontWeight:"bold"}}>{detailViewDataDO.nama_barang}</span></Col>
-                    <Col xs="1" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>{detailViewDataDO.qty_req}</span></Col>
-                    <Col xs="1" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>{detailViewDataDO.qty_send}</span></Col>
-                    <Col xs="1" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>{detailViewDataDO.satuan_barang}</span></Col>
+                    <Col xs="4" className="dataTableJSAC"><span style={{fontWeight:"bold"}}>{detailViewDataDO.nama_barang}</span></Col>
+                    <Col xs="2" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>{`${detailViewDataDO.qty_req_toShow} ${detailViewDataDO.unit_barang}.${detailViewDataDO.satuan_barang}`}</span></Col>
+                    <Col xs="2" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>{`${detailViewDataDO.qty_send_toShow} ${detailViewDataDO.unit_barang}.${detailViewDataDO.satuan_barang}`}</span></Col>
+                    <Col xs="2" className="dataTableJCAC" style={{padding:0}}><span style={{fontWeight:"bold"}}>{`${detailViewDataDO.qty_receive_toShow} ${detailViewDataDO.unit_barang}.${detailViewDataDO.satuan_barang}`}</span></Col>
                   </Row>
                 )}
               </Col>

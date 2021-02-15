@@ -65,6 +65,7 @@ class productIn extends Component {
       prmOutlet:"",
       masterOutletList:[],
       tambahkodeoutlet:"",
+      tambahParameterPajak:""
     };
   }
   componentDidMount = () =>  {
@@ -72,8 +73,9 @@ class productIn extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getPOData`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -90,8 +92,9 @@ class productIn extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getPOData`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getPOData`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -108,8 +111,9 @@ class productIn extends Component {
       ...this.state,
       loadingParam:"block",
     });
-    await axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormPOData`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getFormPOData`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -134,7 +138,8 @@ class productIn extends Component {
       listAddBarang:[],
       prmOutlet:"",
       tambahkodeoutlet:"",
-      dateForm:dateToForm
+      dateForm:dateToForm,
+      tambahParameterPajak:""
     });
   }
   modalAddClose = () =>  {
@@ -162,14 +167,15 @@ class productIn extends Component {
       masterOutletList:[],
       tambahkodeoutlet:"",
       tanggalKirim: new Date(),
+      tambahParameterPajak:""
     });
   }
   modalEditOpen = async (data) =>  {
     const dataToSend = {
       kodePOH: data.kode_purchase_order_h
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailPOData`, dataToSend, {
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDetailPOData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -312,6 +318,7 @@ class productIn extends Component {
     const dataToSend = {
       VENDORCODE: this.state.tambahkodevendor,
       OUTLETCODE: this.state.tambahkodeoutlet,
+      PAJAK: this.state.tambahParameterPajak,
       TANGGALPO: this.state.dateForm,
       TOTALPURCHASE: this.state.totalPembelian,
       USER:this.props.userinfo.id_user,
@@ -325,14 +332,16 @@ class productIn extends Component {
       alert("Data barang tidak boleh kosong")
     } else if (this.state.tambahkodeoutlet === ""){
       alert("Lokasi pengiriman tidak boleh kosong")
-    } else {
+    } else if (this.state.tambahParameterPajak === ""){
+      alert("Parameter pajak tidak boleh kosong")
+    }else {
       this.setState({
         ...this.state,
         buttonAddPrm:true,
         buttonAddText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addFormPOData`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addFormPOData`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -370,8 +379,9 @@ class productIn extends Component {
       IDPO:this.state.detailDataPO.kode_purchase_order_h
     };
     console.log(dataToSend);
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/cancelPO`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/cancelPO`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -468,7 +478,17 @@ class productIn extends Component {
                   />
                 </FormGroup>
               </Col>
-              <Col xs="12" sm="12" md="6">
+              <Col xs="12" sm="12" md="3">
+                <FormGroup>
+                  <Label for="tambahParameterPajak">Pajak</Label>
+                    <Input type="select" name="tambahParameterPajak" id="tambahParameterPajak" value={this.state.tambahParameterPajak}  onChange={this.handleChange}>
+                      <option value="">Pilih parameter pajak</option>
+                      <option value="YES">DENGAN PAJAK</option>
+                      <option value="NO">TANPA PAJAK</option>
+                    </Input>
+                </FormGroup>
+              </Col>
+              <Col xs="12" sm="12" md="3">
                 <FormGroup>
                   <Label for="detailbuatpo">Tanggal kirim</Label>
                   <br></br>
@@ -501,7 +521,7 @@ class productIn extends Component {
               <span style={{fontWeight:"bold"}}>{this.state.prmBarang.unit == undefined?"---":this.state.prmBarang.unit}</span>
               </Col>
               <Col xs="12" sm="12" md="3">
-                <Input type="number" name="tambahhargabarang" id="tambahhargabarang" value={this.state.tambahhargabarang} onChange={this.handleChange} placeholder="Harga perunit" min="0" disabled={true} />
+                <Input type="number" name="tambahhargabarang" id="tambahhargabarang" value={this.state.tambahhargabarang} onChange={this.handleChange} placeholder="Harga perunit" min="0"/>
               </Col>
               <Col xs="12" sm="12" md="1" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
                 <Button color="success" onClick={() => this.addData()}>
@@ -537,11 +557,20 @@ class productIn extends Component {
                 )}
               </Col>
             </Row>
-            <Row style={{backgroundColor:"#f7f7f7",minHeight:"10vh"}}>
-              <Col xs="12" sm="12" md="6">
+            <Row style={{backgroundColor:"#f7f7f7",paddingTop:"3vh",paddingBottom:"3vh"}}>
+              <Col xs="12" sm="12" md="9">
               </Col>
-              <Col xs="12" sm="12" md="6">
-                <span style={{fontWeight:"bold"}}>Total Pembelian : {this.state.totalPembelian}</span>
+              <Col xs="12" sm="12" md="3">
+                  <Row>
+                      <Col>
+                        <span style={{fontWeight:"bold"}}>Total Pembelian : {this.state.totalPembelian}</span>
+                      </Col>
+                  </Row>
+                  <Row>
+                      <Col>
+                        <span style={{fontWeight:"bold"}}>ppn 10% : {this.state.tambahParameterPajak == "YES" ? Math.round(this.state.totalPembelian*1.1-this.state.totalPembelian) : 0}</span>
+                      </Col>
+                  </Row>
               </Col>
             </Row>
           </ModalBody>
@@ -607,11 +636,20 @@ class productIn extends Component {
                 )}
               </Col>
             </Row>
-            <Row style={{backgroundColor:"#f7f7f7",minHeight:"10vh"}}>
+            <Row style={{backgroundColor:"#f7f7f7",paddingTop:"3vh",paddingBottom:"3vh"}}>
               <Col xs="12" sm="12" md="6">
               </Col>
               <Col xs="12" sm="12" md="6">
-                <span style={{fontWeight:"bold"}}>Total Pembelian : {this.state.detailDataPO.jumlah_pembelian}</span>
+                  <Row>
+                      <Col>
+                        <span style={{fontWeight:"bold"}}>Total Pembelian : {this.state.detailDataPO.jumlah_pembelian}</span>
+                      </Col>
+                  </Row>
+                  <Row>
+                      <Col>
+                        <span style={{fontWeight:"bold"}}>ppn 10% : {this.state.detailDataPO.taxParameter == "YES" ? Math.round(this.state.detailDataPO.jumlah_pembelian*1.1-this.state.detailDataPO.jumlah_pembelian) : 0}</span>
+                      </Col>
+                  </Row>
               </Col>
             </Row>
             {this.state.detailDataPO.tanggal_masuk_barang==""?

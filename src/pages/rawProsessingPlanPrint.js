@@ -41,8 +41,9 @@ class rawProcessingPlanPrint extends Component {
     const dataToSend = {
         IDRAWPROCESSINGH: params.ID
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getRawProsessingPlanReport`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getRawProsessingPlanReport`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

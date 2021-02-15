@@ -67,8 +67,9 @@ class transferIn extends Component {
     const dataToSend = {
       OUTLET: prmOUTLET
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getTransferinData`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getTransferinData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -93,8 +94,9 @@ class transferIn extends Component {
     const dataToSend = {
       OUTLET: prmOUTLET
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getTransferinData`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getTransferinData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -114,8 +116,9 @@ class transferIn extends Component {
     const dataToSend = {
       kodeTO: data.kode_between_transfer
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailTransferoutData`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDetailTransferoutData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -194,8 +197,9 @@ class transferIn extends Component {
         dataTOD:this.state.dataTOD
     };
     console.log(dataToSend);
+    let APIroute = localStorage.getItem("APIROUTE")
     axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/receivePO`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/receivePO`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -222,8 +226,9 @@ class transferIn extends Component {
       buttonEditPrm:true,
       buttonEditText:""
     });
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/receiveTransferOutCK`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/receiveTransferOutCK`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

@@ -62,8 +62,9 @@ class masterBarang extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/masterbarang`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/masterbarang`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -80,8 +81,9 @@ class masterBarang extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/masterbarang`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/masterbarang`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -94,8 +96,9 @@ class masterBarang extends Component {
     });
   }
   modalAddOpen = async () =>  {
-    await axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getVendorOption`)
+    let APIroute = localStorage.getItem("APIROUTE")
+    axios
+    .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getVendorOption`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -140,8 +143,9 @@ class masterBarang extends Component {
       value: data.kode_vendor,
       label: data.vendor_name
     };
-    await axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getVendorOption`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getVendorOption`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -215,7 +219,7 @@ class masterBarang extends Component {
         buttonEditText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/editMasterBarangData`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/editMasterBarangData`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -267,7 +271,7 @@ class masterBarang extends Component {
         buttonAddText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addMasterBarangData`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addMasterBarangData`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -402,6 +406,7 @@ class masterBarang extends Component {
                   <Input type="select" name="tambahtypebarang" id="tambahtypebarang" value={this.state.tambahtypebarang}  onChange={this.handleChange}>
                     <option value="">Pilih type barang</option>
                     <option value="RAW MATERIAL">Raw material</option>
+                    <option value="WORK IN PROGRESS">WORK IN PROGRESS</option>
                     <option value="FINISHED GOODS">Finished goods</option>
                   </Input>
                 </FormGroup>
@@ -474,6 +479,7 @@ class masterBarang extends Component {
                   <Input type="select" name="edittypebarang" id="edittypebarang" value={this.state.edittypebarang}  onChange={this.handleChange}>
                     <option value="">Pilih type barang</option>
                     <option value="RAW MATERIAL">Raw material</option>
+                    <option value="WORK IN PROGRESS">WORK IN PROGRESS</option>
                     <option value="FINISHED GOODS">Finished goods</option>
                   </Input>
                 </FormGroup>

@@ -40,8 +40,9 @@ class transferOutPrint extends Component {
     const dataToSend = {
         ID: params.ID
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getTransferoutPrint`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getTransferoutPrint`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

@@ -81,8 +81,9 @@ class produksi extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getProduksiPageH`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getProduksiPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -99,8 +100,9 @@ class produksi extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getProduksiPageH`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getProduksiPageH`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -117,8 +119,9 @@ class produksi extends Component {
       ...this.state,
       loadingParam:"block",
     });
-    await axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormAddProduksi`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getFormAddProduksi`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -200,8 +203,9 @@ class produksi extends Component {
     const dataToSend = {
       KODEPRODUKSIH: data.kode_produksi_h
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getProduksiPageD`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getProduksiPageD`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -261,7 +265,7 @@ class produksi extends Component {
         buttonAddText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addProduksi`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addProduksi`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -315,8 +319,9 @@ class produksi extends Component {
           tambahsatuanbaranghasil:"",
           tambahqtybaranghasil:"",
         });
-        await axios
-        .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailBarangProduksi`, dataToSend, {
+        let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDetailBarangProduksi`, dataToSend, {
           headers: {
             "Access-Control-Allow-Origin": "*"
           }
@@ -348,8 +353,9 @@ class produksi extends Component {
           tambahsatuanbaranghasil:"",
           tambahqtybaranghasil:"",
         });
-        await axios
-        .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailBarangProduksi`, dataToSend, {
+        let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDetailBarangProduksi`, dataToSend, {
           headers: {
             "Access-Control-Allow-Origin": "*"
           }

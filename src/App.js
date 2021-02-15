@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from "axios";
 import './App.css';
 import "./assets/font-awesome/css/font-awesome.min.css";
 import 'react-data-table-component-extensions/dist/index.css';
@@ -35,57 +36,70 @@ import DeliveryOrderPrint from "./pages/deliveryOrderPrint";
 import TransferInPage from "./pages/transferInPage";
 import TransferOutPage from "./pages/transferOutPage";
 import PembelianPage from "./pages/pembelianPage";
+import StockReconciliationPage from "./pages/stockReconciliationPage";
 
-
-function App() {
-  return (
-    <div>
-    <Provider store={store}>
-      <Router>
-        <Switch>
-            <Route exact path="/">
-                <Loginpage />
-            </Route>
-            <Route path="/purchaseOrderPrint">
-                <PurchaseOrderPrint />
-            </Route>
-            <Route path="/productionPlanPrint">
-                <ProductionPlanPrint />
-            </Route>
-            <Route path="/rawProsessingPlanPrint">
-                <RawProsessingPlanPrint />
-            </Route>
-            <Route path="/prepareDeliveryOrderPrint">
-                <PrepareDeliveryOrderPrint />
-            </Route>
-            <Route path="/deliveryOrderPrint">
-                <DeliveryOrderPrint />
-            </Route>
-            <PrivateRoute component={Mainpage} path="/home"/>
-            <PrivateRoute component={UserPage} path="/user"/>
-            <PrivateRoute component={MasterVendor} path="/mastervendor"/>
-            <PrivateRoute component={MasterOutlet} path="/masteroutlet"/>
-            <PrivateRoute component={MasterBarang} path="/masterbarang"/>
-            <PrivateRoute component={MasterProduksiPage} path="/masterproduksi"/>
-            <PrivateRoute component={MasterRawProcessingPage} path="/masterRawProcessingPage"/>
-            <PrivateRoute component={MasterPluPage} path="/masterplu"/>
-            <PrivateRoute component={ProductinPage} path="/productin"/>
-            <PrivateRoute component={ReceivepoPage} path="/receive_po"/>
-            <PrivateRoute component={RawProsessingPage} path="/rawProsessingPlan"/>
-            <PrivateRoute component={PlanproduksiPage} path="/planproduksiPage"/>
-            <PrivateRoute component={CompletionplanproduksiPage} path="/completionplanproduksiPage"/>
-            <PrivateRoute component={ProduksiPage} path="/produksi"/>
-            <PrivateRoute component={ProductoutPage} path="/productout"/>
-            <PrivateRoute component={ReportPage} path="/report"/>
-            <PrivateRoute component={TestReport} path="/testreport"/>
-            <PrivateRoute component={TransferInPage} path="/transferin"/>
-            <PrivateRoute component={TransferOutPage} path="/transferout"/>
-            <PrivateRoute component={PembelianPage} path="/pembelian"/>
-        </Switch>
-      </Router>
-    </Provider>
-    </div>
-  );
+class App extends Component {
+    componentDidMount = () =>  {
+        axios
+        .get(`${process.env.REACT_APP_LINK}`)
+        .then(async result => {
+            await localStorage.setItem("APIROUTE",result.data.APIROUTE)
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+    render() {
+        return (
+            <div>
+            <Provider store={store}>
+              <Router>
+                <Switch>
+                    <Route exact path="/">
+                        <Loginpage />
+                    </Route>
+                    <Route path="/purchaseOrderPrint">
+                        <PurchaseOrderPrint />
+                    </Route>
+                    <Route path="/productionPlanPrint">
+                        <ProductionPlanPrint />
+                    </Route>
+                    <Route path="/rawProsessingPlanPrint">
+                        <RawProsessingPlanPrint />
+                    </Route>
+                    <Route path="/prepareDeliveryOrderPrint">
+                        <PrepareDeliveryOrderPrint />
+                    </Route>
+                    <Route path="/deliveryOrderPrint">
+                        <DeliveryOrderPrint />
+                    </Route>
+                    <PrivateRoute component={Mainpage} path="/home"/>
+                    <PrivateRoute component={UserPage} path="/user"/>
+                    <PrivateRoute component={MasterVendor} path="/mastervendor"/>
+                    <PrivateRoute component={MasterOutlet} path="/masteroutlet"/>
+                    <PrivateRoute component={MasterBarang} path="/masterbarang"/>
+                    <PrivateRoute component={MasterProduksiPage} path="/masterproduksi"/>
+                    <PrivateRoute component={MasterRawProcessingPage} path="/masterRawProcessingPage"/>
+                    <PrivateRoute component={MasterPluPage} path="/masterplu"/>
+                    <PrivateRoute component={ProductinPage} path="/productin"/>
+                    <PrivateRoute component={ReceivepoPage} path="/receive_po"/>
+                    <PrivateRoute component={RawProsessingPage} path="/rawProsessingPlan"/>
+                    <PrivateRoute component={PlanproduksiPage} path="/planproduksiPage"/>
+                    <PrivateRoute component={CompletionplanproduksiPage} path="/completionplanproduksiPage"/>
+                    <PrivateRoute component={ProduksiPage} path="/produksi"/>
+                    <PrivateRoute component={ProductoutPage} path="/productout"/>
+                    <PrivateRoute component={ReportPage} path="/report"/>
+                    <PrivateRoute component={TestReport} path="/testreport"/>
+                    <PrivateRoute component={TransferInPage} path="/transferin"/>
+                    <PrivateRoute component={TransferOutPage} path="/transferout"/>
+                    <PrivateRoute component={PembelianPage} path="/pembelian"/>
+                    <PrivateRoute component={StockReconciliationPage} path="/stokrecon"/>
+                </Switch>
+              </Router>
+            </Provider>
+            </div>
+        );
+    }
 }
 
 export default App;

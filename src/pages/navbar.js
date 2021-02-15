@@ -35,7 +35,7 @@ class navbar extends Component {
           NIK: prmNIK
         };
         axios
-        .post(`${process.env.REACT_APP_LINK}/centralkitchen/getAkses`, dataToSend, {
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getAkses`, dataToSend, {
           headers: {
             "Access-Control-Allow-Origin": "*"
           }
@@ -63,10 +63,11 @@ class navbar extends Component {
       });
     }
     logout = async () =>{
-      await this.props.history.push({ pathname: "/" })
-      await this.props.dispatch({ type: "SETAKSES", payload: "" });
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("outletID");
+        await localStorage.removeItem("authToken");
+        await localStorage.removeItem("outletID");
+        await this.props.history.push({ pathname: "/" })
+        await this.props.dispatch({ type: "SETAKSES", payload: "" });
+        await this.props.dispatch({ type: "SETUSERINFO", payload: "" });
     }
     render() {
         return (
@@ -110,6 +111,9 @@ class navbar extends Component {
                         </DropdownItem>
                         <DropdownItem onClick={() =>  {this.props.history.push({pathname: "/masterplu"})}}>
                           Master Plu
+                        </DropdownItem>
+                        <DropdownItem onClick={() =>  {this.props.history.push({pathname: "/stokrecon"})}}>
+                            Stock Reconciliation
                         </DropdownItem>
                       </DropdownMenu>
                     </UncontrolledDropdown>: ""

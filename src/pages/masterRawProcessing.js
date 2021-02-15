@@ -98,8 +98,9 @@ class masterRawProcessing extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getMasterRawprosessing`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getMasterRawprosessing`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -116,8 +117,9 @@ class masterRawProcessing extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getMasterRawprosessing`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getMasterRawprosessing`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -134,8 +136,9 @@ class masterRawProcessing extends Component {
       ...this.state,
       loadingParam:"block",
     });
-    await axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getFormAddMasterRawprosessing`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getFormAddMasterRawprosessing`)
     .then( result => {
       this.setState({
         ...this.state,
@@ -218,8 +221,9 @@ class masterRawProcessing extends Component {
     const dataToSend = {
       KODEDATAH: data.kode_master_rawprosessing_h
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getMasterRawprosessingD`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getMasterRawprosessingD`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -293,8 +297,9 @@ class masterRawProcessing extends Component {
             buttonAddPrm:true,
             buttonAddText:""
         });
+        let APIroute = localStorage.getItem("APIROUTE")
         axios
-        .post(`${process.env.REACT_APP_LINK}/centralkitchen/addMasterRawprosessing`, dataToSend, {
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addMasterRawprosessing`, dataToSend, {
             headers: {
             "Access-Control-Allow-Origin": "*"
             }
@@ -517,8 +522,9 @@ class masterRawProcessing extends Component {
     const dataToSend = {
       ID: data.kode_master_produksi_h,
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/deleteMasterProduksi`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/deleteMasterProduksi`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -541,8 +547,9 @@ class masterRawProcessing extends Component {
     const dataToSend = {
       IDRAWPROCESSs:this.state.detailDataProduksi.kode_master_rawprosessing_h
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/updateMasterrawprosessing`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/updateMasterrawprosessing`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }

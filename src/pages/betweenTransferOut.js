@@ -75,8 +75,9 @@ class transferOut extends Component {
     const dataToSend = {
       OUTLET: prmOUTLET
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getTransferoutData`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getTransferoutData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -101,8 +102,9 @@ class transferOut extends Component {
     const dataToSend = {
       OUTLET: prmOUTLET
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getTransferoutData`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getTransferoutData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -127,8 +129,9 @@ class transferOut extends Component {
       ...this.state,
       loadingParam:"block",
     });
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getFormTOCK`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getFormTOCK`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -194,8 +197,9 @@ class transferOut extends Component {
     const dataToSend = {
       kodeTO: data.kode_between_transfer
     };
-    await axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDetailTransferoutData`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDetailTransferoutData`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -368,7 +372,7 @@ class transferOut extends Component {
         buttonAddText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/addFormTOCK`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addFormTOCK`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }

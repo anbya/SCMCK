@@ -24,7 +24,7 @@ import dataDummy from './dummyData'
 import { HashLoader , ScaleLoader } from 'react-spinners';
 import Select from 'react-select';
 
-class user extends Component {
+class stockReconciliation extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -112,6 +112,7 @@ class user extends Component {
       ...this.state,
       prmoverlay: true
     });
+    let APIroute = localStorage.getItem("APIROUTE")
         axios
         .get(`https://api.jaygeegroupapp.com/hris`)
     .then( async result => {
@@ -444,7 +445,7 @@ class user extends Component {
                 <div className="card-header">
                   <Row>
                     <Col xs="10" sm="10" md="10" style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
-                      <span style={{fontWeight:"bold"}}>User Management</span>
+                      <span style={{fontWeight:"bold"}}>Stock Reconciliation</span>
                     </Col>
                     <Col xs="2" sm="2" md="2" style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
                       <button className="myBtn" onClick={() => this.modalAddOpen()}><i className="fa fa-plus-square fa-2x" aria-hidden="true"></i></button>
@@ -486,4 +487,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(user));
+export default withRouter(connect(mapStateToProps)(stockReconciliation));

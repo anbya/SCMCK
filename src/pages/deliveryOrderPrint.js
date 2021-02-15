@@ -41,8 +41,9 @@ class deliveryOrderPrint extends Component {
     const dataToSend = {
         ID: params.ID
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/getDeliveryOrderReport`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getDeliveryOrderReport`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -154,15 +155,13 @@ class deliveryOrderPrint extends Component {
                               <Row>
                                   <Col xs="1" sm="1" md="1" style={{display:"flex",display:"-webkit-flex",justifyContent:"flex-start",alignItems:"center",border:"1pt solid #000000"}}><span style={{fontWeight:"bold",fontSize:"12pt"}}>NO.</span></Col>
                                   <Col xs="7" sm="7" md="7" style={{display:"flex",display:"-webkit-flex",justifyContent:"center",alignItems:"center",border:"1pt solid #000000"}}><span style={{fontWeight:"bold",fontSize:"12pt"}}>Nama barang</span></Col>
-                                  <Col xs="2" sm="2" md="2" style={{display:"flex",display:"-webkit-flex",justifyContent:"center",alignItems:"center",border:"1pt solid #000000"}}><span style={{fontWeight:"bold",fontSize:"12pt"}}>QTY</span></Col>
-                                  <Col xs="2" sm="2" md="2" style={{display:"flex",display:"-webkit-flex",justifyContent:"center",alignItems:"center",border:"1pt solid #000000"}}><span style={{fontWeight:"bold",fontSize:"12pt"}}>Satuan</span></Col>
+                                  <Col xs="4" sm="4" md="4" style={{display:"flex",display:"-webkit-flex",justifyContent:"center",alignItems:"center",border:"1pt solid #000000"}}><span style={{fontWeight:"bold",fontSize:"12pt"}}>Send Qty</span></Col>
                               </Row>
                           {this.state.dataRow[index1].length > 0 && this.state.dataRow[index1].map((dummyDataRow2,index2) =>
                               <Row key={index2}>
                                   <Col xs="1" sm="1" md="1" className={index2+1==this.state.dataRow[index1].length?"lastRowData":"rowData"}><span style={{fontSize:"12pt"}}>{index1*20+index2+1}</span></Col>
                                   <Col xs="7" sm="7" md="7" className={index2+1==this.state.dataRow[index1].length?"lastRowDataleft":"rowDataleft"}><span style={{fontSize:"12pt"}}>{dummyDataRow2.nama_barang}</span></Col>
-                                  <Col xs="2" sm="2" md="2" className={index2+1==this.state.dataRow[index1].length?"lastRowData":"rowData"}><span style={{fontSize:"12pt"}}>{dummyDataRow2.qty}</span></Col>
-                                  <Col xs="2" sm="2" md="2" className={index2+1==this.state.dataRow[index1].length?"lastRowDataright":"rowDataright"}><span style={{fontSize:"12pt"}}>{dummyDataRow2.satuan_barang}</span></Col>
+                                  <Col xs="4" sm="4" md="4" className={index2+1==this.state.dataRow[index1].length?"lastRowData":"rowData"}><span style={{fontSize:"12pt"}}>{`${dummyDataRow2.qty_toShow} ${dummyDataRow2.unit_barang}.${dummyDataRow2.satuan_barang}`}</span></Col>
                               </Row>
                           )}
                           </Col>

@@ -20,11 +20,17 @@ class loginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginNik:"",
-      loginPass:"",
-      buttonLoginPrm:false,
-      buttonLoginText:"Login",
+        prmoverlay:false,
+        APIROUTE:"",
+        loginNik:"",
+        loginPass:"",
+        buttonLoginPrm:false,
+        buttonLoginText:"Login",
     };
+  }
+  componentDidMount = async () =>  {
+    let authToken = await localStorage.getItem("authToken")
+    authToken != null && this.props.history.push({ pathname: "/home" })
   }
   loginCheck = async () =>{
     const dataToSend = {
@@ -40,7 +46,7 @@ class loginPage extends Component {
         buttonLoginText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/login`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/login`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
@@ -56,20 +62,13 @@ class loginPage extends Component {
           await localStorage.setItem("authToken",prmNIK)
           await localStorage.setItem("outletID","OUT0000001")
           this.props.history.push({ pathname: "/home" })
-        } else if(result.data.status === "01") {
+        } else {
           this.setState({
             ...this.state,
             buttonLoginPrm:false,
             buttonLoginText:"Login"
           });
-          alert("Password salah")
-        } else if(result.data.status === "02") {
-          this.setState({
-            ...this.state,
-            buttonLoginPrm:false,
-            buttonLoginText:"Login"
-          });
-          alert("User tidak ditemukan")
+          alert(result.data.message)
         }
       })
       .catch(error => {
@@ -86,44 +85,59 @@ class loginPage extends Component {
   }
   render() {
     return (
-      <Container fluid={true} style={{backgroundColor:"#003060",height:"100vh",display:"flex",justifyContent:"center",alignItems:"center"}}>
-        <div className="card" style={{backgroundColor:"rgba(255, 255, 255, 0)"}}>
-          <div className="card-body" style={{backgroundColor:"rgba(255, 255, 255, 0.6)",borderRadius:10}}>
-            <Row style={{paddingTop:30,paddingBottom:30}}>
-              <Col style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-                <img className="portoimage" width="50%" src={jgLogo} alt="jgLogo" style={{borderRadius:150}} />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <FormGroup>
-                  <Label for="loginNik">NIK</Label>
-                  <Input type="text" name="loginNik" id="loginNik" value={this.state.loginNik} onChange={this.handleChange} placeholder="Input NIK" />
-                </FormGroup>
-                <FormGroup>
-                  <Label for="loginPass">Password</Label>
-                  <Input type="password" name="loginPass" id="loginPass" value={this.state.loginPass} onChange={this.handleChange} placeholder="Input Password" />
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row style={{paddingBottom:30}}>
-              <Col>
-                <button className="my-btn full-widht" onClick={() => this.loginCheck()}>
-                  <ScaleLoader
-                    height={18}
-                    width={4}
-                    radius={2}
-                    margin={2}
-                    color={'#FFFFFF'}
-                    loading={this.state.buttonLoginPrm}
-                  />
-                  {this.state.buttonLoginText}
-                </button>
-              </Col>
-            </Row>
-          </div>
+        <div>
+            <div style={{visibility:this.state.prmoverlay==true?"visible":"hidden"}}>
+                <div className="overlayMask">
+                    <ScaleLoader
+                    height={90}
+                    width={20}
+                    radius={10}
+                    margin={10}
+                    color={'#ffffff'}
+                    loading={this.state.prmoverlay == true?true:false}
+                    />
+                    <span style={{color:"#ffffff"}}>Waiting for data . . . </span>
+                </div>
+            </div>
+            <Container fluid={true} style={{backgroundColor:"#003060",height:"100vh",display:"flex",justifyContent:"center",alignItems:"center"}}>
+                <div className="card" style={{backgroundColor:"rgba(255, 255, 255, 0)"}}>
+                    <div className="card-body" style={{backgroundColor:"rgba(255, 255, 255, 0.6)",borderRadius:10}}>
+                        <Row style={{paddingTop:30,paddingBottom:30}}>
+                        <Col style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                            <img className="portoimage" width="50%" src={jgLogo} alt="jgLogo" style={{borderRadius:150}} />
+                        </Col>
+                        </Row>
+                        <Row>
+                        <Col>
+                            <FormGroup>
+                            <Label for="loginNik">NIK</Label>
+                            <Input type="text" name="loginNik" id="loginNik" value={this.state.loginNik} onChange={this.handleChange} placeholder="Input NIK" />
+                            </FormGroup>
+                            <FormGroup>
+                            <Label for="loginPass">Password</Label>
+                            <Input type="password" name="loginPass" id="loginPass" value={this.state.loginPass} onChange={this.handleChange} placeholder="Input Password" />
+                            </FormGroup>
+                        </Col>
+                        </Row>
+                        <Row style={{paddingBottom:30}}>
+                        <Col>
+                            <button className="my-btn full-widht" onClick={() => this.loginCheck()}>
+                            <ScaleLoader
+                                height={18}
+                                width={4}
+                                radius={2}
+                                margin={2}
+                                color={'#FFFFFF'}
+                                loading={this.state.buttonLoginPrm}
+                            />
+                            {this.state.buttonLoginText}
+                            </button>
+                        </Col>
+                        </Row>
+                    </div>
+                </div>
+            </Container>
         </div>
-      </Container>
     );
   }
 }

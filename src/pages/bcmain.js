@@ -71,8 +71,9 @@ class mainPage extends Component {
       loadingOpenOrder:true,
       loadingInventory:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataDashboard`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/dataDashboard`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -93,8 +94,9 @@ class mainPage extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/getPOData`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getPOData`)
     .then(result => {
       this.setState({
         ...this.state,

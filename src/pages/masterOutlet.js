@@ -62,8 +62,9 @@ class masterOutlet extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataOutlet`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/dataOutlet`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -80,8 +81,9 @@ class masterOutlet extends Component {
       ...this.state,
       loading:true,
     });
-    axios
-    .get(`${process.env.REACT_APP_LINK}/centralkitchen/dataOutlet`)
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/dataOutlet`)
     .then(result => {
       this.setState({
         ...this.state,
@@ -152,8 +154,9 @@ class masterOutlet extends Component {
       TELP: this.state.editTelpoutlet,
       EMAIL: this.state.editEmailoutlet
     };
-    axios
-    .post(`${process.env.REACT_APP_LINK}/centralkitchen/editdataOutlet`, dataToSend, {
+    let APIroute = localStorage.getItem("APIROUTE")
+        axios
+        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/editdataOutlet`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -190,7 +193,7 @@ class masterOutlet extends Component {
         buttonAddText:""
       });
       axios
-      .post(`${process.env.REACT_APP_LINK}/centralkitchen/adddataOutlet`, dataToSend, {
+      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/adddataOutlet`, dataToSend, {
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
