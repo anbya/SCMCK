@@ -35,6 +35,8 @@ import PrepareDeliveryOrderPrint from "./pages/prepareDeliveryOrderPrint";
 import DeliveryOrderPrint from "./pages/deliveryOrderPrint";
 import TransferInPage from "./pages/transferInPage";
 import TransferOutPage from "./pages/transferOutPage";
+import ReturnPage from "./pages/returnPage";
+import WastePage from "./pages/wastePage";
 import PembelianPage from "./pages/pembelianPage";
 import StockReconciliationPage from "./pages/stockReconciliationPage";
 
@@ -92,6 +94,8 @@ class App extends Component {
                     <PrivateRoute component={TestReport} path="/testreport"/>
                     <PrivateRoute component={TransferInPage} path="/transferin"/>
                     <PrivateRoute component={TransferOutPage} path="/transferout"/>
+                    <PrivateRoute component={ReturnPage} path="/return"/>
+                    <PrivateRoute component={WastePage} path="/waste"/>
                     <PrivateRoute component={PembelianPage} path="/pembelian"/>
                     <PrivateRoute component={StockReconciliationPage} path="/stokrecon"/>
                 </Switch>

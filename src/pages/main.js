@@ -233,173 +233,173 @@ class mainPage extends Component {
       },
     ];
     return (
-      <div>
-        <Container fluid={true} style={{paddingBottom:30}}>
-            <Row>
-              <Col xs="12" sm="12" md="12" style={{padding:0}}>
-                <div className="card">
-                  <div className="card-header">
-                    <span style={{fontWeight:"bold"}}>Hello {this.props.userinfo.nama_user}</span>
-                  </div>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs="12" sm="12" md="12">
+        <div>
+            <Container fluid={true} style={{paddingBottom:30}}>
                 <Row>
-                  <Col xs="12" sm="12" md="6" style={{padding:5}}>
-                    <div className="card" style={{height:"100%"}}>
-                      <div className="card-header">
-                        <Row>
-                          <Col xs="12" sm="12" md="12" style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
-                            <span style={{fontWeight:"bold"}}>Raw material</span>
-                          </Col>
-                          {/* <Col xs="2" sm="2" md="2" style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
-                            <button className="myBtn" onClick={() => this.exportPDF()}><i className="fa fa-plus-square fa-2x" aria-hidden="true"></i></button>
-                          </Col> */}
-                        </Row>
-                      </div>
-                      <div className="card-body">
-                        <DataTableExtensions
-                            columns={inventoryColumns}
-                            data={this.state.dataInventory}
-                            print={false}
-                            exportHeaders={false}
-                            export={false}
-                        >
-                          <DataTable
-                            defaultSortField="title"
-                            pagination={true}
-                            highlightOnHover={true}
-                            striped={false}
-                            progressPending={this.state.loadingInventory}
-                            noHeader={true}
-                            fixedHeader={false}
-                            paginationPerPage={5}
-                            paginationRowsPerPageOptions={[5]}
-                            fixedHeaderScrollHeight="300px"
-                            conditionalRowStyles={conditionalInventoryRowStyles}
-                          />
-                        </DataTableExtensions>
-                      </div>
+                <Col xs="12" sm="12" md="12" style={{padding:0}}>
+                    <div className="card">
+                    <div className="card-header">
+                        <span style={{fontWeight:"bold"}}>Hello {this.props.userinfo.nama_user}</span>
                     </div>
-                  </Col>
-                  <Col xs="12" sm="12" md="6" style={{padding:5}}>
-                    <div className="card" style={{height:"100%"}}>
-                      <div className="card-header">
-                        <Row>
-                          <Col xs="12" sm="12" md="12" style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
-                            <span style={{fontWeight:"bold"}}>Finished Goods</span>
-                          </Col>
-                          {/* <Col xs="2" sm="2" md="2" style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
-                            <button className="myBtn" onClick={() => this.exportPDF()}><i className="fa fa-plus-square fa-2x" aria-hidden="true"></i></button>
-                          </Col> */}
-                        </Row>
-                      </div>
-                      <div className="card-body">
-                        <DataTableExtensions
-                            columns={inventory2Columns}
-                            data={this.state.dataInventory2}
-                            print={false}
-                            exportHeaders={false}
-                            export={false}
-                        >
-                          <DataTable
-                            defaultSortField="title"
-                            pagination={true}
-                            highlightOnHover={true}
-                            striped={false}
-                            progressPending={this.state.loadingInventory2}
-                            noHeader={true}
-                            fixedHeader={false}
-                            paginationPerPage={5}
-                            paginationRowsPerPageOptions={[5]}
-                            fixedHeaderScrollHeight="300px"
-                            conditionalRowStyles={conditionalInventory2RowStyles}
-                          />
-                        </DataTableExtensions>
-                      </div>
                     </div>
-                  </Col>
+                </Col>
                 </Row>
                 <Row>
-                  <Col xs="12" sm="12" md="6" style={{padding:5}}>
-                    <div className="card" style={{height:"100%"}}>
-                      <div className="card-header">
-                        <Row>
-                          <Col xs="12" sm="12" md="12" style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
-                            <span style={{fontWeight:"bold"}}>Recent Purchase</span>
-                          </Col>
-                          {/* <Col xs="2" sm="2" md="2" style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
-                            <button className="myBtn" onClick={() => this.exportPDF()}><i className="fa fa-plus-square fa-2x" aria-hidden="true"></i></button>
-                          </Col> */}
-                        </Row>
-                      </div>
-                      <div className="card-body">
-                        <DataTableExtensions
-                            columns={recentPurchaseColumns}
-                            data={this.state.dataRecentPurchase}
-                            print={false}
-                            exportHeaders={false}
-                            export={false}
-                        >
-                          <DataTable
-                            defaultSortField="title"
-                            pagination={true}
-                            highlightOnHover={true}
-                            striped={false}
-                            progressPending={this.state.loadingRecentPurchase}
-                            noHeader={true}
-                            fixedHeader={false}
-                            paginationPerPage={5}
-                            paginationRowsPerPageOptions={[5]}
-                            fixedHeaderScrollHeight="300px"
-                          />
-                        </DataTableExtensions>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col xs="12" sm="12" md="6" style={{padding:5}}>
-                    <div className="card" style={{height:"100%"}}>
-                      <div className="card-header">
-                        <Row>
-                          <Col xs="12" sm="12" md="12" style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
-                            <span style={{fontWeight:"bold"}}>Open Order</span>
-                          </Col>
-                          {/* <Col xs="2" sm="2" md="2" style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
-                            <button className="myBtn" onClick={() => this.exportPDF()}><i className="fa fa-plus-square fa-2x" aria-hidden="true"></i></button>
-                          </Col> */}
-                        </Row>
-                      </div>
-                      <div className="card-body">
-                        <DataTableExtensions
-                            columns={openOrderColumns}
-                            data={this.state.dataOpenOrder}
-                            print={false}
-                            exportHeaders={false}
-                            export={false}
-                        >
-                          <DataTable
-                            defaultSortField="title"
-                            pagination={true}
-                            highlightOnHover={true}
-                            striped={false}
-                            progressPending={this.state.loadingOpenOrder}
-                            noHeader={true}
-                            fixedHeader={false}
-                            paginationPerPage={5}
-                            paginationRowsPerPageOptions={[5]}
-                            fixedHeaderScrollHeight="300px"
-                          />
-                        </DataTableExtensions>
-                      </div>
-                    </div>
-                  </Col>
+                <Col xs="12" sm="12" md="12">
+                    <Row>
+                    <Col xs="12" sm="12" md="6" style={{padding:5}}>
+                        <div className="card" style={{height:"100%"}}>
+                        <div className="card-header">
+                            <Row>
+                            <Col xs="12" sm="12" md="12" style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
+                                <span style={{fontWeight:"bold"}}>Raw material</span>
+                            </Col>
+                            {/* <Col xs="2" sm="2" md="2" style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
+                                <button className="myBtn" onClick={() => this.exportPDF()}><i className="fa fa-plus-square fa-2x" aria-hidden="true"></i></button>
+                            </Col> */}
+                            </Row>
+                        </div>
+                        <div className="card-body">
+                            <DataTableExtensions
+                                columns={inventoryColumns}
+                                data={this.state.dataInventory}
+                                print={false}
+                                exportHeaders={false}
+                                export={false}
+                            >
+                            <DataTable
+                                defaultSortField="title"
+                                pagination={true}
+                                highlightOnHover={true}
+                                striped={false}
+                                progressPending={this.state.loadingInventory}
+                                noHeader={true}
+                                fixedHeader={false}
+                                paginationPerPage={5}
+                                paginationRowsPerPageOptions={[5]}
+                                fixedHeaderScrollHeight="300px"
+                                conditionalRowStyles={conditionalInventoryRowStyles}
+                            />
+                            </DataTableExtensions>
+                        </div>
+                        </div>
+                    </Col>
+                    <Col xs="12" sm="12" md="6" style={{padding:5}}>
+                        <div className="card" style={{height:"100%"}}>
+                        <div className="card-header">
+                            <Row>
+                            <Col xs="12" sm="12" md="12" style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
+                                <span style={{fontWeight:"bold"}}>Finished Goods</span>
+                            </Col>
+                            {/* <Col xs="2" sm="2" md="2" style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
+                                <button className="myBtn" onClick={() => this.exportPDF()}><i className="fa fa-plus-square fa-2x" aria-hidden="true"></i></button>
+                            </Col> */}
+                            </Row>
+                        </div>
+                        <div className="card-body">
+                            <DataTableExtensions
+                                columns={inventory2Columns}
+                                data={this.state.dataInventory2}
+                                print={false}
+                                exportHeaders={false}
+                                export={false}
+                            >
+                            <DataTable
+                                defaultSortField="title"
+                                pagination={true}
+                                highlightOnHover={true}
+                                striped={false}
+                                progressPending={this.state.loadingInventory2}
+                                noHeader={true}
+                                fixedHeader={false}
+                                paginationPerPage={5}
+                                paginationRowsPerPageOptions={[5]}
+                                fixedHeaderScrollHeight="300px"
+                                conditionalRowStyles={conditionalInventory2RowStyles}
+                            />
+                            </DataTableExtensions>
+                        </div>
+                        </div>
+                    </Col>
+                    </Row>
+                    <Row>
+                    <Col xs="12" sm="12" md="6" style={{padding:5}}>
+                        <div className="card" style={{height:"100%"}}>
+                        <div className="card-header">
+                            <Row>
+                            <Col xs="12" sm="12" md="12" style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
+                                <span style={{fontWeight:"bold"}}>Recent Purchase</span>
+                            </Col>
+                            {/* <Col xs="2" sm="2" md="2" style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
+                                <button className="myBtn" onClick={() => this.exportPDF()}><i className="fa fa-plus-square fa-2x" aria-hidden="true"></i></button>
+                            </Col> */}
+                            </Row>
+                        </div>
+                        <div className="card-body">
+                            <DataTableExtensions
+                                columns={recentPurchaseColumns}
+                                data={this.state.dataRecentPurchase}
+                                print={false}
+                                exportHeaders={false}
+                                export={false}
+                            >
+                            <DataTable
+                                defaultSortField="title"
+                                pagination={true}
+                                highlightOnHover={true}
+                                striped={false}
+                                progressPending={this.state.loadingRecentPurchase}
+                                noHeader={true}
+                                fixedHeader={false}
+                                paginationPerPage={5}
+                                paginationRowsPerPageOptions={[5]}
+                                fixedHeaderScrollHeight="300px"
+                            />
+                            </DataTableExtensions>
+                        </div>
+                        </div>
+                    </Col>
+                    <Col xs="12" sm="12" md="6" style={{padding:5}}>
+                        <div className="card" style={{height:"100%"}}>
+                        <div className="card-header">
+                            <Row>
+                            <Col xs="12" sm="12" md="12" style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
+                                <span style={{fontWeight:"bold"}}>Open Order</span>
+                            </Col>
+                            {/* <Col xs="2" sm="2" md="2" style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
+                                <button className="myBtn" onClick={() => this.exportPDF()}><i className="fa fa-plus-square fa-2x" aria-hidden="true"></i></button>
+                            </Col> */}
+                            </Row>
+                        </div>
+                        <div className="card-body">
+                            <DataTableExtensions
+                                columns={openOrderColumns}
+                                data={this.state.dataOpenOrder}
+                                print={false}
+                                exportHeaders={false}
+                                export={false}
+                            >
+                            <DataTable
+                                defaultSortField="title"
+                                pagination={true}
+                                highlightOnHover={true}
+                                striped={false}
+                                progressPending={this.state.loadingOpenOrder}
+                                noHeader={true}
+                                fixedHeader={false}
+                                paginationPerPage={5}
+                                paginationRowsPerPageOptions={[5]}
+                                fixedHeaderScrollHeight="300px"
+                            />
+                            </DataTableExtensions>
+                        </div>
+                        </div>
+                    </Col>
+                    </Row>
+                </Col>
                 </Row>
-              </Col>
-            </Row>
-          </Container>
-      </div>
+            </Container>
+        </div>
     );
   }
 }
