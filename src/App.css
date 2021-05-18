@@ -713,6 +713,41 @@ pointer-events: none;
 .bodyData::-webkit-scrollbar {
   width: 1px;
 }
+
+.bodyDataStockRecon {
+  height: 65vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.bodyDataStockRecon::-webkit-scrollbar {
+  width: 2px;
+  background-color: #eeeeee;
+}
+.bodyDataStockRecon::-webkit-scrollbar-thumb {
+    background: #666666;
+}
+
+
+.masterBodyData {
+    height: 88vh;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+/* .masterBodyData::-webkit-scrollbar {
+    width: 2px;
+    background-color: #eeeeee;
+}
+.masterBodyData::-webkit-scrollbar-thumb {
+    background: #666666;
+} */
+
+
+.mostly-customized-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #aaaaaa; /* or add it to the track */
+}
 /* table data */
 .dataTableJSAC{
   padding: 0;

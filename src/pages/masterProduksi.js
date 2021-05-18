@@ -347,19 +347,33 @@ class masterProduksi extends Component {
     } else if(this.state.tambahqtybaranghasil == ""){
       alert("qty barang hasil produksi tidak boleh kosong")
     } else {
-      let daftarBarang = this.state.listAddBarangHasil
-      let resultChecked = daftarBarang.find(o => o.kode_barang === `${this.state.tambahkodebaranghasil}`);
-      let dataTopush = {kode_barang:`${this.state.tambahkodebaranghasil}`,nama_barang:`${this.state.tambahnamabaranghasil}`,satuan:`${this.state.tambahsatuanbaranghasil}`,qty:`${this.state.tambahqtybaranghasil}`}
-      await daftarBarang.push(dataTopush)
-      await this.setState({
-        ...this.state,
-        listAddBarangHasil: daftarBarang,
-        prmBarangHasil:"",
-        tambahkodebaranghasil:"",
-        tambahnamabaranghasil:"",
-        tambahsatuanbaranghasil:"",
-        tambahqtybaranghasil:"",
-      });
+        let daftarBarang = this.state.listAddBarangPakai
+        let resultChecked = daftarBarang.find(o => o.kode_barang === `${this.state.tambahkodebaranghasil}`);
+        if(resultChecked!==undefined){
+            alert("data barang sudah ada di list barang pakai produksi")
+            this.setState({
+            ...this.state,
+            prmBarangHasil:"",
+            tambahkodebaranghasil:"",
+            tambahnamabaranghasil:"",
+            tambahsatuanbaranghasil:"",
+            tambahqtybaranghasil:"",
+            });
+            
+        } else {
+            let daftarBarangHasil = this.state.listAddBarangHasil
+            let dataTopush = {kode_barang:`${this.state.tambahkodebaranghasil}`,nama_barang:`${this.state.tambahnamabaranghasil}`,satuan:`${this.state.tambahsatuanbaranghasil}`,qty:`${this.state.tambahqtybaranghasil}`}
+            await daftarBarangHasil.push(dataTopush)
+            await this.setState({
+                ...this.state,
+                listAddBarangHasil: daftarBarangHasil,
+                prmBarangHasil:"",
+                tambahkodebaranghasil:"",
+                tambahnamabaranghasil:"",
+                tambahsatuanbaranghasil:"",
+                tambahqtybaranghasil:"",
+            });
+        }
     }
   }
   eraseAddDataHasil = async (keyArray) => {
@@ -383,42 +397,51 @@ class masterProduksi extends Component {
   addDataPakai = async () => {
     if(this.state.tambahkodebarangpakai === ""){
       alert("barang pakai produksi tidak boleh kosong")
+    } else if(this.state.tambahqtybarangpakai == ""){
+        alert("qty barang pakai produksi tidak boleh kosong")
     } else {
-      let daftarBarang = this.state.listAddBarangPakai
-      let resultChecked = daftarBarang.find(o => o.kode_barang === `${this.state.tambahkodebarangpakai}`);
-      if(resultChecked===undefined){
-        let dataTopush = {kode_barang:`${this.state.tambahkodebarangpakai}`,nama_barang:`${this.state.tambahnamabarangpakai}`,satuan:`${this.state.tambahsatuanbarangpakai}`,qty:`${this.state.tambahqtybarangpakai}`,cost:`0`}
-        await daftarBarang.push(dataTopush)
-        await this.setState({
-          ...this.state,
-          listAddBarangPakai: daftarBarang,
-          prmBarangPakai:"",
-          tambahkodebarangpakai:"",
-          tambahnamabarangpakai:"",
-          tambahsatuanbarangpakai:"",
-          tambahqtybarangpakai:"",
-        });
-      } else {
-        alert("barang sudah ada di list barang pakai produksi")
-        this.setState({
-          ...this.state,
-          listAddBarangPakai: daftarBarang,
-          prmBarangPakai:"",
-          tambahkodebarangpakai:"",
-          tambahnamabarangpakai:"",
-          tambahsatuanbarangpakai:"",
-          tambahqtybarangpakai:"",
-        });
-      }
+        let daftarHasil = this.state.listAddBarangHasil
+        let daftarHasilChecked = daftarHasil.find(o => o.kode_barang === `${this.state.tambahkodebarangpakai}`);
+        if(daftarHasilChecked!==undefined){
+            alert("data barang sudah ada di list barang hasil produksi")
+            this.setState({
+            ...this.state,
+            prmBarangPakai:"",
+            tambahkodebarangpakai:"",
+            tambahnamabarangpakai:"",
+            tambahsatuanbarangpakai:"",
+            tambahqtybarangpakai:"",
+            });
+        } else {
+            let daftarBarang = this.state.listAddBarangPakai
+            let resultChecked = daftarBarang.find(o => o.kode_barang === `${this.state.tambahkodebarangpakai}`);
+            if(resultChecked===undefined){
+                let dataTopush = {kode_barang:`${this.state.tambahkodebarangpakai}`,nama_barang:`${this.state.tambahnamabarangpakai}`,satuan:`${this.state.tambahsatuanbarangpakai}`,qty:`${this.state.tambahqtybarangpakai}`,cost:`0`}
+                await daftarBarang.push(dataTopush)
+                await this.setState({
+                ...this.state,
+                listAddBarangPakai: daftarBarang,
+                prmBarangPakai:"",
+                tambahkodebarangpakai:"",
+                tambahnamabarangpakai:"",
+                tambahsatuanbarangpakai:"",
+                tambahqtybarangpakai:"",
+                });
+            } else {
+                alert("data barang sudah ada di list barang pakai produksi")
+                this.setState({
+                ...this.state,
+                prmBarangPakai:"",
+                tambahkodebarangpakai:"",
+                tambahnamabarangpakai:"",
+                tambahsatuanbarangpakai:"",
+                tambahqtybarangpakai:"",
+                });
+            }
+        }
     }
   }
   eraseAddDataPakai = async (keyArray) => {
-    // let daftarBarang = this.state.listAddBarangPakai
-    // await daftarBarang.splice(keyArray, 1)
-    // await this.setState({
-    //   ...this.state,
-    //   listAddBarangPakai: daftarBarang
-    // });
     let daftarBarangPakai = this.state.listAddBarangPakai
     let daftarBarangSisa = this.state.listAddBarangSisa
     let resultChecked = daftarBarangSisa.find(o => o.prm === `${daftarBarangPakai[keyArray].kode_barang}`);

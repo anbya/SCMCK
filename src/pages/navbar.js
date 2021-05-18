@@ -228,11 +228,20 @@ class navbar extends Component {
                       </NavLink>
                     </NavItem>: ""
                     }
-                    {/* { this.props.aksespage === "MASTER USER" || this.props.aksespage === "COST CONTROL" ?
+                    {this.props.aksespage === "ADMIN"&&
+                    <NavItem className={this.props.history.location.pathname=="/stokrecon"?"myNavbarStyle-active":"myNavbarStyle"}>
+                      <NavLink
+                      onClick={() =>  {this.props.history.push({pathname: "/stokrecon"})}}
+                      >
+                        Stock Reconciliation
+                      </NavLink>
+                    </NavItem>
+                    }
+                    { this.props.aksespage === "MASTER USER" || this.props.aksespage === "COST CONTROL" ?
                     <NavItem style={{cursor:"pointer"}}>
                       <NavLink onClick={() =>  {this.props.history.push({pathname: "/report"})}}>Report</NavLink>
                     </NavItem>: ""
-                    } */}
+                    }
                     <NavItem style={{cursor:"pointer"}}>
                       <NavLink onClick={() =>  this.logout()}>Log Out</NavLink>
                     </NavItem>

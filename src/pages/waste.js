@@ -230,8 +230,10 @@ class itemWaste extends Component {
     this.refreshPageData()
   }
   addData = async () => {
-    if(this.state.tambahkodebarang === "" || this.state.tambahqtybarang === ""){
-      alert("barang dan qty barang tidak boleh kosong")
+    if(this.state.tambahkodebarang === ""){
+      alert("Item barang tidak boleh kosong")
+    } else if(this.state.tambahqtybarang == 0 || this.state.tambahqtybarang === ""){
+        alert("Qty Pembelian tidak boleh kosong")
     } else {
       let daftarBarang = this.state.listReturnBarang
       let resultChecked = daftarBarang.find(o => o.kode_barang === `${this.state.tambahkodebarang}`);
@@ -243,7 +245,12 @@ class itemWaste extends Component {
         let qtyRTNProcessB = qtyRTN%convertionQtyRTN
         let qtyRTNToShow = qtyRTNProcessA+"/"+qtyRTNProcessB
         // batas
-        let dataTopush = {kode_barang:`${this.state.tambahkodebarang}`,nama_barang:`${this.state.tambahnamabarang}`,qty:`${this.state.tambahqtybarang}`,qtyToShow:`${qtyRTNToShow} ${this.state.tambahunitbarang}/${this.state.tambahsatuanbarang}`}
+        let dataTopush = {
+            kode_barang:`${this.state.tambahkodebarang}`,
+            nama_barang:`${this.state.tambahnamabarang}`,
+            qty:`${this.state.tambahqtybarang}`,
+            qtyToShow:`${qtyRTNToShow} ${this.state.tambahunitbarang}/${this.state.tambahsatuanbarang}`
+        }
         await daftarBarang.push(dataTopush)
         await this.setState({
           ...this.state,

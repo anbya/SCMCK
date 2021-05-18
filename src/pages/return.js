@@ -218,8 +218,10 @@ class returnToVendor extends Component {
     this.refreshPageData()
   }
   addData = async () => {
-    if(this.state.tambahkodebarang === "" || this.state.tambahqtybarang === ""){
-      alert("barang dan qty barang tidak boleh kosong")
+    if(this.state.tambahkodebarang === ""){
+      alert("Item barang tidak boleh kosong")
+    } else if(this.state.tambahqtybarang == 0 || this.state.tambahqtybarang === ""){
+        alert("Qty Pembelian tidak boleh kosong")
     } else {
       let daftarBarang = this.state.listReturnBarang
       let resultChecked = daftarBarang.find(o => o.kode_barang === `${this.state.tambahkodebarang}`);

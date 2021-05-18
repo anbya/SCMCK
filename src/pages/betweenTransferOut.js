@@ -15,7 +15,10 @@ import {
   ModalFooter,
   Input,
   FormGroup,
-  Label
+  Label,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText
 } from "reactstrap";
 import Select from 'react-select';
 import { HashLoader , ScaleLoader } from 'react-spinners';
@@ -41,9 +44,14 @@ class transferOut extends Component {
       buttonAddText:"Add",
       tambahkodebarang:"",
       tambahnamabarang:"",
+      tambahunitbarang:"",
       tambahsatuanbarang:"",
+      tambahkonversibarang:"",
       tambahqtybarang:"",
-      tambahhargabarang:"",
+      tambahqtyUnit:"",
+      tambahqtySatuan:"",
+      tambahStokBarang:"",
+      tambahStokBarangToShow:"",
       addNote:"",
       prmModaledit:false,
       prmOutletPengirim:"",
@@ -156,7 +164,6 @@ class transferOut extends Component {
       tambahkodebarang:"",
       tambahnamabarang:"",
       tambahqtybarang:"",
-      tambahhargabarang:"",
       addNote:"",
       listAddBarang:[],
       prmOutlet:"",
@@ -174,9 +181,14 @@ class transferOut extends Component {
       masterBarangList: [],
       tambahkodebarang:"",
       tambahnamabarang:"",
+      tambahunitbarang:"",
       tambahsatuanbarang:"",
+      tambahkonversibarang:"",
       tambahqtybarang:"",
-      tambahhargabarang:"",
+      tambahqtyUnit:"",
+      tambahqtySatuan:"",
+      tambahStokBarang:"",
+      tambahStokBarangToShow:"",
       addNote:"",
       listAddBarang:[],
       prmVendor:"",
@@ -231,24 +243,41 @@ class transferOut extends Component {
     });
   }
   addData = async () => {
-    if(this.state.tambahkodebarang === "" || this.state.tambahqtybarang === ""){
-      alert("barang, qty dan harga barang tidak boleh kosong")
-    } else if(this.state.tambahqtybarang === 0 || this.state.tambahqtybarang === "0"){
-      alert("Qty tidak boleh 0(NOL)")
+    if(this.state.tambahkodebarang === ""){
+        alert("Item barang tidak boleh kosong")
+    } else if(this.state.tambahqtybarang == 0 || this.state.tambahqtybarang === ""){
+        alert("Qty Pembelian tidak boleh kosong")
     } else {
       let daftarBarang = this.state.listAddBarang
       let resultChecked = daftarBarang.find(o => o.kode_barang === `${this.state.tambahkodebarang}`);
       if(resultChecked===undefined){
-        let dataTopush = {kode_barang:`${this.state.tambahkodebarang}`,nama_barang:`${this.state.tambahnamabarang}`,qty:`${this.state.tambahqtybarang}`,satuan:`${this.state.tambahsatuanbarang}`}
+        // batas
+        let qtyTRANS =parseInt(this.state.tambahqtybarang==""?0:this.state.tambahqtybarang)
+        let convertionQtyTRANS =parseInt(this.state.tambahkonversibarang)
+        let qtyTRANSProcessA = Math.floor(qtyTRANS/convertionQtyTRANS)
+        let qtyTRANSProcessB = qtyTRANS%convertionQtyTRANS
+        let qtyTRANSToShow = qtyTRANSProcessA+"/"+qtyTRANSProcessB
+        // batas
+        let dataTopush = {
+            kode_barang:`${this.state.tambahkodebarang}`,
+            nama_barang:`${this.state.tambahnamabarang}`,
+            qty:`${this.state.tambahqtybarang}`,
+            qtyToShow:`${qtyTRANSToShow} ${this.state.tambahunitbarang}/${this.state.tambahsatuanbarang}`
+        }
         await daftarBarang.push(dataTopush)
         await this.setState({
           ...this.state,
           listAddBarang: daftarBarang,
           tambahkodebarang:"",
           tambahnamabarang:"",
+          tambahunitbarang:"",
           tambahsatuanbarang:"",
+          tambahkonversibarang:"",
           tambahqtybarang:"",
-          tambahhargabarang:"",
+          tambahqtyUnit:"",
+          tambahqtySatuan:"",
+          tambahStokBarang:"",
+          tambahStokBarangToShow:"",
           prmBarang:""
         });
         this.hitungTotal()
@@ -256,28 +285,18 @@ class transferOut extends Component {
         alert("Data barang sudah ada di list barang yang akan di transfer")
         this.setState({
           ...this.state,
-          listAddBarang: daftarBarang,
           tambahkodebarang:"",
           tambahnamabarang:"",
+          tambahunitbarang:"",
           tambahsatuanbarang:"",
+          tambahkonversibarang:"",
           tambahqtybarang:"",
-          tambahhargabarang:"",
+          tambahqtyUnit:"",
+          tambahqtySatuan:"",
+          tambahStokBarang:"",
+          tambahStokBarangToShow:"",
           prmBarang:""
         });
-        // let indexArray = daftarBarang.findIndex(x => x.kode_barang === `${this.state.tambahkodebarang}`);
-        // let qtyAwal = daftarBarang[indexArray].qty
-        // let qtyAkhir = parseInt(qtyAwal)+parseInt(this.state.tambahqtybarang)
-        // daftarBarang[indexArray].qty=qtyAkhir
-        // this.setState({
-        //   ...this.state,
-        //   listAddBarang: daftarBarang,
-        //   tambahkodebarang:"",
-        //   tambahnamabarang:"",
-        //   tambahsatuanbarang:"",
-        //   tambahqtybarang:"",
-        //   tambahhargabarang:"",
-        //   prmBarang:""
-        // });
       }
     }
   }
@@ -318,7 +337,11 @@ class transferOut extends Component {
       prmBarang: value,
       tambahkodebarang:value.value,
       tambahnamabarang:value.label,
-      tambahsatuanbarang:value.unit
+      tambahunitbarang:value.unit,
+      tambahsatuanbarang:value.satuan,
+      tambahStokBarang:value.qty_in_stok,
+      tambahStokBarangToShow:value.qty_in_stok_toshow,
+      tambahkonversibarang:value.konversi
     });
   }
   onSelectChangedMasterOutlet = async (value) => {
@@ -371,6 +394,7 @@ class transferOut extends Component {
         buttonAddPrm:true,
         buttonAddText:""
       });
+    //   console.log(dataToSend);
       axios
       .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addFormTOCK`, dataToSend, {
         headers: {
@@ -400,6 +424,39 @@ class transferOut extends Component {
       tanggalKirim: date
     });
   };
+  handleChangeunitTransfer = event =>  {
+    let unitSend = event.target.value==""?0:parseInt(event.target.value)
+    let satuanSend = this.state.tambahqtySatuan==""?0:parseInt(this.state.tambahqtySatuan)
+    let cekHasilqty_send = parseInt(satuanSend)+(parseInt(unitSend)*parseInt(this.state.tambahkonversibarang))
+    if(cekHasilqty_send>parseInt(this.state.tambahStokBarang)){
+      alert("qty yang anda input melebihi stok")
+    } else {
+      this.setState({
+        ...this.state,
+        tambahqtybarang:parseInt(satuanSend)+(parseInt(unitSend)*parseInt(this.state.tambahkonversibarang)),
+        tambahqtyUnit:event.target.value
+      });
+    }
+  }
+  handleChangesatuanTransfer = event =>  {
+    let maxSatuan = parseInt(this.state.tambahkonversibarang)-1
+    if(event.target.value>maxSatuan){
+      alert("angka yang anda input melebihi batas satuan")
+    } else{
+      let unitSend = this.state.tambahqtyUnit==""?0:parseInt(this.state.tambahqtyUnit)
+      let satuanSend = event.target.value==""?0:parseInt(event.target.value)
+      let cekHasilqty_send = parseInt(satuanSend)+(parseInt(unitSend)*parseInt(this.state.tambahkonversibarang))
+      if(cekHasilqty_send>parseInt(this.state.tambahStokBarang)){
+        alert("qty yang anda input melebihi stok")
+      } else {
+        this.setState({
+          ...this.state,
+          tambahqtybarang:parseInt(satuanSend)+(parseInt(unitSend)*parseInt(this.state.tambahkonversibarang)),
+          tambahqtySatuan:event.target.value
+        });
+      }
+    }
+  }
   render() {
     // console.log(this.state.prmBarang.unit);
     const DataButton = (data) => (
@@ -484,63 +541,69 @@ class transferOut extends Component {
                 </FormGroup>
               </Col>
             </Row>
-            <Row style={{backgroundColor:"#f7f7f7",paddingTop:10,paddingBottom:10}}>
-              <Col xs="12" sm="12" md="4">
-                <FormGroup>
-                  <Label for="detailbuatpo">Barang Transfer</Label>
-                  <Select
-                    className="basic-single"
-                    classNamePrefix="select"
-                    isClearable={false}
-                    isSearchable={true}
-                    name="prmBarang"
-                    value={this.state.prmBarang}
-                    options={this.state.masterBarangList}
-                    onChange={this.onSelectChangedMasterBarang.bind(this)}
-                    placeholder="Pilih Barang"
-                  />
-                </FormGroup>
-              </Col>
-              <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-                <FormGroup>
-                  <Label for="detailbuatpo">Qty In Stok</Label><br/>
-                  <span style={{fontWeight:"bold"}}>{this.state.prmBarang.qty_in_stok == undefined?"---":this.state.prmBarang.qty_in_stok}</span>
-                </FormGroup>
-              </Col>
-              <Col xs="12" sm="12" md="2">
-                <FormGroup>
-                  <Label for="detailbuatpo">Qty Transfer</Label>
-                  <Input
-                    type="number"
-                    name="tambahqtybarang"
-                    id="tambahqtybarang"
-                    value={this.state.tambahqtybarang}
-                    onChange={this.handleChangeQtyTransfer}
-                    placeholder="Qty"
-                    min="0"
-                    max={this.state.prmBarang.qty_in_stok}
-                  />
-                </FormGroup>
-              </Col>
-              <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-                <FormGroup>
-                  <Label for="detailbuatpo">Satuan</Label><br/>
-                  <span style={{fontWeight:"bold"}}>{this.state.prmBarang.satuan == undefined?"---":this.state.prmBarang.satuan}</span>
-                </FormGroup>
-              </Col>
-              <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-                <Button block={true} color="success" onClick={() => this.addData()}>
-                  Add
-                </Button>
-              </Col>
+            <Row style={{backgroundColor:"#f7f7f7",paddingTop:10}}>
+                <Col xs="12" sm="12" md="6" style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
+                    <span style={{fontWeight:"bold"}}>Item Transfer</span>
+                </Col>
+                <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    <span style={{fontWeight:"bold"}}>Stok Item</span>
+                </Col>
+                <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    <span style={{fontWeight:"bold"}}>Unit Transfer</span>
+                </Col>
+                <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    <span style={{fontWeight:"bold"}}>Satuan Transfer</span>
+                </Col>
+            </Row>
+            <Row style={{backgroundColor:"#f7f7f7",paddingBottom:10}}>
+                <Col xs="12" sm="12" md="6">
+                    <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                        isClearable={false}
+                        isSearchable={true}
+                        name="prmBarang"
+                        value={this.state.prmBarang}
+                        options={this.state.masterBarangList}
+                        onChange={this.onSelectChangedMasterBarang.bind(this)}
+                        placeholder="Pilih Barang"
+                    />
+                </Col>
+                <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    {this.state.prmBarang.qty_in_stok_toshow !== undefined &&
+                        <span style={{fontWeight:"bold"}}>{`${this.state.prmBarang.qty_in_stok_toshow} ${this.state.prmBarang.unit}.${this.state.prmBarang.satuan}`}</span>
+                    }
+                </Col>
+                <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    <InputGroup>
+                    <Input disabled={this.state.prmBarang.satuan == undefined?true:false} type="number" name="tambahunitbarang" id="tambahunitbarang" value={this.state.tambahqtyUnit} onChange={this.handleChangeunitTransfer} min="0" />
+                    <InputGroupAddon addonType="append">
+                        <InputGroupText><span style={{fontWeight:"bold"}}>{this.state.prmBarang.unit == undefined?"---":this.state.prmBarang.unit}</span></InputGroupText>
+                    </InputGroupAddon>
+                    </InputGroup>
+                </Col>
+                <Col xs="12" sm="12" md="2" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    <InputGroup>
+                    <Input disabled={this.state.prmBarang.satuan == undefined?true:false} type="number" name="tambahsatuanqtybarang" id="tambahsatuanqtybarang" value={this.state.tambahqtySatuan} onChange={this.handleChangesatuanTransfer} min="0" />
+                    <InputGroupAddon addonType="append">
+                        <InputGroupText><span style={{fontWeight:"bold"}}>{this.state.prmBarang.satuan == undefined?"---":this.state.prmBarang.satuan}</span></InputGroupText>
+                    </InputGroupAddon>
+                    </InputGroup>
+                </Col>
+            </Row>
+            <Row style={{backgroundColor:"#f7f7f7",paddingBottom:10}}>
+                <Col xs="12" sm="12" md="12" style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    <Button block={true} color="success" onClick={() => this.addData()}>
+                    Add
+                    </Button>
+                </Col>
             </Row>
             <Row style={{borderBottom:"1px solid #000000"}}>
               <Col>
                 <Row>
                   <Col xs="2"><span style={{fontWeight:"bold"}}>KODE BARANG</span></Col>
-                  <Col xs="5"><span style={{fontWeight:"bold"}}>NAMA BARANG</span></Col>
-                  <Col xs="2"><span style={{fontWeight:"bold"}}>QTY</span></Col>
-                  <Col xs="2"><span style={{fontWeight:"bold"}}>UNIT</span></Col>
+                  <Col xs="6"><span style={{fontWeight:"bold"}}>NAMA BARANG</span></Col>
+                  <Col xs="2"><span style={{fontWeight:"bold"}}>QTY TRANSFER</span></Col>
                   <Col xs="1"><span style={{fontWeight:"bold"}}>TOOL</span></Col>
                 </Row>
               </Col>
@@ -550,10 +613,9 @@ class transferOut extends Component {
                 {this.state.listAddBarang.length > 0 && this.state.listAddBarang.map((listAddBarang,index) =>
                   <Row key={index}>
                     <Col xs="2"><span style={{fontWeight:"bold"}}>{listAddBarang.kode_barang}</span></Col>
-                    <Col xs="5"><span style={{fontWeight:"bold"}}>{listAddBarang.nama_barang}</span></Col>
-                    <Col xs="2"><span style={{fontWeight:"bold"}}>{listAddBarang.qty}</span></Col>
-                    <Col xs="2"><span style={{fontWeight:"bold"}}>{listAddBarang.satuan}</span></Col>
-                    <Col xs="1">
+                    <Col xs="6"><span style={{fontWeight:"bold"}}>{listAddBarang.nama_barang}</span></Col>
+                    <Col xs="2"><span style={{fontWeight:"bold"}}>{listAddBarang.qtyToShow}</span></Col>
+                    <Col xs="2">
                       <button className="myBtn" onClick={() => this.eraseAddData(index)}><i className="fa fa-trash" aria-hidden="true"></i></button>
                     </Col>
                   </Row>

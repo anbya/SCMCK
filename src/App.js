@@ -33,76 +33,116 @@ import ProductionPlanPrint from "./pages/productionPlanPrint";
 import RawProsessingPlanPrint from "./pages/rawProsessingPlanPrint";
 import PrepareDeliveryOrderPrint from "./pages/prepareDeliveryOrderPrint";
 import DeliveryOrderPrint from "./pages/deliveryOrderPrint";
+import StockReconciliationPrint from "./pages/stockReconciliationPrint";
+import TransferOutPrint from "./pages/transferOutPrint";
 import TransferInPage from "./pages/transferInPage";
 import TransferOutPage from "./pages/transferOutPage";
 import ReturnPage from "./pages/returnPage";
 import WastePage from "./pages/wastePage";
 import PembelianPage from "./pages/pembelianPage";
 import StockReconciliationPage from "./pages/stockReconciliationPage";
+import FormAddStockReconciliation from "./pages/formAddStockReconciliation";
+import InvBreakdownRPT from "./pages/InvBreakdownRPT";
+import LoadingRoutes from './LoadingRoutes';
 
 class App extends Component {
-    componentDidMount = () =>  {
-        axios
-        .get(`${process.env.REACT_APP_LINK}`)
-        .then(async result => {
-            await localStorage.setItem("APIROUTE",result.data.APIROUTE)
-        })
-        .catch(error => {
-          console.log(error);
+    constructor(props) {
+      super(props);
+      this.state = {
+        // base state
+        prmLoading:true
+        // base state --
+      };
+    }
+    componentDidMount = async () =>  {
+         await localStorage.removeItem("APIROUTE");
+        // localStorage.setItem("APIROUTE","https://3ef97221024d.ngrok.io")
+        localStorage.setItem("APIROUTE","http://localhost:3009")
+        this.setState({
+            ...this.state,
+            prmLoading: false
         });
+        // axios
+        // .get(`${process.env.REACT_APP_LINK}`)
+        // .then(async result => {
+        //     await localStorage.setItem("APIROUTE",result.data.APIROUTE)
+        //     this.setState({
+        //         ...this.state,
+        //         prmLoading: false
+        //     });
+        // })
+        // .catch(error => {
+        //   console.log(error);
+        // });
     }
     render() {
-        return (
-            <div>
-            <Provider store={store}>
-              <Router>
-                <Switch>
-                    <Route exact path="/">
-                        <Loginpage />
-                    </Route>
-                    <Route path="/purchaseOrderPrint">
-                        <PurchaseOrderPrint />
-                    </Route>
-                    <Route path="/productionPlanPrint">
-                        <ProductionPlanPrint />
-                    </Route>
-                    <Route path="/rawProsessingPlanPrint">
-                        <RawProsessingPlanPrint />
-                    </Route>
-                    <Route path="/prepareDeliveryOrderPrint">
-                        <PrepareDeliveryOrderPrint />
-                    </Route>
-                    <Route path="/deliveryOrderPrint">
-                        <DeliveryOrderPrint />
-                    </Route>
-                    <PrivateRoute component={Mainpage} path="/home"/>
-                    <PrivateRoute component={UserPage} path="/user"/>
-                    <PrivateRoute component={MasterVendor} path="/mastervendor"/>
-                    <PrivateRoute component={MasterOutlet} path="/masteroutlet"/>
-                    <PrivateRoute component={MasterBarang} path="/masterbarang"/>
-                    <PrivateRoute component={MasterProduksiPage} path="/masterproduksi"/>
-                    <PrivateRoute component={MasterRawProcessingPage} path="/masterRawProcessingPage"/>
-                    <PrivateRoute component={MasterPluPage} path="/masterplu"/>
-                    <PrivateRoute component={ProductinPage} path="/productin"/>
-                    <PrivateRoute component={ReceivepoPage} path="/receive_po"/>
-                    <PrivateRoute component={RawProsessingPage} path="/rawProsessingPlan"/>
-                    <PrivateRoute component={PlanproduksiPage} path="/planproduksiPage"/>
-                    <PrivateRoute component={CompletionplanproduksiPage} path="/completionplanproduksiPage"/>
-                    <PrivateRoute component={ProduksiPage} path="/produksi"/>
-                    <PrivateRoute component={ProductoutPage} path="/productout"/>
-                    <PrivateRoute component={ReportPage} path="/report"/>
-                    <PrivateRoute component={TestReport} path="/testreport"/>
-                    <PrivateRoute component={TransferInPage} path="/transferin"/>
-                    <PrivateRoute component={TransferOutPage} path="/transferout"/>
-                    <PrivateRoute component={ReturnPage} path="/return"/>
-                    <PrivateRoute component={WastePage} path="/waste"/>
-                    <PrivateRoute component={PembelianPage} path="/pembelian"/>
-                    <PrivateRoute component={StockReconciliationPage} path="/stokrecon"/>
-                </Switch>
-              </Router>
-            </Provider>
-            </div>
-        );
+        if(this.state.prmLoading === true){
+            return(
+                <Router>
+                    <LoadingRoutes />
+                </Router>
+            )
+        } else {
+            return (
+                <div>
+                <Provider store={store}>
+                  <Router>
+                    <Switch>
+                        <Route exact path="/">
+                            <Loginpage />
+                        </Route>
+                        <Route path="/purchaseOrderPrint">
+                            <PurchaseOrderPrint />
+                        </Route>
+                        <Route path="/productionPlanPrint">
+                            <ProductionPlanPrint />
+                        </Route>
+                        <Route path="/rawProsessingPlanPrint">
+                            <RawProsessingPlanPrint />
+                        </Route>
+                        <Route path="/prepareDeliveryOrderPrint">
+                            <PrepareDeliveryOrderPrint />
+                        </Route>
+                        <Route path="/deliveryOrderPrint">
+                            <DeliveryOrderPrint />
+                        </Route>
+                        <Route path="/stockReconciliationPrint">
+                            <StockReconciliationPrint />
+                        </Route>
+                        <Route path="/transferOutPrint">
+                            <TransferOutPrint />
+                        </Route>
+                        <PrivateRoute component={Mainpage} path="/home"/>
+                        <PrivateRoute component={UserPage} path="/user"/>
+                        <PrivateRoute component={MasterVendor} path="/mastervendor"/>
+                        <PrivateRoute component={MasterOutlet} path="/masteroutlet"/>
+                        <PrivateRoute component={MasterBarang} path="/masterbarang"/>
+                        <PrivateRoute component={MasterProduksiPage} path="/masterproduksi"/>
+                        <PrivateRoute component={MasterRawProcessingPage} path="/masterRawProcessingPage"/>
+                        <PrivateRoute component={MasterPluPage} path="/masterplu"/>
+                        <PrivateRoute component={ProductinPage} path="/productin"/>
+                        <PrivateRoute component={ReceivepoPage} path="/receive_po"/>
+                        <PrivateRoute component={RawProsessingPage} path="/rawProsessingPlan"/>
+                        <PrivateRoute component={PlanproduksiPage} path="/planproduksiPage"/>
+                        <PrivateRoute component={CompletionplanproduksiPage} path="/completionplanproduksiPage"/>
+                        <PrivateRoute component={ProduksiPage} path="/produksi"/>
+                        <PrivateRoute component={ProductoutPage} path="/productout"/>
+                        <PrivateRoute component={ReportPage} path="/report"/>
+                        <PrivateRoute component={TestReport} path="/testreport"/>
+                        <PrivateRoute component={TransferInPage} path="/transferin"/>
+                        <PrivateRoute component={TransferOutPage} path="/transferout"/>
+                        <PrivateRoute component={ReturnPage} path="/return"/>
+                        <PrivateRoute component={WastePage} path="/waste"/>
+                        <PrivateRoute component={PembelianPage} path="/pembelian"/>
+                        <PrivateRoute component={StockReconciliationPage} path="/stokrecon"/>
+                        <PrivateRoute component={FormAddStockReconciliation} path="/formAddStockReconciliation"/>
+                        <PrivateRoute component={InvBreakdownRPT} path="/InvBreakdownRPT"/>
+                    </Switch>
+                  </Router>
+                </Provider>
+                </div>
+            );
+        }
     }
 }
 

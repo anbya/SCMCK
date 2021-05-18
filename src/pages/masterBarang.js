@@ -62,9 +62,8 @@ class masterBarang extends Component {
       ...this.state,
       loading:true,
     });
-    let APIroute = localStorage.getItem("APIROUTE")
-        axios
-        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/masterbarang`)
+    axios
+    .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/masterbarang`)
     .then(result => {
       this.setState({
         ...this.state,

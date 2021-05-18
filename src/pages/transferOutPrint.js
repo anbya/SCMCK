@@ -40,7 +40,6 @@ class transferOutPrint extends Component {
     const dataToSend = {
         ID: params.ID
     };
-    let APIroute = localStorage.getItem("APIROUTE")
         axios
         .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getTransferoutPrint`, dataToSend, {
       headers: {
@@ -48,6 +47,7 @@ class transferOutPrint extends Component {
       }
     })
     .then(async result => {
+        console.log(result);
       await this.setState({
         ...this.state,
         dataHeader:result.data.dataTransferout
@@ -80,6 +80,7 @@ class transferOutPrint extends Component {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
   }
   render() {
+    console.log(this.state.dataRow);
     return (
       <div>
             {this.state.dataRow.length > 0 && this.state.dataRow.map((dummyDataRow1,index1) =>

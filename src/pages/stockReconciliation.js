@@ -37,28 +37,11 @@ class stockReconciliation extends Component {
       loading:false,
       noHeader:true,
       fixedHeader:false,
-      masterUserList:[],
-      // add state
-      prmModaladd:false,
-      buttonAddPrm:false,
-      buttonAddText:"Add",
-      addUserList:[],
-      prmAddUser:"",
-      tambahNikUser:"",
-      tambahNamaUser:"",
-      tambahAksesUser:"",
-      tambahPassUser:"",
-      PRMtambahPassoutlet:true,
+      dataStockReconHeader:[],
       // edit state
       prmModaledit:false,
-      buttonEditPrm:false,
-      buttonEditText:"Save",
-      editkodeuser:"",
-      editnikuser:"",
-      editnamauser:"",
-      editaksesuser:"",
-      editpassuser:"",
-      PRMeditPassoutlet:true,
+      detailDataSR:[],
+      dataSRD:[]
     };
   }
   // page master function
@@ -67,13 +50,12 @@ class stockReconciliation extends Component {
       ...this.state,
       loading:true,
     });
-    let APIroute = localStorage.getItem("APIROUTE")
-        axios
-        .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getUser`)
+    axios
+    .get(`${localStorage.getItem("APIROUTE")}/centralkitchen/getStockReconHeader`)
     .then(result => {
       this.setState({
         ...this.state,
-        masterUserList: result.data.result,
+        dataStockReconHeader: result.data.dataStockReconH,
         loading:false,
       });
     })
@@ -92,7 +74,7 @@ class stockReconciliation extends Component {
     .then(result => {
       this.setState({
         ...this.state,
-        masterUserList: result.data.result,
+        dataStockReconHeader: result.data.result,
         loading:false,
       });
     })
@@ -100,114 +82,27 @@ class stockReconciliation extends Component {
       console.log(error);
     });
   }
-  handleChange = event =>  {
-    this.setState({
-      ...this.state,
-      [event.target.name]: event.target.value
-    });
-  }
-  // add data function
-  modalAddOpen = async () =>  {
-    await this.setState({
-      ...this.state,
-      prmoverlay: true
-    });
-    let APIroute = localStorage.getItem("APIROUTE")
-        axios
-        .get(`https://api.jaygeegroupapp.com/hris`)
-    .then( async result => {
-      await this.setState({
-        ...this.state,
-        addUserList: result.data.dataToShow
-      });
+  // edit data function
+  modalEditOpen = async (data) =>  {
+    const dataToSend = {
+      KODESR: data.kode_stock_recon_h
+    };
+    axios
+    .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/getStockReconDetail`, dataToSend, {
+    headers: {
+        "Access-Control-Allow-Origin": "*"
+    }
+    })
+    .then( result => {
       this.setState({
         ...this.state,
-        prmoverlay: false
+        dataSRD:result.data.dataStockReconD,
+        detailDataSR:data,
+        prmModaledit: true
       });
     })
     .catch(error => {
       console.log(error);
-    });
-    this.setState({
-      ...this.state,
-      prmModaladd: true,
-      prmAddUser:"",
-      tambahNikUser:"",
-      tambahNamaUser:"",
-      tambahAksesUser:"",
-      tambahPassUser:"",
-    });
-  }
-  modalAddClose = () =>  {
-    this.setState({
-      ...this.state,
-      prmModaladd: false,
-      buttonAddPrm:false,
-      buttonAddText:"Save",
-      addUserList:[],
-      prmAddUser:"",
-      tambahNikUser:"",
-      tambahNamaUser:"",
-      tambahAksesUser:"",
-      tambahPassUser:"",
-      PRMtambahPassoutlet:true,
-    });
-  }
-  addData = () => {
-    const dataToSend = {
-      NIK:this.state.tambahNikUser,
-      NAMA:this.state.tambahNamaUser,
-      AKSES:this.state.tambahAksesUser,
-      PASS:this.state.tambahPassUser
-    };
-    if(dataToSend.AKSES === "" || dataToSend.PASS === ""){
-      alert("Akses dan password user tidak boleh kosong")
-    } else {
-      this.setState({
-        ...this.state,
-        buttonAddPrm:true,
-        buttonAddText:""
-      });
-      axios
-      .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/addUser`, dataToSend, {
-        headers: {
-          "Access-Control-Allow-Origin": "*"
-        }
-      })
-      .then(async result => {
-        await this.setState({
-          ...this.state,
-          buttonAddPrm:false,
-          buttonAddText:"Save",
-        });
-        alert("data berhasil Ditambahkan")
-        await this.modalAddClose()
-        this.refreshPageData()
-      })
-      .catch(error => {
-        console.log(error);
-        console.log(this.props);
-      });
-    }
-  }
-  onSelectChangedAddUser = async (value) => {
-    await this.setState({
-      ...this.state,
-      prmAddUser: value,
-      tambahNikUser:value.value,
-      tambahNamaUser:value.nama
-    });
-  }
-  // edit data function
-  modalEditOpen = (data) =>  {
-    this.setState({
-      ...this.state,
-      prmModaledit: true,
-      editkodeuser:data.id_user,
-      editnikuser:data.nik,
-      editnamauser:data.nama_user,
-      editaksesuser:data.akses_page,
-      editpassuser:data.pass_user
     });
   }
   modalEditClose = () =>  {
@@ -224,50 +119,8 @@ class stockReconciliation extends Component {
       PRMeditPassoutlet:true,
     });
   }
-  updateData = () => {
-    this.setState({
-      ...this.state,
-      buttonEditPrm:true,
-      buttonEditText:""
-    });
-    const dataToSend = {
-      ID: this.state.editkodeuser,
-      AKSES: this.state.editaksesuser,
-      PASS: this.state.editpassuser
-    };
-    let APIroute = localStorage.getItem("APIROUTE")
-        axios
-        .post(`${localStorage.getItem("APIROUTE")}/centralkitchen/editUser`, dataToSend, {
-      headers: {
-        "Access-Control-Allow-Origin": "*"
-      }
-    })
-    .then(async result => {
-      await this.setState({
-        ...this.state,
-        buttonEditPrm:false,
-        buttonEditText:"Save"
-      });
-      alert("data berhasil diupdate")
-      await this.modalEditClose()
-      this.refreshPageData()
-    })
-    .catch(error => {
-      console.log(error);
-      console.log(this.props);
-    });
-  }
-  toogleTambahPass = () =>{
-    this.setState({
-      ...this.state,
-      PRMtambahPassoutlet:!this.state.PRMtambahPassoutlet
-    })
-  }
-  toogleEditPass = () =>{
-    this.setState({
-      ...this.state,
-      PRMeditPassoutlet:!this.state.PRMeditPassoutlet
-    })
+  formatNumber = (num) =>  {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
   }
   render() {
     const DataButton = (data) => (
@@ -277,18 +130,18 @@ class stockReconciliation extends Component {
     );
     const columns = [
       {
-        name: 'NIK',
-        selector: 'nik',
+        name: 'Nomor Stock Recon',
+        selector: 'nomor_stock_recon',
         sortable: true,
       },
       {
-        name: 'Nama user',
-        selector: 'nama_user',
+        name: 'Tanggal Stock Recon',
+        selector: 'tanggal_stock_recon_to_show',
         sortable: true,
       },
       {
-        name: 'Akses',
-        selector: 'akses_page',
+        name: 'Lokasi',
+        selector: 'nama_outlet',
         sortable: true,
       },
       {
@@ -299,144 +152,126 @@ class stockReconciliation extends Component {
     ];
     return (
       <div>
-        <div style={{visibility:this.state.prmoverlay==true?"visible":"hidden"}}>
-          <div className="overlayMask">
-            <ScaleLoader
-              height={90}
-              width={20}
-              radius={10}
-              margin={10}
-              color={'#ffffff'}
-              loading={this.state.prmoverlay == true?true:false}
-            />
-          </div>
-        </div>
-        <Modal isOpen={this.state.prmModaladd} backdrop={"static"}>
-          <ModalHeader toggle={() => this.modalAddClose()}>Tambah user</ModalHeader>
-          <ModalBody>
+        <Modal isOpen={this.state.prmModaledit} backdrop={"static"} size="xl">
+            <ModalHeader toggle={() => this.modalEditClose()}>Detail Stock Recon</ModalHeader>
+            <ModalBody>
             <Row>
-              <Col>
-                <FormGroup>
-                  <Label for="prmAddUser">Data User</Label>
-                  <Select
-                    className="basic-single"
-                    classNamePrefix="select"
-                    isClearable={false}
-                    isSearchable={true}
-                    name="prmAddUser"
-                    value={this.state.prmAddUser}
-                    options={this.state.addUserList}
-                    onChange={this.onSelectChangedAddUser.bind(this)}
-                  />
-                </FormGroup>
-              </Col>
+                <Col xs="12" sm="12" md="3">
+                <span style={{fontWeight:"bold"}}>Stock Reconciliation number</span>
+                </Col>
+                <Col xs="12" sm="12" md="5">
+                <span style={{fontWeight:"bold"}}>: {this.state.detailDataSR.nomor_stock_recon}</span>
+                </Col>
             </Row>
             <Row>
-              <Col>
-                <FormGroup>
-                  <Label for="tambahAksesUser">Akses</Label>
-                    <Input type="select" name="tambahAksesUser" id="tambahAksesUser" value={this.state.tambahAksesUser}  onChange={this.handleChange}>
-                      <option value="">Pilih Akses User</option>
-                      <option value="MASTER USER">MASTER USER</option>
-                      <option value="COST CONTROL">COST CONTROL</option>
-                      <option value="PURCHASING">PURCHASING</option>
-                      <option value="ADMIN">ADMIN</option>
-                      <option value="STORE MANAGER">STORE MANAGER</option>
-                    </Input>
-                </FormGroup>
-              </Col>
+                <Col xs="12" sm="12" md="3">
+                <span style={{fontWeight:"bold"}}>Stock Reconciliation date</span>
+                </Col>
+                <Col xs="12" sm="12" md="5">
+                <span style={{fontWeight:"bold"}}>:  {this.state.detailDataSR.tanggal_stock_recon_to_show}</span>
+                </Col>
             </Row>
             <Row>
-              <Col>
-                <FormGroup>
-                  <Label for="tambahPassUser">Password</Label>
-                  <InputGroup>
-                    <Input type={this.state.PRMtambahPassoutlet == true?"password":"text"} name="tambahPassUser" id="tambahPassUser" value={this.state.tambahPassUser} onChange={this.handleChange} placeholder="Password" autoComplete="new-password" />
-                    <InputGroupAddon addonType="append">
-                      <Button color="primary" onClick={() => this.toogleTambahPass()}><i className={this.state.PRMeditPassoutlet == true?"fa fa-eye fa-1x":"fa fa-eye-slash fa-1x"} aria-hidden="true"></i></Button>
-                    </InputGroupAddon>
-                  </InputGroup>
-                </FormGroup>
-              </Col>
+                <Col xs="12" sm="12" md="3">
+                <span style={{fontWeight:"bold"}}>Outlet</span>
+                </Col>
+                <Col xs="12" sm="12" md="5">
+                <span style={{fontWeight:"bold"}}>:  {this.state.detailDataSR.nama_outlet}</span>
+                </Col>
             </Row>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="success" onClick={() => this.addData()}>
-              <ScaleLoader
-                height={18}
-                width={4}
-                radius={2}
-                margin={2}
-                color={'#FFFFFF'}
-                loading={this.state.buttonAddPrm}
-              />
-              {this.state.buttonAddText}
-            </Button>
-            <Button color="danger" onClick={() => this.modalAddClose()}>Cancel</Button>
-          </ModalFooter>
-        </Modal>
-        <Modal isOpen={this.state.prmModaledit} backdrop={"static"}>
-          <ModalHeader toggle={() => this.modalEditClose()}>Edit master barang</ModalHeader>
-          <ModalBody>
-            <Row>
-              <Col>
-                <FormGroup>
-                  <Label for="editnikuser">Nik</Label>
-                  <Input type="text" name="editnikuser" id="editnikuser" value={this.state.editnikuser} onChange={this.handleChange} placeholder="Nik" disabled={true} />
-                </FormGroup>
-              </Col>
+            <Row className="bodyData">
+                <Col>
+                    <table width="100%">
+                        <tr>
+                            <td width="5%" style={{border:"1pt solid #000000"}}>
+                                <div style={styles.dataContainer}>
+                                    <span style={styles.dataHeaderText}>NO.</span>
+                                </div>
+                            </td>
+                            <td width="29%" style={{border:"1pt solid #000000"}}>
+                                <div style={styles.dataContainerLeft}>
+                                <span style={styles.dataHeaderText}>Nama barang</span>
+                                </div>
+                            </td>
+                            <td width="10%" style={{border:"1pt solid #000000"}}>
+                                <div style={styles.dataContainer}>
+                                <span style={styles.dataHeaderText}>OnHand Qty</span>
+                                </div>
+                            </td>
+                            <td width="12%" style={{border:"1pt solid #000000"}}>
+                                <div style={styles.dataContainer}>
+                                <span style={styles.dataHeaderText}>OnHand Cost</span>
+                                </div>
+                            </td>
+                            <td width="10%" style={{border:"1pt solid #000000"}}>
+                                <div style={styles.dataContainer}>
+                                <span style={styles.dataHeaderText}>Actual Qty</span>
+                                </div>
+                            </td>
+                            <td width="12%" style={{border:"1pt solid #000000"}}>
+                                <div style={styles.dataContainer}>
+                                <span style={styles.dataHeaderText}>Actual Cost</span>
+                                </div>
+                            </td>
+                            <td width="10%" style={{border:"1pt solid #000000"}}>
+                                <div style={styles.dataContainer}>
+                                <span style={styles.dataHeaderText}>Diff Qty</span>
+                                </div>
+                            </td>
+                            <td width="12%" style={{border:"1pt solid #000000"}}>
+                                <div style={styles.dataContainer}>
+                                <span style={styles.dataHeaderText}>Diff Cost</span>
+                                </div>
+                            </td>
+                        </tr>
+                        {this.state.dataSRD.length > 0 && this.state.dataSRD.map((dataSRD,index) =>
+                            <tr key={index}>
+                                <td width="5%" style={{border:"1pt solid #000000"}}>
+                                    <div style={styles.dataContainer}>
+                                        <span style={styles.dataBodyText}>{index+1}</span>
+                                    </div>
+                                </td>
+                                <td width="29%" style={{border:"1pt solid #000000"}}>
+                                    <div style={styles.dataContainerLeft}>
+                                        <span style={styles.dataBodyText}>{dataSRD.nama_barang}</span>
+                                    </div>
+                                </td>
+                                <td width="10%" style={{border:"1pt solid #000000"}}>
+                                    <div style={styles.dataContainer}>
+                                        <span style={styles.dataBodyText}>{`${dataSRD.oh_hand_toshow} ${dataSRD.unit_barang}.${dataSRD.satuan_barang}`}</span>
+                                    </div>
+                                </td>
+                                <td width="12%" style={{border:"1pt solid #000000"}}>
+                                    <div style={styles.dataContainer}>
+                                        <span style={styles.dataBodyText}>{`Rp ${this.formatNumber(dataSRD.oh_hand_stock_cost)}`}</span>
+                                    </div>
+                                </td>
+                                <td width="10%" style={{border:"1pt solid #000000"}}>
+                                    <div style={styles.dataContainer}>
+                                        <span style={styles.dataBodyText}>{`${dataSRD.actual_stock_toshow} ${dataSRD.unit_barang}.${dataSRD.satuan_barang}`}</span>
+                                    </div>
+                                </td>
+                                <td width="12%" style={{border:"1pt solid #000000"}}>
+                                    <div style={styles.dataContainer}>
+                                        <span style={styles.dataBodyText}>{`Rp ${this.formatNumber(dataSRD.actual_stock_cost)}`}</span>
+                                    </div>
+                                </td>
+                                <td width="10%" style={{border:"1pt solid #000000"}}>
+                                    <div style={styles.dataContainer}>
+                                        <span style={styles.dataBodyText}>{`${dataSRD.diff_qty_toshow} ${dataSRD.unit_barang}.${dataSRD.satuan_barang}`}</span>
+                                    </div>
+                                </td>
+                                <td width="12%" style={{border:"1pt solid #000000"}}>
+                                    <div style={styles.dataContainer}>
+                                        <span style={styles.dataBodyText}>{`Rp ${this.formatNumber(dataSRD.diff_qty_cost)}`}</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        )}
+                    </table>
+                </Col>
             </Row>
-            <Row>
-              <Col>
-                <FormGroup>
-                  <Label for="editnamauser">Nama user</Label>
-                  <Input type="text" name="editnamauser" id="editnamauser" value={this.state.editnamauser} onChange={this.handleChange} placeholder="Nama user" disabled={true} />
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <FormGroup>
-                  <Label for="editaksesuser">Akses</Label>
-                    <Input type="select" name="editaksesuser" id="editaksesuser" value={this.state.editaksesuser}  onChange={this.handleChange}>
-                      <option value="">Pilih Akses User</option>
-                      <option value="MASTER USER">MASTER USER</option>
-                      <option value="COST CONTROL">COST CONTROL</option>
-                      <option value="PURCHASING">PURCHASING</option>
-                      <option value="ADMIN">ADMIN</option>
-                      <option value="STORE MANAGER">STORE MANAGER</option>
-                    </Input>
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <FormGroup>
-                  <Label for="editpassuser">Password</Label>
-                  <InputGroup>
-                    <Input type={this.state.PRMeditPassoutlet == true?"password":"text"} name="editpassuser" id="editpassuser" value={this.state.editpassuser} onChange={this.handleChange} placeholder="Password" />
-                    <InputGroupAddon addonType="append">
-                      <Button color="primary" onClick={() => this.toogleEditPass()}><i className={this.state.PRMeditPassoutlet == true?"fa fa-eye fa-1x":"fa fa-eye-slash fa-1x"} aria-hidden="true"></i></Button>
-                    </InputGroupAddon>
-                  </InputGroup>
-                </FormGroup>
-              </Col>
-            </Row>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="success" onClick={() => this.updateData()}>
-              <ScaleLoader
-                height={18}
-                width={4}
-                radius={2}
-                margin={2}
-                color={'#FFFFFF'}
-                loading={this.state.buttonEditPrm}
-              />
-              {this.state.buttonEditText}
-            </Button>
-            <Button color="danger" onClick={() => this.modalEditClose()}>Cancel</Button>
-          </ModalFooter>
+            </ModalBody>
         </Modal>
         <Container fluid={true} style={{paddingBottom:30}}>
           <Row>
@@ -448,14 +283,14 @@ class stockReconciliation extends Component {
                       <span style={{fontWeight:"bold"}}>Stock Reconciliation</span>
                     </Col>
                     <Col xs="2" sm="2" md="2" style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
-                      <button className="myBtn" onClick={() => this.modalAddOpen()}><i className="fa fa-plus-square fa-2x" aria-hidden="true"></i></button>
+                      <button className="myBtn" onClick={() =>  {this.props.history.push({pathname: "/formAddStockReconciliation"})}}><i className="fa fa-plus-square fa-2x" aria-hidden="true"></i></button>
                     </Col>
                   </Row>
                 </div>
                 <div className="card-body">
                   <DataTableExtensions
                       columns={columns}
-                      data={this.state.masterUserList}
+                      data={this.state.dataStockReconHeader}
                       print={false}
                       exportHeaders={false}
                       export={false}
@@ -479,6 +314,33 @@ class stockReconciliation extends Component {
       </div>
     );
   }
+}
+
+
+const styles = {
+    dataContainer:{
+        display:"flex",
+        display:"-webkit-flex",
+        justifyContent:"center",
+        alignItems:"center"
+    },
+    dataContainerLeft:{
+        display:"flex",
+        display:"-webkit-flex",
+        justifyContent:"flex-start",
+        alignItems:"center",
+        paddingLeft:10
+    },
+    dataHeaderText:{
+        fontWeight:"bold",
+        fontSize:"10pt",
+        textAlign:"center"
+    },
+    dataBodyText:{
+        fontWeight:"bold",
+        fontSize:"8pt",
+        textAlign:"center"
+    },
 }
 
 const mapStateToProps = (state) => {

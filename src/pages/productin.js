@@ -401,9 +401,13 @@ class productIn extends Component {
       console.log(this.props);
     });
   }
+  printPO = (data) =>  {
+    window.open(`${process.env.REACT_APP_PRINT}/#/purchaseOrderPrint?ID=${data.kode_purchase_order_h}`, "_blank")
+  };
   render() {
     const DataButton = (data) => (
       <div>
+        <button className="myBtn" onClick={()=> this.printPO(data)}><i className="fa fa-print fa-2x" aria-hidden="true"></i></button>
         <button className="myBtn" onClick={()=> this.modalEditOpen(data)}><i className="fa fa-search fa-2x" aria-hidden="true"></i></button>
       </div>
     );
