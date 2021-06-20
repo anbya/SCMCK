@@ -129,7 +129,7 @@ class returnToVendor extends Component {
         loading:false
       });
       alert("Stock reconciliation berhasil diproses")
-      window.open(`${process.env.REACT_APP_PRINT}/#/stockReconciliationPrint?ID=${result.data.kodeSR}`, "_blank")
+      window.open(`${process.env.REACT_APP_PRINT}/stockReconciliationPrint?ID=${result.data.kodeSR}`, "_blank")
       this.props.history.push({pathname: "/stokrecon"})
     })
     .catch(error => {

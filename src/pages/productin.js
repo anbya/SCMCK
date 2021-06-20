@@ -354,7 +354,7 @@ class productIn extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        window.open(`${process.env.REACT_APP_PRINT}/#/purchaseOrderPrint?ID=${result.data.id_po_h}`, "_blank")
+        window.open(`${process.env.REACT_APP_PRINT}/purchaseOrderPrint?ID=${result.data.id_po_h}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {
@@ -402,7 +402,7 @@ class productIn extends Component {
     });
   }
   printPO = (data) =>  {
-    window.open(`${process.env.REACT_APP_PRINT}/#/purchaseOrderPrint?ID=${data.kode_purchase_order_h}`, "_blank")
+    window.open(`${process.env.REACT_APP_PRINT}/purchaseOrderPrint?ID=${data.kode_purchase_order_h}`, "_blank")
   };
   render() {
     const DataButton = (data) => (

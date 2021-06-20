@@ -237,11 +237,11 @@ class navbar extends Component {
                       </NavLink>
                     </NavItem>
                     }
-                    { this.props.aksespage === "MASTER USER" || this.props.aksespage === "COST CONTROL" ?
+                    {/* { this.props.aksespage === "MASTER USER" || this.props.aksespage === "COST CONTROL" ?
                     <NavItem style={{cursor:"pointer"}}>
                       <NavLink onClick={() =>  {this.props.history.push({pathname: "/report"})}}>Report</NavLink>
                     </NavItem>: ""
-                    }
+                    } */}
                     <NavItem style={{cursor:"pointer"}}>
                       <NavLink onClick={() =>  this.logout()}>Log Out</NavLink>
                     </NavItem>

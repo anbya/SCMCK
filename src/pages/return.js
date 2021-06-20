@@ -368,7 +368,7 @@ class returnToVendor extends Component {
         });
         alert("data berhasil Ditambahkan")
         await this.modalAddClose()
-        // window.open(`${process.env.REACT_APP_PRINT}/#/purchaseOrderPrint?ID=${result.data.id_po_h}`, "_blank")
+        // window.open(`${process.env.REACT_APP_PRINT}/purchaseOrderPrint?ID=${result.data.id_po_h}`, "_blank")
         this.refreshPageData()
       })
       .catch(error => {

@@ -61,26 +61,54 @@ class InvBreakdownRPT extends Component {
             }
         })
         .then(result => {
-            let qtyPO = 0
-            let costPO = 0
-            for(let i=0;i<result.data.resultPO.length;i++){
-                qtyPO = qtyPO+parseFloat(result.data.resultPO[i].qty_receive)
-                if(result.data.resultPO[i].taxParameter == "YES"){
-                    let hargaSatuan = parseFloat((result.data.resultPO[i].harga*1.1)/result.data.resultPO[i].konversiItem)
-                    console.log(hargaSatuan);
-                    costPO = costPO+parseFloat(hargaSatuan*result.data.resultPO[i].qty_receive)
-                } else {
-                    let hargaSatuan = parseFloat(result.data.resultPO[i].harga/result.data.resultPO[i].konversiItem)
-                    console.log(hargaSatuan);
-                    costPO = costPO+parseFloat(hargaSatuan*result.data.resultPO[i].qty_receive)
+            console.log(result.data.resultRAWPROSESOUT,"raw");
+            let dataInventoryStokBreakdown = result.data.masterBarangList
+            for(let i1=0;i1<dataInventoryStokBreakdown.length;i1++){
+                // proses PO
+                let filterDataPO = result.data.resultPO.filter(function(data) {
+                    return data.kode_barang == dataInventoryStokBreakdown[i1].kode_barang;
+                });
+                let qtyPO = 0
+                let costPO = 0
+                for(let i=0;i<filterDataPO.length;i++){
+                    qtyPO = qtyPO+parseFloat(filterDataPO[i].qty_receive)
+                    if(filterDataPO[i].taxParameter == "YES"){
+                        let hargaSatuan = parseFloat((filterDataPO[i].harga*1.1)/filterDataPO[i].konversiItem)
+                        costPO = costPO+parseFloat(hargaSatuan*filterDataPO[i].qty_receive)
+                    } else {
+                        let hargaSatuan = parseFloat(filterDataPO[i].harga/filterDataPO[i].konversiItem)
+                        costPO = costPO+parseFloat(hargaSatuan*filterDataPO[i].qty_receive)
+                    }
                 }
+                dataInventoryStokBreakdown[i1] = {...dataInventoryStokBreakdown[i1],qtyPO:qtyPO,costPO:costPO}
+                // proses PEMBELIAN
+                let filterDataPembelian = result.data.resultPEMBELIAN.filter(function(data) {
+                    return data.kode_barang == dataInventoryStokBreakdown[i1].kode_barang;
+                });
+                let qtyPembelian = 0
+                let costPembelian = 0
+                for(let i=0;i<filterDataPembelian.length;i++){
+                    qtyPembelian = qtyPembelian+parseFloat(filterDataPembelian[i].qty)
+                    costPembelian = costPembelian+parseFloat(filterDataPembelian[i].harga)
+                }
+                dataInventoryStokBreakdown[i1] = {...dataInventoryStokBreakdown[i1],qtyPembelian:qtyPembelian,costPembelian:costPembelian}
+                // proses RAW PROSES IN
+                let filterDataRawProsesIn = result.data.resultRAWPROSESIN.filter(function(data) {
+                    return data.kode_barang == dataInventoryStokBreakdown[i1].kode_barang;
+                });
+                let qtyRawProsesIn = 0
+                let costRawProsesIn = 0
+                for(let i=0;i<filterDataRawProsesIn.length;i++){
+                    qtyRawProsesIn = qtyRawProsesIn+parseFloat(filterDataRawProsesIn[i].qty_produksi)
+                    costRawProsesIn = costRawProsesIn+(parseFloat(filterDataRawProsesIn[i].cost)*parseFloat(filterDataRawProsesIn[i].qty_produksi))
+                }
+                dataInventoryStokBreakdown[i1] = {...dataInventoryStokBreakdown[i1],qtyRawProsesIn:qtyRawProsesIn,costRawProsesIn:costRawProsesIn}
             }
-            console.log(qtyPO,"qtyPO");
-            console.log(costPO,"costPO");
+            console.log(dataInventoryStokBreakdown,"hasil");
             this.setState({
                 ...this.state,
                 loading:false,
-                dataInventoryStokBreakdown:result.data.masterBarangList
+                dataInventoryStokBreakdown:dataInventoryStokBreakdown
             });
         })
         .catch(error => {
@@ -155,7 +183,7 @@ class InvBreakdownRPT extends Component {
     //         loading:false
     //     });
     //     alert("Stock reconciliation berhasil diproses")
-    //     window.open(`${process.env.REACT_APP_PRINT}/#/stockReconciliationPrint?ID=${result.data.kodeSR}`, "_blank")
+    //     window.open(`${process.env.REACT_APP_PRINT}/stockReconciliationPrint?ID=${result.data.kodeSR}`, "_blank")
     //     this.props.history.push({pathname: "/stokrecon"})
     //     })
     //     .catch(error => {
@@ -356,22 +384,22 @@ class InvBreakdownRPT extends Component {
                                     <span style={{fontWeight:"bold"}}>{`Rp. ${this.formatNumber(parseInt(masterBarangList.BOM_COST*masterBarangList.BOM_QTY))}`}</span>
                                 </div>
                                 <div style={{width:"200px",minHeight:"44pt",display:"flex",justifyContent:"center",alignItems:"center",backgroundColor:"#ffffff",border:"1px solid #c9c9c9",padding:10}}>
-                                    <span style={{fontWeight:"bold"}}>{`Kode`}</span>
+                                    <span style={{fontWeight:"bold"}}>{`${this.prosesToShow(masterBarangList.qtyPO,masterBarangList.conversi_satuan)} / ${masterBarangList.unit_barang}.${masterBarangList.satuan_barang}`}</span>
                                 </div>
                                 <div style={{width:"200px",minHeight:"44pt",display:"flex",justifyContent:"center",alignItems:"center",backgroundColor:"#ffffff",border:"1px solid #c9c9c9",padding:10}}>
-                                    <span style={{fontWeight:"bold"}}>{`Kode`}</span>
+                                    <span style={{fontWeight:"bold"}}>{`Rp. ${this.formatNumber(parseInt(masterBarangList.costPO))}`}</span>
                                 </div>
                                 <div style={{width:"200px",minHeight:"44pt",display:"flex",justifyContent:"center",alignItems:"center",backgroundColor:"#ffffff",border:"1px solid #c9c9c9",padding:10}}>
-                                    <span style={{fontWeight:"bold"}}>{`Kode`}</span>
+                                    <span style={{fontWeight:"bold"}}>{`${this.prosesToShow(masterBarangList.qtyPembelian,masterBarangList.conversi_satuan)} / ${masterBarangList.unit_barang}.${masterBarangList.satuan_barang}`}</span>
                                 </div>
                                 <div style={{width:"200px",minHeight:"44pt",display:"flex",justifyContent:"center",alignItems:"center",backgroundColor:"#ffffff",border:"1px solid #c9c9c9",padding:10}}>
-                                    <span style={{fontWeight:"bold"}}>{`Kode`}</span>
+                                    <span style={{fontWeight:"bold"}}>{`Rp. ${this.formatNumber(parseInt(masterBarangList.costPembelian))}`}</span>
                                 </div>
                                 <div style={{width:"200px",minHeight:"44pt",display:"flex",justifyContent:"center",alignItems:"center",backgroundColor:"#ffffff",border:"1px solid #c9c9c9",padding:10}}>
-                                    <span style={{fontWeight:"bold"}}>{`Kode`}</span>
+                                    <span style={{fontWeight:"bold"}}>{`${this.prosesToShow(masterBarangList.qtyRawProsesIn,masterBarangList.conversi_satuan)} / ${masterBarangList.unit_barang}.${masterBarangList.satuan_barang}`}</span>
                                 </div>
                                 <div style={{width:"200px",minHeight:"44pt",display:"flex",justifyContent:"center",alignItems:"center",backgroundColor:"#ffffff",border:"1px solid #c9c9c9",padding:10}}>
-                                    <span style={{fontWeight:"bold"}}>{`Kode`}</span>
+                                    <span style={{fontWeight:"bold"}}>{`Rp. ${this.formatNumber(parseInt(masterBarangList.costRawProsesIn))}`}</span>
                                 </div>
                                 <div style={{width:"200px",minHeight:"44pt",display:"flex",justifyContent:"center",alignItems:"center",backgroundColor:"#ffffff",border:"1px solid #c9c9c9",padding:10}}>
                                     <span style={{fontWeight:"bold"}}>{`Kode`}</span>

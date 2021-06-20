@@ -58,7 +58,7 @@ class reportPage extends Component {
   }
     invBreakdownRPT=()=>{
         if(this.state.yearPRMrpt1 != '' && this.state.monthPRMrpt1 != ''){
-            window.open(`${process.env.REACT_APP_PRINT}/#/InvBreakdownRPT?YEAR=${this.state.yearPRMrpt1}&MONTH=${this.state.monthPRMrpt1}`, "_blank")
+            window.open(`${process.env.REACT_APP_PRINT}/InvBreakdownRPT?YEAR=${this.state.yearPRMrpt1}&MONTH=${this.state.monthPRMrpt1}`, "_blank")
             this.modalInvBreakdownClose()
         } else {
             alert("Tahun atau bulan tidak boleh kosong")
